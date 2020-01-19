@@ -103,7 +103,7 @@ Number('hello')  // NaN
 // boolean conversion
 
 Boolean('0')  // true (string is not empty)
-falsyValues = [0, '', null, undefined, NaN];
+const FALSY_VALUES = [0, '', null, undefined, NaN];
 
 // ----- INCREMENT/DECREMENT -----
 
