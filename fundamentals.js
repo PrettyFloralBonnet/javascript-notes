@@ -42,7 +42,6 @@ const bigInt = 1234567890123456789012345678901234567890n;  // note the 'n' at th
 // String
 
 let name = 'Mal';
-
 // backticks ()``) allow for embedding:
 let message = `They cannot stop the signal, ${name}!`;
 let ultimateAnswer = `It is ${6 * 7}`;
@@ -82,4 +81,44 @@ typeof Math  // "object"
 typeof null  // "object" (that's wrong - it's a known error)
 typeof alert  // "function" (functions are objects, but typeof treats them differently)
 
+// typeof can also be used as a function: typeof(value)
+
 // ----- TYPE CONVERSIONS -----
+
+// string conversion
+
+String(null)  // 'null'
+String(3)  // '3'
+
+// numeric conversion
+
+Number(null)  // 0
+Number(undefined)  // NaN
+Number(true)  // 1
+Number('3')  // 3
+Number('')  // 0
+Number('0')  // 0
+Number('hello')  // NaN
+
+// boolean conversion
+
+Boolean('0')  // true (string is not empty)
+falsyValues = [0, '', null, undefined, NaN];
+
+// ----- INCREMENT/DECREMENT -----
+
+// operators ++ and -- can be placed before ('prefix') and after ('postfix') a variable
+let counter = 1;
+let a = ++counter;
+alert(a);  // 2
+
+// but...
+let counter = 1;
+let a = counter++;  // 'postfix' form increments counter but returns old value
+alert(a);  // 1
+
+// ----- BITWISE OPERATORS -----
+
+// Bitwise operators treat arguments as 32-bit integers.
+// They work on the level of their binary representation,
+// but return standard JavaScript numbers.
