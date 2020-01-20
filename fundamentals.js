@@ -142,18 +142,18 @@ console.log(a);  // 7; 1 + 2 is evaluated and immediately discarded
 // for string comparison, JavaScript uses a dictionary/lexographical order
 // where strings are compared letter by letter:
 
-console.log( 'Z' > 'A' );  // true
-console.log( 'Glow' > 'Glee' );  // true
-console.log( 'Bee' > 'Be' );  // true
+console.log('Z' > 'A');  // true
+console.log('Glow' > 'Glee');  // true
+console.log('Bee' > 'Be');  // true
 
 // lowercase characters have greater indices in Unicode than uppercase ones
 
 // it's possible that two values are equal, but one of them is true as boolean, whereas the other is false
 
 let a = 0;
-console.log( Boolean(a) );  // false
+console.log(Boolean(a));  // false
 let b = "0";
-console.log( Boolean(b) );  // true
+console.log(Boolean(b));  // true
 
 console.log(a == b);  // true!
 
@@ -231,9 +231,9 @@ if (!isNaN(+num)) {
 let result;
 
 if (a + b < 4) {
-  result = 'Below';
+    result = 'Below';
 } else {
-  result = 'Over';
+    result = 'Over';
 }
 
 // -->
@@ -247,29 +247,29 @@ let result = (a + b < 4) ? 'Below' : 'Over';
 
 // a chain of OR "||" returns the first truthy value, or the last one if no truthy value is found:
 
-alert( 1 || 0 );  // 1
-alert( true || 'no matter what' );  // true
-alert( null || 1 );  // 1
-alert( null || 0 || 1 );  // 1
-alert( undefined || null || 0 );  // 0 (returns the last value because all are falsy)
+alert(1 || 0);  // 1
+alert(true || 'no matter what');  // true
+alert(null || 1);  // 1
+alert(null || 0 || 1);  // 1
+alert(undefined || null || 0);  // 0 (returns the last value because all are falsy)
 
 // && (AND)
 
 // a chain of AND "&&" returns the first falsy value, or the last value if none were found:
 
-alert( 1 && 0 );  // 0
-alert( 1 && 5 );  // 5
-alert( null && 5 );  // null
-alert( 0 && "no matter what" );  // 0
-alert( 1 && 2 && null && 3 );  // null
-alert( 1 && 2 && 3 );  // 3 (the last one)
+alert(1 && 0);  // 0
+alert(1 && 5);  // 5
+alert(null && 5);  // null
+alert(0 && "no matter what");  // 0
+alert(1 && 2 && null && 3);  // null
+alert(1 && 2 && 3);  // 3 (the last one)
 
 // ! (NOT)
 
 // The NOT "!" operator converts the operand to boolean and returns the inverse value.
 
-alert( !true );  // false
-alert( !!"non-empty string" );  // true (note the two '!' operators)
+alert(!true);  // false
+alert(!!"non-empty string");  // true (note the two '!' operators)
 
 // Precedence of NOT is lower than OR is lower than AND.
 
@@ -281,17 +281,17 @@ alert( !!"non-empty string" );  // true (note the two '!' operators)
 let age = prompt('Enter your age', '');
 
 if (!(age >= 14 && age <= 90)) {
-  alert('Age condition met.');
+    alert('Age condition met.');
 } else {
-  alert('Age condition not met.');
+    alert('Age condition not met.');
 };
 
 let age = prompt('Enter your age', '');
 
 if ((age < 14) || (age > 90)) {
-  alert('Age condition met.');
+    alert('Age condition met.');
 } else {
-  alert('Age condition NOT met.');
+    alert('Age condition NOT met.');
 };
 
 
@@ -324,3 +324,120 @@ if (login == 'Admin') {
 } else {
     alert('Incorrect username.');
 };
+
+// ----- LOOPS: WHILE AND FOR -----
+
+// the do while loop
+
+do {
+    // loop body
+} while (condition);
+
+// The condition check can be moved below the while loop body -
+// the loop will first execute the body, then check the condition.
+// This syntax should only be used when it's preferable that the body of the loop
+// executes at least once, regardless of the condition.
+
+// variables declared inline are only visible inside the loop:
+
+for (let i = 0; i < 3; i++) {
+    alert(i); // 0, 1, 2
+}
+alert(i); // error, no such variable
+
+// omitting parts of the for loop
+// for (;;) {
+// repeats endlessly
+// };
+
+// labels for break and continue
+
+outer: for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+        let input = prompt(`Value at coords (${i},${j})`, '');
+
+        // if empty string or canceled, break out of both loops
+        if (!input) break outer;
+        // do something with the value...
+    }
+};
+alert('Done!');
+
+// TASK: Use the for loop to output even numbers from 2 to 10.
+// -->
+
+for (let i = 2; i < 11; i += 2) {
+    console.log(i);
+};
+
+// ...or:
+
+for (let i = 2; i < 11; i++) {
+    if (i % 2 != 0) continue;
+    console.log(i);
+};
+
+// ...or:
+
+for (let i = 2; i <= 10; i++) {
+    if (i % 2 == 0) {
+        console.log(i);
+    }
+};
+
+// TASK: Rewrite the code by changing the for loop to a while loop without altering its behavior:
+
+for (let i = 0; i < 3; i++) {
+    alert(`number ${i}!`);
+};
+
+// -->:
+
+while (i < 3) {
+    alert(`number ${i}!`);
+    i++;
+};
+
+
+// TASK: Write a loop which prompts for a number greater than 100.
+// If another number is entered, ask for input again.
+// The loop must ask for a number until either the a number greater than 100 is entered,
+// or the input is canceled/an empty line is entered.
+// Assume that inputs will always be numbers.
+// -->
+
+let input;
+
+do {
+    input = prompt('Enter a number greater than 100','');
+} while (input <= 100 && input);
+
+// TASK: Write code which outputs prime numbers in the interval from 2 to n
+// e.g. for n = 10 the result should be 2,3,5,7.
+// The code should work for any n, not be hard-tuned for any fixed value.
+// -->
+
+function showPrimes(n) {
+    nextPrime: for (let i = 2; i < n; i++) {
+        for (let j = 2; j < i; j++) {
+            if (i % j == 0) continue nextPrime;
+        }
+    alert(i);
+    }
+}
+
+// improved version:
+
+function showPrimes(n) {
+    for (let i = 2; i < n; i++) {
+        if (!isPrime(i)) continue;
+        alert(i);
+    }
+}
+
+function isPrime (n) {
+    for (let i = 2; i < n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
