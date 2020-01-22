@@ -441,3 +441,86 @@ function isPrime (n) {
     }
     return true;
 }
+
+// ----- THE "SWITCH" STATEMENT -----
+
+let a = 3 + 1;
+
+switch(a) {
+    case 3:
+        console.log(`Value is lower than target ${a}.`);
+        break;
+    case 4:
+        console.log('The values match!');
+        break;
+    case 5:
+        console.log(`Value is higher than target ${a}.`);
+        break;
+    default:  // executes if no case matches
+        console.log(`All possibilities extinguished, no match found for target ${a}.`)
+}
+
+// if there are no break statements, execution will continue to the next case
+// both switch and case allow for arbitrary expressions
+// switch statements check for strict equality - type matters
+
+// TASK: Rewrite the code below using if..else:
+
+switch (browser) {
+    case 'Internet Explorer':
+      alert("This browser is not supported.");
+      break;
+  
+    case 'Chrome':
+    case 'Firefox':
+    case 'Safari':
+    case 'Opera':
+      alert('We support these browsers!');
+      break;
+  
+    default:
+      alert('Displaying your page.');
+};
+  
+// -->
+
+if (browser === 'Internet Explorer') {
+    alert('This browser is not supported.');
+} else if (browser === 'Chrome'
+    || browser === 'Firefox'
+    || browser === 'Safari'
+    || browser === 'Opera') {
+    alert('We support these browsers!');
+} else {
+    alert('Displaying your page.');
+}
+
+// TASK: Rewrite the code below using a single switch statement:
+
+let a = +prompt('a?', '');
+
+if (a === 0) {
+  alert(0);
+}
+if (a === 1) {
+  alert(1);
+}
+
+if (a === 2 || a == 3) {
+  alert('2,3');
+};
+
+// -->
+
+switch(a) {
+    case 0:
+        alert(0);
+        break;
+    case 1:
+        alert(1);
+        break;
+    case 2:
+    case 3:
+        alert('2,3');
+        break;
+}
