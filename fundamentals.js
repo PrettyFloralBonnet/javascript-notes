@@ -206,11 +206,11 @@ result = confirm(`${question}`);
 // ----- CONDITIONAL OPERATORS -----
 
 // TASK: Using if..else, write the code which gets a number via prompt, and then alerts:
-
+//
 //     1, if the value is greater than zero,
 //     -1, if it's less than zero,
 //     0, if it equals zero.
-
+//
 // -->
 let num = prompt('Enter a number', 0);
 
@@ -299,9 +299,9 @@ if ((age < 14) || (age > 90)) {
 // If the input is "Admin" - prompt for a password.
 // If the input is empty (or Esc) - show “Login cancelled.”
 // If it’s something else - show “Incorrect username.”
-
+//
 // The password is checked as follows:
-
+//
 //     If it equals “TheMaster”, then show “Welcome!”
 //     Another string – show “Incorrect password.”
 //     For an empty string or cancelled input, show “Login cancelled.”
@@ -524,3 +524,53 @@ switch(a) {
         alert('2,3');
         break;
 }
+
+// ----- FUNCTIONS -----
+
+// function declaration
+
+function showMessage() {
+    let message = 'Hello World!';
+    console.log(message);
+    return message;
+};
+
+// TASK: Rewrite the function in a single line, retaining the way it works,
+// but without using the if statement.
+// Make two variants:
+//  
+//  a) Using a question mark operator ?,
+//  b) Using OR ||.
+  
+
+function checkAge(age) {
+    if (age > 18) {
+        return true;
+    } else {
+        return confirm('Do you have your parents permission to access this page?');
+    }
+};
+
+// -->
+  
+function checkAge(age) {
+    return (age > 18) ? true : confirm('Do you have your parents permission to access this page?');
+};
+
+function checkAge(age) {
+    return (age > 18) || confirm('Do you have your parents permission to access this page?');
+};
+
+// TASK: Write a function min(a,b) which returns the smaller of two numbers a and b.
+// If the numbers are equal, return either one.
+
+function min(a,b) {
+    if (+a > +b) {
+        return b;
+    } else if (a < b) {
+        return a;
+    } else {
+        console.log('Values are equal, returning the first one.')
+        return a
+    }
+};
