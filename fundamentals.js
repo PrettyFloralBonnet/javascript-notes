@@ -563,6 +563,7 @@ function checkAge(age) {
 
 // TASK: Write a function min(a,b) which returns the smaller of two numbers a and b.
 // If the numbers are equal, return either one.
+// -->
 
 function min(a,b) {
     if (+a > +b) {
@@ -571,6 +572,23 @@ function min(a,b) {
         return a;
     } else {
         console.log('Values are equal, returning the first one.')
-        return a
+        return a;
     }
 };
+
+// TASK: Write a function pow(x,n) that returns x to the power n.
+// Then create prompts for x, n and show the result of the function.
+// The function should only support natural values of n (integers from 1 up).
+// -->
+
+function pow(x,n) {
+    if (typeof(+x) == "number" && +x % 1 == 0
+    && typeof(+n) == "number" && +n % 1 == 0) {
+        return x**n;
+    }
+};
+
+let num = prompt('Enter the number.', 0);
+let power = prompt('Enter the power.', 1);
+
+pow(num, power);
