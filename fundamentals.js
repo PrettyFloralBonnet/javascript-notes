@@ -603,3 +603,31 @@ let showMessage = function() {
 
 // a function declaration can be called earlier than it is defined.
 // a function expression is created when the execution reaches it and is usable only from that moment.
+
+// ----- ARROW FUNCTIONS (THE BASICS) -----
+
+let func = (arg1, arg2, ...argN) => expression
+
+// arrow functions are a shorthand way to create function expressions
+// they can be single or multiline
+
+// TASK: Replace function expressions with arrow functions in the code below:
+
+function ask(question, yes, no) {
+    if (confirm(question)) yes()
+    else no();
+}
+
+ask(
+    "Do you agree?",
+    function () { alert("You agreed."); },
+    function () { alert("You canceled the execution."); }
+);
+
+// -->
+
+ask(
+    "Do you agree?",
+    () => alert("You agreed."),
+    () => alert("You canceled the execution.")
+);
