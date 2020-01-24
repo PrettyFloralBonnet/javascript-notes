@@ -533,7 +533,7 @@ function showMessage() {
     let message = 'Hello World!';
     console.log(message);
     return message;
-};
+}
 
 // TASK: Rewrite the function in a single line, retaining the way it works,
 // but without using the if statement.
@@ -549,17 +549,17 @@ function checkAge(age) {
     } else {
         return confirm('Do you have your parents permission to access this page?');
     }
-};
+}
 
 // -->
   
 function checkAge(age) {
     return (age > 18) ? true : confirm('Do you have your parents permission to access this page?');
-};
+}
 
 function checkAge(age) {
     return (age > 18) || confirm('Do you have your parents permission to access this page?');
-};
+}
 
 // TASK: Write a function min(a,b) which returns the smaller of two numbers a and b.
 // If the numbers are equal, return either one.
@@ -574,7 +574,7 @@ function min(a,b) {
         console.log('Values are equal, returning the first one.')
         return a;
     }
-};
+}
 
 // TASK: Write a function pow(x,n) that returns x to the power n.
 // Then create prompts for x, n and show the result of the function.
@@ -586,9 +586,20 @@ function pow(x,n) {
     && typeof(+n) == "number" && +n % 1 == 0) {
         return x**n;
     }
-};
+}
 
 let num = prompt('Enter the number.', 0);
 let power = prompt('Enter the power.', 1);
 
 pow(num, power);
+
+// ----- FUNCTION EXPRESSIONS -----
+
+let showMessage = function() {
+    let message = 'Hello, World!';
+    console.log(message);
+    return message
+};
+
+// a function declaration can be called earlier than it is defined.
+// a function expression is created when the execution reaches it and is usable only from that moment.
