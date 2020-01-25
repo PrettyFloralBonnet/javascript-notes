@@ -81,3 +81,45 @@ Object.assign(user, permissions1, permissions2);
 // https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data
 
 // lodash, _.cloneDeep(obj)
+
+// TASK: Write the function isEmpty(obj) which returns true if the object has no properties, false otherwise.
+// -->
+
+let isEmpty = (obj) => {
+    for (let key in obj) {
+        return false;
+    }
+    return true;
+};
+
+// TASK: We have an object storing salaries of our team:
+
+let salaries = {
+    John: 100,
+    Ann: 160,
+    Pete: 130
+}
+  
+// Write the code to sum all salaries and store in the variable sum (should be 390 in the example above)
+// If salaries is empty, then the result must be 0.
+// -->
+
+let calculateSalaries = (salaries) => {
+    let sum = 0;
+    for (let employee in salaries) {
+        sum += salaries[employee];
+    }
+    return sum;
+};
+
+calculateSalaries(salaries);  // 390
+
+// TASK: Create a function multiplyNumeric(obj) that multiplies all numeric properties of obj by 2.
+
+let multiplyNumeric = (obj) => {
+    for (key in obj) {
+        if (typeof(obj[key]) === "number") {
+            obj[key] *= 2;
+        }
+    }
+};
