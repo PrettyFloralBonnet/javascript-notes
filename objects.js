@@ -123,3 +123,60 @@ let multiplyNumeric = (obj) => {
         }
     }
 };
+
+// ----- GARBAGE COLLECTION -----
+
+// The main concept of memory management in JavaScript is reachability.
+
+// Simply put, “reachable” values are the accessible (or somehow usable) ones.
+// They are guaranteed to be stored in memory.
+
+// There’s a base set of inherently reachable values that cannot be deleted, e.g.:
+//
+//     # Local variables and parameters of the current function
+//     # Variables and parameters for other functions on the current chain of nested calls
+//     # Global variables
+//
+// These values are called roots.
+// Any other value is considered reachable as long a reference (or a chain of references)
+// to it exists in the root.
+
+// Note: being referenced (at all) is not the same as being reachable (from a root):
+// a group of interlinked objects can become unreachable as a whole.
+
+// There’s a background process in the JavaScript engine called garbage collector.
+// It monitors all objects and removes the ones that have become unreachable.
+
+// ----- SYMBOL TYPE -----
+
+// Object property keys may be either of string type, or of symbol type.
+
+// id is a symbol with the description "id"
+let id = Symbol("id");
+
+// Symbols are guaranteed to be unique - even if many symbols with the same description are created,
+// they are different values.
+
+// Symbols do not autoconvert to strings:
+
+let id = Symbol("id");
+alert(id);  // TypeError: Cannot convert a Symbol value to a string
+
+// if we want to use a symbol in an object literal, we need brackets around it:
+
+let user = {
+    name: "John",
+    [id]: 123
+};
+
+// symbols are skipped by for..in and Object.keys():
+
+let user = {
+    name: "John",
+    age: 30,
+    [id]: 123
+};
+
+for (let key in user) alert(key);  // name, age (no symbols)
+
+// they are, however, copied over by Object.assign()
