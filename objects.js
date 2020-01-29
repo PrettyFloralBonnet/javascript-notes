@@ -233,3 +233,69 @@ let oldMeme = {
 };
 
 oldMeme.getDiscount();  // I'm Commander Shepard and this is my favorite store on the Citadel.
+
+// TASK: Create an object "calculator" with three methods:
+//
+//   read() prompts for two values and saves them as object properties
+//   sum() returns the sum of saved values
+//   mul() multiplies saved values and returns the result
+//
+// -->
+
+let calculator = {
+    read() {
+        this.first = +prompt('Enter first number: ', '');
+        this.second = +prompt('Enter second number: ', '');
+        console.log(`Saved first value: ${this.first}\nSaved second value: ${this.second}`)
+    },
+    sum() {
+        return this.first + this.second;
+    },
+    mul() {
+        return this.first * this.second;
+    }
+};
+
+// TASK: There’s a ladder object that allows to go up and down:
+
+let ladder = {
+    step: 0,
+    up() {
+        this.step++;
+    },
+    down() {
+        this.step--;
+    },
+    showStep: function () { // shows the current step
+        alert(this.step);
+    }
+};
+  
+// Now, if we need to make several calls in sequence, we can do it like this:
+  
+ladder.up();
+ladder.up();
+ladder.down();
+ladder.showStep(); // 1
+  
+// Modify the code to make the calls chainable, like this:
+  
+ladder.up().up().down().showStep();
+
+// -->
+
+let ladder = {
+    step: 0,
+    up() {
+        this.step++;
+        return this;
+    },
+    down() {
+        this.step--;
+        return this;
+    },
+    showStep: function () {
+        alert(this.step);
+        return this;
+    }
+};
