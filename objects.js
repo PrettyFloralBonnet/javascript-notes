@@ -368,3 +368,43 @@ let user = {
 
 // In practice, it’s often enough to implement only obj.toString() as a “catch-all” method
 // for all conversions that return a “human-readable” representation of an object (for logging or debugging purposes).
+
+// ----- CONSTRUCTOR, OPERATOR "NEW" -----
+
+// Constructor function
+
+// The main purpose of constructors is to implement reusable object creation code.
+
+function User(name) {  // constructor function - note the capital letter
+    this.name = name;
+    this.isAdmin = false;
+}
+
+let user = new User("Jack");
+
+alert(user.name);
+alert(user.isAdmin);
+
+// When a function is executed with the operator "new", the following steps are performed:
+//
+//     A new empty object is created and assigned to *this*,
+//     The function body executes (usually it modifies *this*, adds new properties to it),
+//     The value of *this* is returned.
+
+// Return from constructors
+
+// Constructors do not usually have a return statement.
+// If there is a return statement, here are the rules:
+//
+//    If it's called with an object, the object is returned (instead of *this*)
+//    If it's called with a primitive, it’s ignored (and *this* is returned instead)
+
+function BigUser() {
+    this.name = "John";
+    return { name: "Godzilla" };  // <-- returns this object
+}
+
+alert(new BigUser().name);  // Godzilla, got that object
+
+// Parentheses after the function name can be omitted with the "new" operator, provided it has no arguments
+// - but doing so is considered bad practice.
