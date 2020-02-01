@@ -299,3 +299,72 @@ let ladder = {
         return this;
     }
 };
+
+// ----- OBJECT TO PRIMITIVE CONVERSION -----
+
+// When objects are subjected to various operations (maths, printing etc.), they are converted to primitive types.
+
+// In boolean context, all objects are true.
+
+// When mathematical functions are applied to objects, numeric conversion takes place
+// (e.g. two Date objects cabn be subtracted, and the result of date1 - date2 
+// is the time difference between the two dates)
+
+// When objects are being output (e.g. alert, print), string conversion takes place
+
+// When the operator is unsure what type to expect (binary +, comparison ==), "default" conversion takes place
+
+
+// To do the conversion, JavaScript tries to find and call three object methods:
+
+obj[Symbol.toPrimitive](hint)  // if such method (with the symbolic key Symbol.toPrimitive) exists
+// otherwise if hint is "string", try:
+obj.toString()  // and
+obj.valueOf()  // whichever exists.
+// otherwise if hint is "number" or "default", try:
+obj.valueOf() // and
+obj.toString()  // whichever exists
+
+// Symbol.toPrimitive
+
+obj[Symbol.toPrimitive] = function(hint) {
+    // return a primitive value
+    // hint = either "string", "number" or "default"
+}
+
+// E.g., implemented by object user:
+
+let user = {
+    name: "John",
+    money: 1000,
+
+    [Symbol.toPrimitive](hint) {
+        alert(`hint: ${hint}`);
+        return hint == "string" ? `{name: "${this.name}"}` : this.money;
+    }
+};
+
+// the conversion will behave in the following way:
+alert(user);        // hint: string --> {name: "John"}
+alert(+user);       // hint: number --> 1000
+alert(user + 500);  // hint: default --> 1500
+
+// If there's no Symbol.toPrimitive, older "ancient" methods, toString and valueOf, will be attempted:
+
+let user = {
+    name: "John",
+    money: 1000,
+
+    // for hint = "string"
+    toString() {
+        return `{name: "${this.name}"}`;
+    },
+
+    // for hint = "number" or "default"
+    valueOf() {
+        return this.money;
+    }
+};
+
+// In practice, it’s often enough to implement only obj.toString() as a “catch-all” method
+// for all conversions that return a “human-readable” representation of an object (for logging or debugging purposes).
