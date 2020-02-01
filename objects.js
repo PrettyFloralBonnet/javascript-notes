@@ -408,3 +408,47 @@ alert(new BigUser().name);  // Godzilla, got that object
 
 // Parentheses after the function name can be omitted with the "new" operator, provided it has no arguments
 // - but doing so is considered bad practice.
+
+// TASK: Create a constructor function 'Calculator' that creates objects with 3 methods:
+//
+//    read() - prompts for two values and stores them in object properties
+//    sum() - returns the sum of these properties
+//    mul() - returns the product of these properties
+//
+// -->
+
+function Calculator() {
+    this.read = () => {
+        this.firstNumber = +prompt('Enter first number: ', '');
+        this.secondNumber = +prompt('Enter second number: ', '')
+        console.log(`First number is: ${this.firstNumber}\nSecond number is: ${this.secondNumber}`)
+    }
+    this.sum = () => {
+        return this.firstNumber + this.secondNumber;
+    }
+    this.mul = () => {
+        return this.firstNumber * this.secondNumber;
+    }
+};
+
+let calculator = new Calculator();
+calculator.read();
+calculator.sum();
+calculator.mul();
+
+// TASK: Create a constructor function Accumulator(startingValue) that creates an object which:
+//
+// Stores the current value in the property "value" (initialized as startingValue)
+// Implements a read() method that prompts for a number and adds it to "value"
+
+function Accumulator(startingValue) {
+    this.value = startingValue;
+    this.read = () => {
+        this.value += +prompt('Enter a number: ', '');
+    }
+}
+
+let accumulator = new Accumulator(5);
+console.log(accumulator.value);
+accumulator.read();
+console.log(accumulator.value);
