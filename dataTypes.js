@@ -87,3 +87,50 @@ Math.random()  // returns a random number from 0 to 1 (excluding 1)
 Math.max(a, b, c)  // returns the greatest from an arbitrary number of arguments
 Math.min(a, b, c)  // returns the smallest from an arbitrary number of arguments
 Math.pow(n, power)  // returns n raised to the given power
+
+// TASK: Prompt the visitor for two numbers and then show their sum.
+// -->
+
+let sumNumbersFromPrompts = () => {
+    let num1 = +prompt('Enter first number: ', '');
+    let num2 = +prompt('Enter second number: ', '');
+    return num1 + num2;
+}
+
+// TASK: Create a function "readNumber", which prompts for a number until the visitor enters a valid numeric value,
+// and then returns that value (as a number). The visitor can also stop the process by entering an empty line or pressing “CANCEL”
+// (in which case the function should return null).
+// -->
+
+let readNumber = () => {
+    let input;
+    do {
+        input = prompt('Enter a number: ', '');
+    } while(isNaN(+input)) {
+        if (input === '' || input === null) return null;
+    }
+    return +input;
+}
+
+// TASK: The built-in function Math.random() creates a random value from 0 to 1 (not including 1).
+// Write a function "random(min, max)" to generate a random floating-point number from min to max (not including max).
+// Here's how it should work:
+
+console.log(random(1, 5)); // 1.2345623452
+console.log(random(1, 5)); // 3.7894332423
+console.log(random(1, 5)); // 4.3435234525
+
+// -->
+
+let random = (min, max) => {
+    return min + Math.random() * (max - min);
+}
+
+// TASK: Create a function "randomInteger(min, max)" that generates a random integer from min to max (inclusive).
+// Any number from the interval must have the same probability to appear.
+// -->
+
+let randomInteger = (min, max) => {
+    let random = min + Math.random() * (max + 1 - min);
+    return Math.floor(random);
+}
