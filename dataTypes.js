@@ -134,3 +134,32 @@ let randomInteger = (min, max) => {
     let random = min + Math.random() * (max + 1 - min);
     return Math.floor(random);
 }
+
+// ----- STRINGS -----
+
+// Textual data is stored as strings. There is no separate data type for a single character.
+// Strings in JavaScript are UTF-16 encoded (regardless of the page encoding).
+
+// Backticks (``) allow to embed any expression into a string (including function calls).
+// They also allow quotes to span multiple lines.
+
+// Special characters
+
+`
+\n          New line
+\r          Carriage return
+\', \" 	    Quotes
+\\ 	        Backslash
+\t 	        Tab
+\b, \f, \v 	Backspace, Form Feed, Vertical Tab (leftovers, not used nowadays)
+\x7A        Unicode character with the given hexadecimal unicode XX (the given example is'z')
+\u00A9 	    A unicode symbol with the hex code XXXX (4 hex digits exactly) in UTF-16 encoding (given example is ©)
+\u{1F60D}   (1 to 6 hex characters) unicode symbol with the given UTF-32 encoding
+            (some rare characters are encoded with two unicode symbols, taking 4 bytes)
+`
+
+// Length
+
+// length is a property in JavaScript (not a function)
+
+// Accessing characters
