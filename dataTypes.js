@@ -163,3 +163,67 @@ let randomInteger = (min, max) => {
 // length is a property in JavaScript (not a function)
 
 // Accessing characters
+
+let str = 'Hello';
+console.log(str[0] );  // H
+
+for (let char of "Hello") {
+    console.log(char);  // H,e,l,l,o
+}
+
+// Changing the case
+
+console.log('Interface'.toUpperCase()); // INTERFACE
+console.log('Interface'.toLowerCase()); // interface
+
+// Searching for a substring
+
+let str = 'Widget with id';
+
+console.log(str.indexOf('Widget'));  // 0, because 'Widget' is found at the beginning
+console.log(str.indexOf('widget'));  // -1, not found (the search is case-sensitive)
+console.log(str.indexOf("id") );  // 1, "id" is found at the position 1 (..*id*get with id)
+console.log(str.indexOf('id', 2))  // 12 (starting the search at index 2)
+
+// to find all occurrences, we can run indexOf in a loop:
+
+let str = 'As sly as a fox, as strong as an ox';
+let target = 'as';
+let pos = 0;
+
+while (true) {
+    let foundPos = str.indexOf(target, pos);
+    if (foundPos == -1) break;
+    console.log(`Found target "${target}" at position: ${foundPos}`);
+    pos = foundPos + 1
+}
+
+// shorter version (but less readable):
+
+let pos = -1;
+while ((pos = str.indexOf(target, pos + 1)) != -1) {
+    console.log(pos);
+}
+
+str.lastIndexOf(substr, pos)  // searches from the end, lists occurrences in reverse order
+
+// includes, startsWith, endsWith
+
+str.includes(substr, pos)  // returns true or false depending on whether str contains substr
+str.startsWith(substr)  // returns true or false depending on whether str starts with substr
+str.endsWith(substr)  // returns true or false depending on whether str ends with substr
+
+// Getting a substring
+
+str.slice(start, end)  // returns a section of str between start (inclusive) and end (exclusive)
+// if end is not given, the slice goes until the end of str
+
+str.substring(start, end)  // returns a section of str between start and end, but allows start to be greater than end
+// negative arguments are not supported (and treated as 0), unlike str.slice
+
+str.substr(start, length)  // returns a section of str starting from start, with the given length
+
+// other methods
+
+str.trim()  // removes whitespace from the beginning and end of str
+str.repeat(n)  // repeats str n times
