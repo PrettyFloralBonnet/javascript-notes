@@ -182,7 +182,7 @@ let str = 'Widget with id';
 
 console.log(str.indexOf('Widget'));  // 0, because 'Widget' is found at the beginning
 console.log(str.indexOf('widget'));  // -1, not found (the search is case-sensitive)
-console.log(str.indexOf("id") );  // 1, "id" is found at the position 1 (..*id*get with id)
+console.log(str.indexOf("id"));  // 1, "id" is found at the position 1 (..*id*get with id)
 console.log(str.indexOf('id', 2))  // 12 (starting the search at index 2)
 
 // to find all occurrences, we can run indexOf in a loop:
@@ -227,3 +227,41 @@ str.substr(start, length)  // returns a section of str starting from start, with
 
 str.trim()  // removes whitespace from the beginning and end of str
 str.repeat(n)  // repeats str n times
+
+// TASK: Write a function ucFirst(str) that returns str with the first character in uppercase.
+// -->
+
+let ucFirst = (str) => {
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
+}
+
+// TASK: Write a function checkSpam(str) that returns true if str contains ‘viagra’ or ‘XXX’.
+// Otherwise the function must return false. The function must be case-insensitive.
+// -->
+
+let checkSpam = (str) => {
+    if (str.toLowerCase().includes('viagra') || str.toLowerCase().includes('xxx')) {
+        return true;
+    }
+    return false;
+}
+
+// TASK: Create a function truncate(str, maxlength) that checks the length of str.
+// If str exceeds maxlength, it replaces the end of str with the ellipsis character "…", to make its length equal to maxlength.
+// Then it returns the string (truncated, if necessary).
+
+let truncate = (str, maxLength=str.length) => {
+    if (str.length > +maxLength) {
+        let truncatedStr = str.slice(0, +maxLength) + '...';
+        return truncatedStr;
+    }
+    return str;
+}
+
+// TASK: Say we have a cost of "$120" (the dollar sign goes first, and then the number).
+// Create a function extractCurrencyValue(str) that would extract the numeric value from such string and return it.
+
+let extractCurrencyValue = (str) => {
+    return parseInt(str.slice(1));
+}
