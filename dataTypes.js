@@ -265,3 +265,41 @@ let truncate = (str, maxLength=str.length) => {
 let extractCurrencyValue = (str) => {
     return parseInt(str.slice(1));
 }
+
+// ----- ARRAYS -----
+
+// ordered collections of data
+
+let arr = new Array();
+let arr = [];
+
+// Methods pop/push, shift/unshift
+
+// One of the most common uses of an array is a queue,
+// which is an ordered collection of elements supporting two operations:
+//
+// - push (which appends an element to the end),
+// - shift (which takes an element from the beginning, advancing the queue(the 2nd element becomes the 1st)).
+//
+// Queues operate on the so-called FIFO (First In, First Out) principle.
+
+// Another use case for arrays is a stack,
+// a similar data structure that supports the following operations:
+//
+// - push,
+// - pop (which takes an element from the end)
+//
+// This is a LIFO (Last In, First Out) principle in action.
+
+// Arrays in JavaScript can work both as a queue and as a stack. In computer science, a data structure
+// that allows for this is called a deque (or a double-ended queue).
+
+// There's also a method "unshift" which adds an element to the beginning of the array.
+// Methods "push" and "unshift" can take multiple arguments, and add them all at once:
+
+let fruits = ["Apple"];
+
+fruits.push("Orange", "Peach");
+fruits.unshift("Pineapple", "Lemon");
+
+console.log(fruits)  // ["Pineapple", "Lemon", "Apple", "Orange", "Peach"]
