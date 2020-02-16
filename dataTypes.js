@@ -359,3 +359,57 @@ let arr = [1, 2, 3];
 console.log(String(arr));  // '1,2,3'
 
 // An empty array becomes an empty string.
+
+// TASK: Write the function sumInput() that:
+//
+//   - prompts the user for values and stores them in an array,
+//   - stops asking when the user enters a non-numeric value, an empty string, or presses “Cancel”,
+//   - calculates and returns the sum of array items.
+//
+// A zero is a valid number.
+// -->
+
+let sumInput = () => {
+    let inputs = [];
+    let sum = 0;
+    while (true) {
+        input = prompt('Enter a number: ', 0)
+        if (input === '' || input === null || isNaN(input)) break;
+        inputs.push(+input);
+    }
+    
+    for (n of inputs) {
+        sum += n;
+    }
+
+    return sum;
+}
+
+// TASK: Given an array of numbers (e.g. arr = [1, -2, 3, 4, -9, 6]),
+// find the contiguous subarray of the array with the maximal sum of items.
+// Write the function getMaxSubSum(arr) that will return that sum.
+// E.g.:
+
+getMaxSubSum([-1, 2, 3, -9])  // 5 (from [2, 3])
+getMaxSubSum([2, -1, 2, 3, -9])  // 6 (from [2, -1, 2, 3])
+getMaxSubSum([-1, 2, 3, -9, 11])  // 11 (from [11])
+getMaxSubSum([-2, -1, 1, 2])  // 3 (from [1, 2])
+getMaxSubSum([100, -9, 2, -3, 5])  // 100 (from [100])
+getMaxSubSum([1, 2, 3])  // 6 (take all)
+
+// If all items are negative, take none (leave the subarray empty), so that the sum is zero:
+
+getMaxSubSum([-1, -2, -3])  // 0
+
+// Please try to think of a fast solution: O(n2) or even O(n), if you can.
+
+let getMaxSubSum = (arr) => {
+    let maxSum = 0;
+    let partialSum = 0;
+    for (let item of arr) {
+        partialSum += item;
+        maxSum = Math.max(maxSum, partialSum);
+        if (partialSum < 0) partialSum = 0;
+        return maxSum;
+    }
+}
