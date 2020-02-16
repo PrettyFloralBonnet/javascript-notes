@@ -302,4 +302,60 @@ let fruits = ["Apple"];
 fruits.push("Orange", "Peach");
 fruits.unshift("Pineapple", "Lemon");
 
-console.log(fruits)  // ["Pineapple", "Lemon", "Apple", "Orange", "Peach"]
+console.log(fruits);  // ["Pineapple", "Lemon", "Apple", "Orange", "Peach"]
+
+// At their base, arrays are objects. It is possible to add an arbitrary property to an arary,
+// or assign a value to an index larger than the array's length.
+// This should be avoided, because if the JS engine detects we are working with an array
+// as if it was a regular objects, array-specific optimizations will cease to apply.
+
+// Pop and push are fast, whereas shift and unshift are slow
+
+// Length is writable (the array may be truncated, and the process is irreversible):
+
+let arr = [1, 2, 3, 4, 5];
+
+arr.length = 2;  // truncate
+alert(arr);  // [1, 2]
+
+arr.length = 5;  // try to go back
+alert(arr[3]); // undefined: the values do not return
+
+// new Array()
+
+let arr = new Array("Apple", "Pear", "Banana");
+
+// will result in the same array as:
+
+let arr = ["Apple", "Pear", "Banana"];
+
+// However, if "new Array" is called with a single argument which is a number,
+// it will create an array without items, but with the given length:
+
+let arr = new Array(2);
+alert(arr[0]);  // undefined -- no elements
+alert(arr.length);  // 2
+
+// All elements in this array are undefined. To avoid surprises, stick to square brackets.
+
+// Multidimensional arrays
+
+// Elements of arrays can themselves be arrays:
+
+let matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+  
+alert(matrix[1][1]);  // the central element
+
+// toString
+
+// Arrays have their own implementation of the toString method, which returns
+// a string of array elements separated by commas:
+
+let arr = [1, 2, 3];
+console.log(String(arr));  // '1,2,3'
+
+// An empty array becomes an empty string.
