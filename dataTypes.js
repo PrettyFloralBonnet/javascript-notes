@@ -413,3 +413,39 @@ let getMaxSubSum = (arr) => {
         return maxSum;
     }
 }
+
+
+// ----- ARRAY METHODS -----
+
+// Add/remove items (as described earlier)
+
+arr.push(...items)  // adds items to the end
+arr.pop()  // extracts an item from the end
+arr.shift()  // extracts an item from the beginning,
+arr.unshift(...items)  // adds items to the beginning
+
+// splice
+
+arr.splice(index, deleteCount, elements)  // starts from index, removes deleteCount elements, inserts elements
+
+let arr = ["I", "study", "JavaScript", "right", "now"];
+let removed = arr.splice(0, 3, "Let's", "dance");
+console.log(arr);  // ["Let's", "dance", "right", "now"]
+console.log(removed);  // ["I", "study", "JavaScript"] (splice returns an array of removed objects)
+
+// slice
+
+let arr = [1,2,3,4,5];
+arr.slice(0,2)  // [1,2] (returns subarrays, doesn't modify the original array)
+
+// concat
+
+let arr = [1, 2];
+console.log(arr.concat([3, 4]));  // 1,2,3,4
+console.log(arr.concat([3, 4], [5, 6]));  // 1,2,3,4,5,6
+console.log(arr.concat([3, 4], 5, 6));  // 1,2,3,4,5,6
+
+// if the argument is an array, concat adds the elements
+// for other data types, it adds the entire object,
+// UNLESS said object has a property Symbol.isConcatSpreadable: true,
+// in which case concat treats it as if it was an array
