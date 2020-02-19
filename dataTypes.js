@@ -449,3 +449,44 @@ console.log(arr.concat([3, 4], 5, 6));  // 1,2,3,4,5,6
 // for other data types, it adds the entire object,
 // UNLESS said object has a property Symbol.isConcatSpreadable: true,
 // in which case concat treats it as if it was an array
+
+// forEach
+
+// runs a function for every item of the array
+// returns undefined
+
+let lotrCharacters = ["Bilbo", "Gandalf", "Nazgul"];
+lotrCharacters.forEach((item, index, array) => {
+    console.log(`${item} at index ${index} in ${array}`);
+});
+
+// "Bilbo at index 0 in lotrCharacters
+// "Gandalf at index 1 in lotrCharacters
+// "Nazgul at index 2 in lotrCharacters
+
+// Searching an array
+
+arr.indexOf(item, i)  // looks for item starting from i (optional), returns index of the item if found, otherwise -1.
+arr.lastIndexOf(item, i)  // same as above, except from right to left
+arr.includes(item, i)   // looks for item starting from i, returns true if found
+
+let arr = [1, 0, 1, 5];
+console.log(arr.indexOf("hello"));  // -1
+console.log(arr.indexOf(0));  // 1
+console.log(arr.indexOf(1));  // 0
+console.log(arr.lastIndexOf(1));  // 2
+console.log(arr.includes(5));  // true
+
+let users = [
+    {id: 1, name: "John"},
+    {id: 2, name: "Pete"},
+    {id: 3, name: "Mary"}
+];
+  
+let user = users.find(item => item.id == 1);
+console.log(user.name);  // John
+
+let johnsIndex = users.findIndex(item => item.name == "John");
+console.log(johnsIndex);  // 0
+
+// if item is not found, find returns undefined, and findIndex returns -1
