@@ -490,3 +490,15 @@ let johnsIndex = users.findIndex(item => item.name == "John");
 console.log(johnsIndex);  // 0
 
 // if item is not found, find returns undefined, and findIndex returns -1
+
+let users = [
+    {id: 1, name: "John"},
+    {id: 2, name: "Pete"},
+    {id: 3, name: "Mary"}
+];
+  
+let someUsers = users.filter(item => item.id < 3);  // filter returns array of matching results
+  
+console.log(someUsers);  // [{id: 1, name: "John"},{id: 2, name: "Pete"}]
+
+// Transforming an array
