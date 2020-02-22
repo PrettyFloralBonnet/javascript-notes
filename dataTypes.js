@@ -466,6 +466,8 @@ lotrCharacters.forEach((item, index, array) => {
 
 // Searching an array
 
+// indexOf, lastIndexof, includes
+
 arr.indexOf(item, i)  // looks for item starting from i (optional), returns index of the item if found, otherwise -1.
 arr.lastIndexOf(item, i)  // same as above, except from right to left
 arr.includes(item, i)   // looks for item starting from i, returns true if found
@@ -476,6 +478,8 @@ console.log(arr.indexOf(0));  // 1
 console.log(arr.indexOf(1));  // 0
 console.log(arr.lastIndexOf(1));  // 2
 console.log(arr.includes(5));  // true
+
+// find, findIndex
 
 let users = [
     {id: 1, name: "John"},
@@ -491,6 +495,8 @@ console.log(johnsIndex);  // 0
 
 // if item is not found, find returns undefined, and findIndex returns -1
 
+// filter
+
 let users = [
     {id: 1, name: "John"},
     {id: 2, name: "Pete"},
@@ -502,3 +508,123 @@ let someUsers = users.filter(item => item.id < 3);  // filter returns array of m
 console.log(someUsers);  // [{id: 1, name: "John"},{id: 2, name: "Pete"}]
 
 // Transforming an array
+
+// map
+
+// map calls a function for each element of the array and returns the array of results
+
+let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
+console.log(lengths);  // 5,7,6
+
+// sort(fn)
+
+// sort() sorts the array in place
+// it also returns the sorted array, but that is usually ignored (as it's unnecessary)
+
+// by default, the items are sorted as strings:
+
+let arr = [1, 2, 15];
+arr.sort();
+console.log(arr);  // 1, 15, 2
+
+// to use a non-default sorting order, a function needs to be passed as an argument to sort()
+// a comparison function is only required to return a positive number to say “greater”,
+// and a negative number to say “lesser”
+
+// reverse
+
+let arr = [1, 2, 3, 4, 5];
+arr.reverse();
+console.log(arr);  // 5,4,3,2,1
+
+// reverse() reverses the order of elements in the array, and returns the reversed array
+
+// split, join
+
+// split() splits a string into an array by the given delimiter
+
+let names = 'Bilbo, Gandalf, Nazgul';
+let arr = names.split(', ');
+
+for (let name of arr) {
+    console.log(`A message to ${name}.` ); // "A message to Bilbo" (etc.)
+}
+
+// split also accepts an optional second argument, a limit to the length of the array (rarely used)
+
+// join() does the reverse - it creates a string from the elements of the array, joined by the delimiter:
+
+let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
+let str = arr.join(', ');
+
+console.log(str); // Bilbo, Gandalf, Nazgul
+
+// reduce
+
+// reduce is used to calculate a single value based on the array
+
+let arr = [1, 2, 3, 4, 5];
+let result = arr.reduce((acc, item) => acc + item, 0);  // can accept two more arguments to represent index and array
+console.log(result);  // 15
+
+// as function is applied, the result of the previous function call is passed to the next one as the first argument
+
+// if there’s no initial value, reduce() takes the first element of the array as the initial value
+// and starts the iteration from the 2nd element
+// this can result in an error if array is empty, so it's advisable to always provide the initial value
+
+// the method reduceRight() does the same, but goes from right to left
+
+// Array.isArray()
+
+// Arrays are object, so typeof doesn't help to identify them. This is what isArray() is for:
+
+console.log(Array.isArray({}));  // false
+console.log(Array.isArray([]));  // true
+
+// *this* in array methods
+
+// Almost all array methods that call functions – find, filter, map (with a notable exception of sort),
+// accept an optional additional parameter: thisArg.
+// The value of thisArg parameter becomes *this* for the function:
+
+let army = {
+    minAge: 18,
+    maxAge: 27,
+    canJoin(user) {
+      return user.age >= this.minAge && user.age < this.maxAge;
+    }
+};
+  
+let users = [
+    {age: 16},
+    {age: 20},
+    {age: 23},
+    {age: 30}
+];
+  
+// find users, for who army.canJoin returns true
+let soldiers = users.filter(army.canJoin, army);
+  
+console.log(soldiers.length);  // 2
+console.log(soldiers[0].age);  // 20
+console.log(soldiers[1].age);  // 23
+
+// If we used users.filter(army.canJoin), then army.canJoin would be called as a standalone function
+// with this=undefined, leading to an instant error.
+// The call to users.filter(army.canJoin, army) can be replaced with users.filter(user => army.canJoin(user)).
+
+// other methods
+
+// some(fn), every(fn)
+
+// These check the array by calling a function on each element of the array (similar to map).
+// If any/all results are true, they return true.
+
+// fill(value, start, end)
+
+// fills the array with repeating value from index start to end
+
+// copyWithin(target, start, end)
+
+// copies elements of the array from  start to end into itself at position target, overwriting existing elements.
