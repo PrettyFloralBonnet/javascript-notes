@@ -628,3 +628,26 @@ console.log(soldiers[1].age);  // 23
 // copyWithin(target, start, end)
 
 // copies elements of the array from  start to end into itself at position target, overwriting existing elements.
+
+// TASK: Write a function camelize(str) that changes dash-separated words like "my-short-string" into camel-cased "myShortString".
+// -->
+
+let camelize = (str) => {
+    let chunks = str.split('-');
+
+    let camelCasedChunks = chunks.map((chunk, i) => {
+        if (i == 0) return chunk;
+        else return chunk[0].toUpperCase() + chunk.slice(1);
+    });
+
+    return camelCasedChunks.join('');
+};
+
+// TASK: Write a function filterRange(arr, a, b) that looks for elements between a and b in arr and returns them in a new array.
+// The function should not modify arr.
+// -->
+
+let filterRange = (arr, a, b) => {
+    if (b > arr.length) return arr.slice(a, arr.length);
+    else return arr.slice(a, b);
+};
