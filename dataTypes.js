@@ -648,6 +648,6 @@ let camelize = (str) => {
 // -->
 
 let filterRange = (arr, a, b) => {
-    if (b > arr.length) return arr.slice(a, arr.length);
+    if (b > arr.length) return arr.slice(a);
     else return arr.slice(a, b);
 };
