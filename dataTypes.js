@@ -651,3 +651,12 @@ let filterRange = (arr, a, b) => {
     if (b > arr.length) return arr.slice(a);
     else return arr.slice(a, b);
 };
+
+// Uhh, it turns out it was about values, not indices:
+
+let filterRange = (arr, a, b) => {
+    let filtered = arr.filter((n) => {
+        if (n >= a && n <= b) return n;
+    });
+    return filtered;
+};
