@@ -653,6 +653,7 @@ let filterRange = (arr, a, b) => {
 };
 
 // Uhh, it turns out it was about values, not indices:
+// -->
 
 let filterRange = (arr, a, b) => {
     let filtered = arr.filter((n) => {
@@ -660,3 +661,17 @@ let filterRange = (arr, a, b) => {
     });
     return filtered;
 };
+
+// TASK: Write a function filterRangeInPlace(arr, a, b) that gets an array arr and removes all values from it except ones between a and b.
+// The test is: a ≤ arr[i] ≤ b.
+// The function should only modify the array. It should not return anything.
+// -->
+
+let filterRangeInPlace = (arr, a, b) => {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < a || arr[i] > b) {
+            arr.splice(i, 1);
+            i--;
+        }
+    }
+}
