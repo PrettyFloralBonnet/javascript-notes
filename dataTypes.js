@@ -675,3 +675,19 @@ let filterRangeInPlace = (arr, a, b) => {
         }
     }
 }
+
+// TASK: Sort the array in decreasing order:
+// -->
+
+let arr = [5, 2, 1, -10, 8];
+
+arr.sort((a, b) => b - a);
+console.log(arr);
+
+// TASK: Create a function copySorted(arr) that returns a sorted copy of arr, but keeps arr unmodified.
+// -->
+
+let copySorted = (arr) => {
+    let arrCopy = arr.slice();
+    return arrCopy.sort((a, b) => a - b);
+}
