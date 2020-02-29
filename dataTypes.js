@@ -182,7 +182,7 @@ let str = 'Widget with id';
 
 console.log(str.indexOf('Widget'));  // 0, because 'Widget' is found at the beginning
 console.log(str.indexOf('widget'));  // -1, not found (the search is case-sensitive)
-console.log(str.indexOf("id"));  // 1, "id" is found at the position 1 (..*id*get with id)
+console.log(str.indexOf("id"));  // 1, "id" is found at the position 1 (..W*id*get with id)
 console.log(str.indexOf('id', 2))  // 12 (starting the search at index 2)
 
 // to find all occurrences, we can run indexOf in a loop:
@@ -690,4 +690,28 @@ console.log(arr);
 let copySorted = (arr) => {
     let arrCopy = arr.slice();
     return arrCopy.sort((a, b) => a - b);
+}
+
+// TASK: Create an constructor function Calculator that creates extensible calculator objects.
+// First, implement the method calculate(str) that takes a string in the format “NUMBER operator NUMBER”
+// (e.g.: "1 + 2", delimited by spaces) and returns the result. It should understand addition and subtraction.
+// Then add the method addMethod(name, func) that "teaches" the calculator a new operation.
+// It should accept the operator (name) and a two-parameter function that implements the operator.
+// For instance, if we add multiplication *, division / and power **, it should look like this:
+
+let powerCalc = new Calculator;
+powerCalc.addMethod("*", (a, b) => a * b);
+powerCalc.addMethod("/", (a, b) => a / b);
+powerCalc.addMethod("**", (a, b) => a ** b);
+
+let result = powerCalc.calculate("2 ** 3");
+console.log( result ); // 8
+
+// -->
+
+function Calculator() {
+    this.calculate = (str) => {
+        let supportedOperators = ['+', '-']
+        // WIP
+    }
 }
