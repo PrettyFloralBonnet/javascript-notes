@@ -718,10 +718,8 @@ function Calculator() {
     this.calculate = (str) => {
         for (operator of this.supportedOperators) {
             if (str.includes(operator)) {
-                let delimiter;
-                if (operator.length == 1) { delimiter = 1 } else { delimiter = 2 }  // handling for **
                 let firstOperand = str.slice(0, str.indexOf(operator));
-                let secondOperand = str.slice(str.indexOf(operator) + delimiter);
+                let secondOperand = str.slice(str.indexOf(operator) + operator.length);
                 return this.supportedMethods[this.supportedOperators.findIndex(item => item === operator)](+firstOperand, +secondOperand); 
             }
         }
