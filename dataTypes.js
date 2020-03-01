@@ -730,3 +730,37 @@ function Calculator() {
         this.supportedMethods.push(method);
     }
 }
+
+// TASK: Given an array of user objects, each with a property name, write code that creates an array of names.
+// -->
+
+let users = [
+    {id: 1, name: "John"},
+    {id: 2, name: "Pete"},
+    {id: 3, name: "Mary"}
+];
+
+let names = users.map((user) => user.name);
+
+// TASK: Given an array of user objects, each with name, surname and id properties,
+// write code that creates an array of objects with id and fullName, where fullName is generated from name and surname.
+
+let users = [
+    {id: 1, name: "John", surname: "Smith"},
+    {id: 2, name: "Pete", surname: "Hines"},
+    {id: 3, name: "Mary", surname: "Jane"}
+];
+
+let fullNameUsers = users.map((user) => {
+    let mappedUsers = {};
+    mappedUsers.id = user.id;
+    mappedUsers.fullName = `${user.name} ${user.surname}`;
+    return mappedUsers;
+});
+
+// or (tutorial solution - note the additional '()' wrapping the object returned by the callback function):
+
+let fullNameUsers = users.map((user) => ({
+    fullName: `${user.name} ${user.surname}`,
+    id: user.id
+}));
