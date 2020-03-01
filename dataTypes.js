@@ -710,8 +710,25 @@ console.log( result ); // 8
 // -->
 
 function Calculator() {
+    this.supportedOperators = ['+', '-']
+    this.supportedMethods = [
+        (a, b) => a + b,
+        (a, b) => a - b
+    ]
     this.calculate = (str) => {
-        let supportedOperators = ['+', '-']
-        // WIP
+        for (operator of this.supportedOperators) {
+            if (str.includes(operator)) {
+                let delimiter;
+                if (operator.length == 1) { delimiter = 1 } else { delimiter = 2 }  // handling for **
+                let firstOperand = str.slice(0, str.indexOf(operator));
+                let secondOperand = str.slice(str.indexOf(operator) + delimiter);
+                return this.supportedMethods[this.supportedOperators.findIndex(item => item === operator)](+firstOperand, +secondOperand); 
+            }
+        }
+        console.log('Unsupported operation.');
+    }
+    this.addMethod = (operator, method) => {
+        this.supportedOperators.push(operator);
+        this.supportedMethods.push(method);
     }
 }
