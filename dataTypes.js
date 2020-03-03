@@ -764,3 +764,15 @@ let fullNameUsers = users.map((user) => ({
     fullName: `${user.name} ${user.surname}`,
     id: user.id
 }));
+
+// TASK: Write the function sortByAge(users) that gets an array of objects with the age property and sorts them by age.
+
+let users = [
+    { name: "John", age: 25 },
+    { name: "Pete", age: 30 },
+    { name: "Mary", age: 28 }
+];
+
+let sortByAge = (users) => {
+    users.sort((a, b) => a.age - b.age)
+}
