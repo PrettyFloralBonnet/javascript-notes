@@ -810,3 +810,16 @@ let getAverageAge = (users) => {
 let getAverageAge = (users) => {
     return users.reduce((acc, user) => acc + user.age, 0) / users.length;
 }
+
+// TASK: Create a function unique(arr) that returns an array with unique items of arr.
+// -->
+
+let unique = (arr) => {
+    let uniqueArr = [];
+    arr.forEach((element) => {
+        if (!uniqueArr.includes(element)) {
+            uniqueArr.push(element);
+        }
+    });
+    return uniqueArr;
+}
