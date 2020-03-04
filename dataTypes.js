@@ -744,6 +744,7 @@ let names = users.map((user) => user.name);
 
 // TASK: Given an array of user objects, each with name, surname and id properties,
 // write code that creates an array of objects with id and fullName, where fullName is generated from name and surname.
+// -->
 
 let users = [
     {id: 1, name: "John", surname: "Smith"},
@@ -766,6 +767,7 @@ let fullNameUsers = users.map((user) => ({
 }));
 
 // TASK: Write the function sortByAge(users) that gets an array of objects with the age property and sorts them by age.
+// -->
 
 let users = [
     { name: "John", age: 25 },
@@ -775,4 +777,18 @@ let users = [
 
 let sortByAge = (users) => {
     users.sort((a, b) => a.age - b.age)
+}
+
+// Write the function shuffle(array) that randomly reorders elements of the array.
+// All possible element orders should have an equal probability.
+// -->
+
+// Fisher-Yates shuffle
+let shuffle = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+        let randomIndex = Math.floor(Math.random() * (i + 1))
+        let currentElement = arr[i];
+        arr[i] = arr[randomIndex];
+        arr[randomIndex] = currentElement;
+    }
 }
