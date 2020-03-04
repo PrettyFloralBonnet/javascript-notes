@@ -792,3 +792,21 @@ let shuffle = (arr) => {
         arr[randomIndex] = currentElement;
     }
 }
+
+// TASK: Write the function getAverageAge(users) that gets an array of objects
+// with property age and returns the average age.
+// -->
+
+let getAverageAge = (users) => {
+    let totalAge = 0;
+    users.forEach((user) => {
+        totalAge += user.age;
+    })
+    return totalAge / users.length;
+}
+
+// or
+
+let getAverageAge = (users) => {
+    return users.reduce((acc, user) => acc + user.age, 0) / users.length;
+}
