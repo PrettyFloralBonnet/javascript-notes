@@ -823,3 +823,21 @@ let unique = (arr) => {
     });
     return uniqueArr;
 }
+
+// TASK: Given an array of user objects with properties id, name, age,
+// create a function groupById(arr) that creates an object with user.id properties as keys and entire array items as values.
+// Assume id is unique. Use reduce() in the solution.
+// -->
+
+let users = [
+    {id: 'john', name: "John Smith", age: 20},
+    {id: 'ann', name: "Ann Smith", age: 24},
+    {id: 'pete', name: "Pete Peterson", age: 31},
+];
+
+let groupById = (arr) => {
+    return arr.reduce((acc, item) => {
+        acc[item.id] = item;
+        return acc;
+    }, {});
+};
