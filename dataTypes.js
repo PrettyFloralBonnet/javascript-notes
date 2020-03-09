@@ -1078,3 +1078,15 @@ set.forEach((value, valueAgain, set) => {  // for compatibility with Map (where 
 
 set.keys(), set.values()  // returns an iterable of set values (both work the same with sets, for compatibility with Map)
 set.entries()  // returns an iterable object with entries [value, value], also for compatibility with Map
+
+// TASK: Create a function unique(arr) that returns an array with unique items of arr. Use Set().
+
+let chantLyrics = [
+    "Hare", "Krishna", "Hare", "Krishna",
+    "Krishna", "Krishna", "Hare", "Hare",
+    ":-O"
+];
+
+let unique = (arr) => {
+    return new Set(arr);
+};
