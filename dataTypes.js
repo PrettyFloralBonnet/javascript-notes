@@ -918,7 +918,7 @@ let arrFromRange = Array.from(range);
 
 // Map
 
-// A Map is a keyed collection of items, except the keys can be of any type (including object type).
+// A map is a keyed collection of items, except the keys can be of any type (including object type).
 // Using objects as keys is in fact one of most notable and important Map features.
 
 // Map methods and properties:
@@ -1030,3 +1030,51 @@ let obj = Object.fromEntries(map);
 
 // A standard iteration for map returns same key-value pairs as map.entries(),
 // so we get a plain object with same key-values as the map.
+
+// Set
+
+// A set is a collection of unique values (each value may occur only once).
+
+// Main methods:
+
+new Set(iterable)  // creates the set; if an iterable is provided (usually an array), it also copies its values into the set
+set.add(value)  // adds a value (returns the set)
+set.delete(value)  // removes a value, returns true if the value existed at the moment of the call (false otherwise)
+set.has(value)  // returns true if the value exists in the set (false otherwise)
+set.clear()  // removes all values from the set
+set.size  // returns the elements count
+
+let set = new Set();
+
+let john = { name: "John" };
+let pete = { name: "Pete" };
+let mary = { name: "Mary" };
+
+set.add(john);
+set.add(pete);
+set.add(mary);
+set.add(john);
+set.add(mary);
+
+console.log(set.size);  // 3
+
+for (let user of set) {
+    console.log(user.name);  // John Pete Mary
+}
+
+// iteration over set
+
+// We can loop over a set with for..of loop or using forEach:
+
+let set = new Set(["oranges", "apples", "bananas"]);
+
+for (let value of set) console.log(value);
+
+set.forEach((value, valueAgain, set) => {  // for compatibility with Map (where the callback has three arguments)
+    console.log(value);
+});
+
+// The same methods Map has for iterators are also supported:
+
+set.keys(), set.values()  // returns an iterable of set values (both work the same with sets, for compatibility with Map)
+set.entries()  // returns an iterable object with entries [value, value], also for compatibility with Map
