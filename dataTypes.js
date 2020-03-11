@@ -1090,3 +1090,11 @@ let chantLyrics = [
 let unique = (arr) => {
     return new Set(arr);
 };
+
+// TASK: Write a function removeAnagrams(arr) that returns an array cleared from anagrams, e.g.:
+
+let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+console.log(removeAnagrams(arr));  // "nap,teachers,ear" or "PAN,cheaters,era"
+
+// Only one word should remain from each anagram group (no matter which one).
