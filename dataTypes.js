@@ -1098,3 +1098,15 @@ let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
 console.log(removeAnagrams(arr));  // "nap,teachers,ear" or "PAN,cheaters,era"
 
 // Only one word should remain from each anagram group (no matter which one).
+// -->
+
+let removeAnagrams = (arr) => {
+    let anagramsMap = new Map();
+
+    for (let element of arr) {
+        let sorted = Array.from(element.toLowerCase()).sort().join('');
+        anagramsMap.set(sorted, element);
+    }
+
+    return Array.from(anagramsMap.values());
+};
