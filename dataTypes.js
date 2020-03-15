@@ -1122,3 +1122,7 @@ let keys = map.keys();
 keys.push("more");  // Error: keys.push is not a function
 
 // Why? How can we fix the code to make keys.push() work?
+// -->
+
+keys = Array.from(map.keys());
+keys.push("more");
