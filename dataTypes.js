@@ -1121,4 +1121,4 @@ map.set("name", "John");
 let keys = map.keys();
 keys.push("more");  // Error: keys.push is not a function
 
-// Why? How can we fix the code to make keys.push work?
+// Why? How can we fix the code to make keys.push() work?
