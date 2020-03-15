@@ -1110,3 +1110,15 @@ let removeAnagrams = (arr) => {
 
     return Array.from(anagramsMap.values());
 };
+
+// The goal is to assign an array of map.keys() to a variable
+// and then apply array-specific methods to it (e.g. push())
+// But the following code doesn’t work:
+
+let map = new Map();
+map.set("name", "John");
+
+let keys = map.keys();
+keys.push("more");  // Error: keys.push is not a function
+
+// Why? How can we fix the code to make keys.push work?
