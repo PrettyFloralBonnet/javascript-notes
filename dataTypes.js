@@ -1126,3 +1126,48 @@ keys.push("more");  // Error: keys.push is not a function
 
 keys = Array.from(map.keys());
 keys.push("more");
+
+// ----- WeakMap and WeakSet -----
+
+// Properties of an object (or elements of an array etc.) are considered reachable and kept in memory
+// as long as that data structure is in memory. For instance, if we put an object into an array,
+// then the object will remain unclaimed by the garbage collector as long as the array itself remains that way
+// -- even if there are no other references to it.
+
+// Naturally, Map is not an exception:
+
+let john = {name: "John"};
+
+let map = new Map();
+map.set(john, "...");
+
+john = null;  // overwrite the reference
+
+// john is stored inside the map, we can get it by using map.keys()
+
+// But WeakMap is very different in this aspect -- it doesn’t prevent garbage collection of key objects.
+
+// ----- WeakMap -----
+
+// WeakMap keys must be objects (not primitive values).
+// Moreover, if we use an object as a key in WeakMap, and no other references to that object exist,
+// the object will be automatically removed from memory (and from the map).
+
+let john = { name: "John" };
+
+let weakMap = new WeakMap();
+weakMap.set(john, "...");
+
+john = null;  // overwrite the reference
+
+// john is removed from memory!
+
+// WeakMap does not support iteration or Map methods such as keys(), values(), entries().
+// In fact, it only supports the following methods:
+
+weakMap.get(key)
+weakMap.set(key, value)
+weakMap.delete(key)
+weakMap.has(key)
+
+// Exactly when the cleanup happens is decided by the JavaScript engine.
