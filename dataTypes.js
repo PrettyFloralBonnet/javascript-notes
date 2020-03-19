@@ -920,6 +920,7 @@ let arrFromRange = Array.from(range);
 
 // A map is a keyed collection of items, except the keys can be of any type (including object type).
 // Using objects as keys is in fact one of most notable and important Map features.
+// Map also preserves insertion order.
 
 // Map methods and properties:
 
@@ -1127,7 +1128,7 @@ keys.push("more");  // Error: keys.push is not a function
 keys = Array.from(map.keys());
 keys.push("more");
 
-// ----- WeakMap and WeakSet -----
+// ----- WEAKMAP AND WEAKSET -----
 
 // Properties of an object (or elements of an array etc.) are considered reachable and kept in memory
 // as long as that data structure is in memory. For instance, if we put an object into an array,
@@ -1171,3 +1172,49 @@ weakMap.delete(key)
 weakMap.has(key)
 
 // Exactly when the cleanup happens is decided by the JavaScript engine.
+
+// Use case: auxiliary data
+
+// One of the main applications of WeakMap is auxiliary data storage. Say we're working with an object
+// that 'belongs' to some other part of code (maybe a third-party library), and we would like to store
+// some data associated with it that should only exist while the object is 'alive'.
+// WeakMap is exactly what’s needed. We put the data into a WeakMap, using the object as the key,
+// and when the object is garbage collected, the data will automatically disappear along with it.
+
+// An example of a counting function using Map:
+
+// visitsCount.js
+let visitsCountMap = new Map();  // map: user => visits count
+
+// increase the visits count
+function countUser(user) {
+    let count = visitsCountMap.get(user) || 0;
+    visitsCountMap.set(user, count + 1);
+}
+
+// ...and another part of the code using it:
+
+// main.js
+let john = { name: "John" };
+
+countUser(john);  // count the visit
+
+john = null;  // john leaves later
+
+// Now, the john object should be garbage collected, but remains in memory, because it’s a key in visitsCountMap.
+// As a result, we need to clean visitsCountMap when we remove users. Otherwise it will grow in memory indefinitely.
+// Such cleaning can become a tedious task in complex architectures.
+
+// And now the same code, but with WeakMap:
+
+// visitsCount.js
+let visitsCountMap = new WeakMap();  // weakmap: user => visits count
+
+// increase the visits count
+function countUser(user) {
+    let count = visitsCountMap.get(user) || 0;
+    visitsCountMap.set(user, count + 1);
+}
+
+// Now we don’t need to clean visitsCountMap. After an object becomes unreachable by all means except as a key of WeakMap,
+// it gets removed from memory, along with any information hitherto held under that key in WeakMap.
