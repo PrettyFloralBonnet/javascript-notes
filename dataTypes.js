@@ -1148,7 +1148,7 @@ john = null;  // overwrite the reference
 
 // But WeakMap is very different in this aspect -- it doesn’t prevent garbage collection of key objects.
 
-// ----- WeakMap -----
+// WeakMap
 
 // WeakMap keys must be objects (not primitive values).
 // Moreover, if we use an object as a key in WeakMap, and no other references to that object exist,
@@ -1279,3 +1279,35 @@ obj = null;
 
 // The problem disappears: the cached result will be removed from memory automatically,
 // right after the object gets garbage collected.
+
+// WeakSet
+
+// WeakSet is similar to Set, but can only hold objects (not primitive values).
+// An object will exist in a weakset as long as it's reachable from somewhere else.
+// WeakSet supports add, has and delete, but not size, keys() or iterations.
+
+// It mostly serves as auxiliary storage for binary info, e.g
+// we can add users to WeakSet to keep track of website visitors:
+
+let visitedSet = new WeakSet();
+
+let john = { name: "John" };
+let pete = { name: "Pete" };
+let mary = { name: "Mary" };
+
+visitedSet.add(john); // John visited
+visitedSet.add(pete); // then Pete
+visitedSet.add(john); // John again
+
+// visitedSet has 2 users now
+
+// check if John visited?
+console.log(visitedSet.has(john));  // true
+
+// check if Mary visited?
+console.log(visitedSet.has(mary));  // false
+
+john = null;  // visitedSet will be cleaned automatically
+
+// The most notable limitation of WeakMap and WeakSet is the absence of iterations,
+// and therefore the inability to get all current content.
