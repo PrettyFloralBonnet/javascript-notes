@@ -1311,3 +1311,45 @@ john = null;  // visitedSet will be cleaned automatically
 
 // The most notable limitation of WeakMap and WeakSet is the absence of iterations,
 // and therefore the inability to get all current content.
+
+// TASK: Given an array of messages managed by someone else's code...:
+
+let messages = [
+    { text: "Hello", from: "John" },
+    { text: "How goes?", from: "John" },
+    { text: "See you soon", from: "Alice" }
+];
+  
+// and taking into account that new messages are added and old ones removed at unknown times,
+// which data structure could be used to store information about whether the message has been read?
+// -->
+
+let readMessages = new WeakSet();
+
+// two messages have been read
+readMessages.add(messages[0]);
+readMessages.add(messages[1]);
+
+// ...first message is read again
+readMessages.add(messages[0]);
+// ...but readMessages still has 2 unique elements
+
+messages.shift();
+// now readMessages has 1 element (technically memory may be cleaned later)
+
+// The WeakSet allows for storage of unique messages (values),
+// and for an easy check if the message exists in it. It cleans up itself automatically.
+// The tradeoff is that we can’t iterate over it to get all read messages from it directly.
+// However, we can work around it by iterating over all messages and then filtering those that are in the weakset.
+
+// Using WeakSet here provides an architectural advantage of not messing with third party code.
+
+// An alternative would be to add a boolean property (e.g. isRead) to a message after it’s read.
+// As message objects are managed by another code, that’s generally discouraged,
+// but a symbolic property can be used to avoid conflicts:
+
+let isRead = Symbol("isRead");  // the symbolic property is only known to our code
+messages[0][isRead] = true;
+
+// Now third party code probably won’t see our extra property.
+// Symbols decrease the probability of problems, but using WeakSet is still a better solution in this case.
