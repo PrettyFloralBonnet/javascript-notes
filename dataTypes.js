@@ -1353,3 +1353,19 @@ messages[0][isRead] = true;
 
 // Now third party code probably won’t see our extra property.
 // Symbols decrease the probability of problems, but using WeakSet is still a better solution in this case.
+
+// Given the same array of messages as in the previous task...:
+
+let messages = [
+    { text: "Hello", from: "John" },
+    { text: "How goes?", from: "John" },
+    { text: "See you soon", from: "Alice" }
+];
+
+// ...which data structure would be suitable for storing the information on when the message was read?
+// Like before, the information should only remain in memory until the message is garbage collected.
+// Dates can be stored built-in Date class objects (more on that later).
+// -->
+
+let mapReadTimes = new WeakMap();
+mapReadTimes.set(messages[0], new Date(2020, 3, 23));
