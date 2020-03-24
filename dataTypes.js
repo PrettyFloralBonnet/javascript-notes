@@ -1416,3 +1416,23 @@ let doublePrices = Object.fromEntries(
 );
 
 console.log(doublePrices.meat);  // 8
+
+// TASK: Given an object with arbitrary number of salaries:
+
+let salaries = {
+    "John": 100,
+    "Pete": 300,
+    "Mary": 250
+};
+
+// ...write the function sumSalaries(salaries) that returns the sum of all salaries.
+// Use Object.values and the for..of loop. If salaries is empty, then the result must be 0.
+// -->
+
+let sumSalaries = (salaries) => {
+    let sum = 0
+    for (let salary of Object.values(salaries)) {
+        sum += salary;
+    }
+    return sum;
+};
