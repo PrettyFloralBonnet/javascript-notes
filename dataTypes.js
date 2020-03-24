@@ -1369,3 +1369,50 @@ let messages = [
 
 let mapReadTimes = new WeakMap();
 mapReadTimes.set(messages[0], new Date(2020, 3, 23));
+
+// ----- OBJECT.KEYS, VALUES, ENTRIES -----
+
+// keys(), values(), entries() are common methods supported by Array, Map and Set.
+// Plain objects also support similar methods:
+
+Object.keys(obj)  // returns an array of keys
+Object.values(obj)  // returns an array of values
+Object.entries(obj)  // returns an array of [key, value] pairs
+
+// Note the differences from Map: syntax and return value (the latter is an iterable for Map)
+
+// Similar to a for..in loop, these methods ignore properties that use Symbols as keys.
+// If getting symbolic keys is what were after, there’s a separate method:
+
+Object.getOwnPropertySymbols(obj)
+
+// ...that returns an array of symbolic keys only.
+
+// There's also
+
+Reflect.ownKeys(obj)
+
+// ...that returns all keys.
+
+// Transforming objects
+
+// Objects lack methods that exist for arrays (e.g. map, filter, reduce etc.).
+// If we’d like to apply them, we can perform a chain of operations:
+//
+//  use Object.entries(obj) to get an array of key/value pairs from obj,
+//  use whatever array methods we want on that array,
+//  use Object.fromEntries(array) on the resulting array and turn it back into an object
+//
+// e.g.:
+
+let prices = {
+    banana: 1,
+    orange: 2,
+    meat: 4,
+};
+
+let doublePrices = Object.fromEntries(
+    Object.entries(prices).map(([key, value]) => [key, value * 2])
+);
+
+console.log(doublePrices.meat);  // 8
