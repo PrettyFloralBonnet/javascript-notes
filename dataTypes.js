@@ -1436,3 +1436,11 @@ let sumSalaries = (salaries) => {
     }
     return sum;
 };
+
+// TASK: Write a function count(obj) that returns the number of properties in the object:
+// Ignore symbolic properties. Try to make the code as short as possible.
+// -->
+
+let count = (obj) => {
+    return Object.keys(obj).length;
+};
