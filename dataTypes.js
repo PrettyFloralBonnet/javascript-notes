@@ -1444,3 +1444,52 @@ let sumSalaries = (salaries) => {
 let count = (obj) => {
     return Object.keys(obj).length;
 };
+
+// ----- DESTRUCTURING ASSIGNMENT -----
+
+// Destructuring assignment is special syntax that allows us to “unpack” arrays or objects into individual variables.
+// Destructuring works well with complex functions that have a lot of parameters, default values etc.
+
+// Array destructuring
+
+let arr = [1, 2];
+let [first, second] = arr;
+
+console.log(first);  // 1
+console.log(second);  // 2
+
+// the array itself is not modified
+
+// unnecessary elements of the array can be ignored using commas:
+
+let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+console.log(title);  // Consul
+
+// destructuring can be used with any iterable (not just arrays):
+
+let [a, b, c] = "abc";  // ["a", "b", "c"]
+let [one, two, three] = new Set([1, 2, 3]);
+
+// looping with .entries()
+
+// ...in an object:
+
+let user = {
+    name: "John",
+    age: 30
+};
+
+for (let [key, value] of Object.entries(user)) {
+    console.log(`${key}: ${value}`);  // 'name: John', 'age: 30'
+}
+  
+// ...in a map:
+  
+let user = new Map();
+
+user.set("name", "John");
+user.set("age", "30");
+
+for (let [key, value] of user) {
+    console.log(`${key}: ${value}`);  // 'name: John', 'age: 30'
+}
