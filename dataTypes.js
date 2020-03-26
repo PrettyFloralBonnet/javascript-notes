@@ -1465,7 +1465,20 @@ console.log(second);  // 2
 let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 console.log(title);  // Consul
 
-// destructuring can be used with any iterable (not just arrays):
+// To gather the remaining values, an '...' operator can be used:
+
+let [firstName, lastName, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+
+console.log(name1);  // Julius
+console.log(name2);  // Caesar
+
+// the value of rest is an array of the remaining elements of the original array:
+
+console.log(rest[0]);  // Consul
+console.log(rest[1]);  // of the Roman Republic
+console.log(rest.length); // 2
+
+// Destructuring can be used with any iterable (not just arrays):
 
 let [a, b, c] = "abc";  // ["a", "b", "c"]
 let [one, two, three] = new Set([1, 2, 3]);
@@ -1493,3 +1506,22 @@ user.set("age", "30");
 for (let [key, value] of user) {
     console.log(`${key}: ${value}`);  // 'name: John', 'age: 30'
 }
+
+// Default values
+
+// If there are fewer elements in the array than variables in the assignment,
+// the variables with no counterpart value default to undefined:
+
+let [firstName, lastName] = [];
+
+console.log(firstName);  // undefined
+console.log(lastName);  // undefined
+
+// To replace missing values, we can provide them:
+
+let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+console.log(name);  // Julius (from array)
+console.log(surname);  // Anonymous (default)
+
+// Default values can complex expressions, or even function calls.
+// They are only evaluated if the value is not provided.
