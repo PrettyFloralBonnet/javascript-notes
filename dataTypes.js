@@ -1565,3 +1565,31 @@ let resolution, difficulty, subtitles;
 
 // The reason for this is that without the declaration statement (let/const/var),
 // JavaScript treats the contents of the curly brackets as a code block.
+
+// Nested destructuring
+
+// If an object or array contain nested objects or arrays, we can use more complex patterns to extract the deeper layer:
+
+let options = {
+    size: {
+        width: 100,
+        height: 200
+    },
+    items: ["Cake", "Donut"],
+    extra: true
+};
+
+let {
+    size: {
+        width,
+        height
+    },
+    items: [item1, item2],
+    title = "Menu"  // not present in the object (default value provided)
+} = options;
+
+console.log(title);  // Menu
+console.log(width);  // 100
+console.log(height);  // 200
+console.log(item1);  // Cake
+console.log(item2);  // Donut
