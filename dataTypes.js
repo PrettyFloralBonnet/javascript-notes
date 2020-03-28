@@ -1472,7 +1472,7 @@ let [firstName, lastName, ...rest] = ["Julius", "Caesar", "Consul", "of the Roma
 console.log(name1);  // Julius
 console.log(name2);  // Caesar
 
-// the value of rest is an array of the remaining elements of the original array:
+// the value of rest is an array of elements remaining from the original array:
 
 console.log(rest[0]);  // Consul
 console.log(rest[1]);  // of the Roman Republic
@@ -1525,3 +1525,43 @@ console.log(surname);  // Anonymous (default)
 
 // Default values can complex expressions, or even function calls.
 // They are only evaluated if the value is not provided.
+
+// Object destructuring
+
+// The destructuring assignment also works with objects:
+
+let options = {
+    resolution: "1920x1080",
+    difficulty: "insanity",
+    subtitles: true
+}
+
+let {resolution, difficulty, subtitles} = options;
+
+// Properties of the object are assigned to corresponding variables.
+// The order does not matter (as befits a hash table).
+
+// If we want to assign a property to a variable with a different name,
+// we can set it using a colon:
+
+let {resolution: res, difficulty: df, subtitles: subs} = options;
+
+// For properties that may potentially by missing, we can set default values.
+// Just like with array destructuring, they can expressions of function calls.
+
+// If we're only interested in a single property, we can extract it on its own:
+
+let {resolution} = options;
+
+// Gathering remaining values is also possible, just like with arrays:
+
+let {resolution, ...rest} = options;
+console.log(rest);  // {difficulty: "insanity", subtitles: true}
+
+// There's a catch when using predeclared variables:
+
+let resolution, difficulty, subtitles;
+({resolution, difficulty, subtitles} = options)  // note the parentheses (this assignment won't work without them)
+
+// The reason for this is that without the declaration statement (let/const/var),
+// JavaScript treats the contents of the curly brackets as a code block.
