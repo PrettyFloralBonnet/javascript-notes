@@ -1572,8 +1572,8 @@ let resolution, difficulty, subtitles;
 ({resolution, difficulty, subtitles} = options)  // note the parentheses
 
 // This assignment won't work without the parentheses. The reason for this is that
-// with the declaration statement ("let" in this case) absent from the expression,
-// JavaScript treats the contents of the curly brackets as a code block.
+// without the declaration statement ("let" in this case) present in the expression,
+// the JavaScript engine treats the contents of the curly brackets as a code block.
 
 // Nested destructuring
 
@@ -1603,3 +1603,27 @@ console.log(width);  // 100
 console.log(height);  // 200
 console.log(item1);  // Cake
 console.log(item2);  // Donut
+
+// Smart function parameters
+
+// We can define function parameters as an object. That way, for functions with multiple
+// optional parameters, we can can pass object arguments that only hold properties which are
+// of interest to us at the time, and safely ignore the rest:
+
+let gameSettings = ({resolution='1920x1080', difficulty='normal', subtitles=false}) => {
+    console.log(`Game settings are: res: ${resolution}, df: ${difficulty}, subs: ${subtitles}`)
+};
+
+let myGameSettings = {
+    difficulty: "hardcore",
+    subtitles: true
+};
+
+gameSettings(myGameSettings);  // difficulty and subtitles are changed, while resolution remains default
+
+// Note that this structure requires the gameSettings() function to have an argument.
+// To still be able to call it without providing any arguments, set an empty object as default:
+
+let gameSettings = ({res='1920x1080', df='normal', subs=false} = {}) => {
+    console.log(`Game settings are: res: ${res}, df: ${df}, subs: ${subs}`)
+};
