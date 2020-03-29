@@ -1130,10 +1130,11 @@ keys.push("more");
 
 // ----- WEAKMAP AND WEAKSET -----
 
-// Properties of an object (or elements of an array etc.) are considered reachable and kept in memory
-// as long as that data structure is in memory. For instance, if we put an object into an array,
-// then the object will remain unclaimed by the garbage collector as long as the array itself remains that way
-// -- even if there are no other references to it.
+// Properties of an object (or elements of an array etc.) are considered reachable
+// and remain in memory as long as the data structure itself exists in memory.
+// E.g. if we put an object into an array, the object will remain unclaimed
+// by the garbage collector as long as the array itself is not claimed by it
+// -- even if there are no references to it outside of that array.
 
 // Naturally, Map is not an exception:
 
@@ -1175,11 +1176,12 @@ weakMap.has(key)
 
 // Use case: auxiliary data
 
-// One of the main applications of WeakMap is auxiliary data storage. Say we're working with an object
-// that 'belongs' to some other part of code (maybe a third-party library), and we would like to store
-// some data associated with it that should only exist while the object is 'alive'.
-// WeakMap is exactly what’s needed. We put the data into a WeakMap, using the object as the key,
-// and when the object is garbage collected, the data will automatically disappear along with it.
+// One of the main applications of WeakMap is auxiliary data storage.
+// Say we're working with an object that 'belongs' to some other part of code
+// (maybe a third-party library), and we would like to storesome data associated with it
+// that should only exist while the object is 'alive'. WeakMap is exactly what’s needed.
+// We put the data into a WeakMap, using the object as the key, and when the object is garbage collected,
+// the data will automatically disappear along with it.
 
 // An example of a counting function using Map:
 
@@ -1201,8 +1203,10 @@ countUser(john);  // count the visit
 
 john = null;  // john leaves later
 
-// Now, the john object should be garbage collected, but remains in memory, because it’s a key in visitsCountMap.
-// As a result, we need to clean visitsCountMap when we remove users. Otherwise it will grow in memory indefinitely.
+// Now, the john object should be garbage collected, but remains in memory,
+// because it’s a key in visitsCountMap.
+// As a result, we need to clean visitsCountMap when we remove users.
+// Otherwise it will grow in memory indefinitely.
 // Such cleaning can become a tedious task in complex architectures.
 
 // And now the same code, but with WeakMap:
@@ -1216,8 +1220,9 @@ function countUser(user) {
     visitsCountMap.set(user, count + 1);
 }
 
-// Now we don’t need to clean visitsCountMap. After an object becomes unreachable by all means except as a key of WeakMap,
-// it gets removed from memory, along with any information hitherto held under that key in WeakMap.
+// Now we don’t need to clean visitsCountMap. After an object becomes unreachable
+// except as a key of WeakMap, it gets removed from memory, along with any information
+// hitherto held under that key in WeakMap.
 
 // Use case: caching
 
@@ -1249,9 +1254,9 @@ let result2 = process(obj);  // remembered result taken from cache
 obj = null;
 console.log(cache.size);  // 1 (Oops, the object is still in cache, taking up memory)
 
-// For multiple calls of process(obj) with the same object, it only calculates the result the first time,
-// and then just takes it from cache. The downside is that we need to clean cache
-// when the object is not needed any more...
+// For multiple calls of process(obj) with the same object,
+// it only calculates the result the first time, and then just takes it from cache.
+// The downside is that we still need to clean cache when the object is not needed any more...
 
 // ...or we can use WeakMap instead:
 
@@ -1340,7 +1345,8 @@ messages.shift();
 // The WeakSet allows for storage of unique messages (values),
 // and for an easy check if the message exists in it. It cleans up itself automatically.
 // The tradeoff is that we can’t iterate over it to get all read messages from it directly.
-// However, we can work around it by iterating over all messages and then filtering those that are in the weakset.
+// However, we can work around it by iterating over all messages
+// and then filtering those that are in the weakset.
 
 // Using WeakSet here provides an architectural advantage of not messing with third party code.
 
@@ -1352,7 +1358,7 @@ let isRead = Symbol("isRead");  // the symbolic property is only known to our co
 messages[0][isRead] = true;
 
 // Now third party code probably won’t see our extra property.
-// Symbols decrease the probability of problems, but using WeakSet is still a better solution in this case.
+// Symbols decrease the probability of problems, but using WeakSet is still a better solution here.
 
 // Given the same array of messages as in the previous task...:
 
@@ -1447,8 +1453,10 @@ let count = (obj) => {
 
 // ----- DESTRUCTURING ASSIGNMENT -----
 
-// Destructuring assignment is special syntax that allows us to “unpack” arrays or objects into individual variables.
-// Destructuring works well with complex functions that have a lot of parameters, default values etc.
+// Destructuring assignment is special syntax that allows us to “unpack” arrays or objects
+// into individual variables.
+// Destructuring works well with complex functions that have a lot of parameters,
+// default values etc.
 
 // Array destructuring
 
@@ -1561,14 +1569,16 @@ console.log(rest);  // {difficulty: "insanity", subtitles: true}
 // There's a catch when using predeclared variables:
 
 let resolution, difficulty, subtitles;
-({resolution, difficulty, subtitles} = options)  // note the parentheses (this assignment won't work without them)
+({resolution, difficulty, subtitles} = options)  // note the parentheses
 
-// The reason for this is that without the declaration statement (let/const/var),
+// This assignment won't work without the parentheses. The reason for this is that
+// with the declaration statement ("let" in this case) absent from the expression,
 // JavaScript treats the contents of the curly brackets as a code block.
 
 // Nested destructuring
 
-// If an object or array contain nested objects or arrays, we can use more complex patterns to extract the deeper layer:
+// If an object or array contain nested objects or arrays,
+// we can use more complex patterns to extract the deeper layer:
 
 let options = {
     size: {
