@@ -1641,3 +1641,29 @@ let user = {
 // -->
 
 let {name, years, isAdmin=false} = user;
+
+
+// TASK: Given the following object:
+
+let salaries = {
+    "John": 100,
+    "Pete": 300,
+    "Mary": 250
+};
+
+// Create a function topSalary(salaries) that returns the name of the top paid person,
+// or null of salaries is empty. If there are multiple top-paid persons, return any of them.
+// Use Object.entries and destructuring to iterate over key-value pairs.
+// -->
+
+let topSalary = (salaries) => {
+    let currentHighestSalary = 0;
+    let topPaidPerson = null;
+    for (let [name, salary] of Object.entries(salaries)) {
+        if (salary > currentHighestSalary) {
+            currentHighestSalary = salary;
+            topPaidPerson = name;
+        }
+    }
+    return topPaidPerson;
+};
