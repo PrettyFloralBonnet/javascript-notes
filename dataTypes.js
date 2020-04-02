@@ -1627,3 +1627,17 @@ gameSettings(myGameSettings);  // difficulty and subtitles are changed, while re
 let gameSettings = ({res='1920x1080', df='normal', subs=false} = {}) => {
     console.log(`Game settings are: res: ${res}, df: ${df}, subs: ${subs}`)
 };
+
+// TASK: Given the following object:
+
+let user = {
+    name: "John",
+    years: 30
+};
+
+// Write a destructuring assignment that takes the properties name, years and saves them into 
+// variables name, age, and which also takes and isAdmin property and saves it into a variable
+// isAdmin (which defaults to false if such property doesn't exist).
+// -->
+
+let {name, years, isAdmin=false} = user;
