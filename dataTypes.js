@@ -1667,3 +1667,23 @@ let topSalary = (salaries) => {
     }
     return topPaidPerson;
 };
+
+// ----- DATE AND TIME -----
+
+// The built-in object Date stores the date, time and provides methods for managing them.
+
+let now = new Date();
+console.log(now);  // current datetime
+
+// with integer argument: how many milliseconds passed since January 1st, 1970 UTC+0
+
+console.log(new Date(0));  // 01.01.1970 UTC+0
+console.log(new Date(24 * 3600 * 1000));  // 02.01.1970 UTC+0
+console.log(new Date (-24 * 3600 * 1000));  // 31.12.1969 UTC+0
+
+// with string argument: date is parsed from the string (and adjusted to the timezone the code is run in)
+let date = new Date('2020-05-04');
+
+// create the date from components
+let composedDate = new Date(2012, 0, 1, 0, 0, 0, 0);  // 1 Jan 2012, 00:00:00
+let composedDate2 = new Date(2012, 0)  // exactly the same as above, the omitted args provided by default
