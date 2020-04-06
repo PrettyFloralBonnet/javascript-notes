@@ -1707,3 +1707,17 @@ console.log(date.getUTCHours());  // the hour in UTC+0
 
 Date.getTime()  // returns timestamp for the date
 Date.getTimezoneOffseet()  // returns the difference between UTC and the local time zone (in minutes)
+
+// Set date components
+
+Date.setFullYear(year, month, date);
+Date.setMonth(month, date);
+Date.setDate(date);
+Date.setHours(hour, min, sec, ms);
+Date.setMintes(min, sec, ms);
+Date.setSeconds(sec, ms);
+Date.setMilliseconds(ms);
+Date.setTime(ms)  // sets the entire date using milliseconds since 01.01.1970 UTC+0
+
+// Each one of these except for setTim() has a UTC variant.
+// Also, for each of them only the first paramenter is obligatory.
