@@ -1721,3 +1721,14 @@ Date.setTime(ms)  // sets the entire date using milliseconds since 01.01.1970 UT
 
 // Each one of these except for setTim() has a UTC variant.
 // Also, for each of them only the first paramenter is obligatory.
+
+// Autocorrection
+
+// If we set values that are out of range, they will be adjusted automatically:
+
+let date = new Date(2014, 0, 32)  // February 1st, 2014
+
+// This means we can e.g. increase the date "February 28th" by 2 days, and it will auto-adjust:
+
+let date = new Date(2016, 1, 28);
+date.setDate(date.getDate() + 2);  // March 1st, 2016 (2016 was a leap year)
