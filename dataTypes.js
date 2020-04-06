@@ -1687,3 +1687,23 @@ let date = new Date('2020-05-04');
 // create the date from components
 let composedDate = new Date(2012, 0, 1, 0, 0, 0, 0);  // 1 Jan 2012, 00:00:00
 let composedDate2 = new Date(2012, 0)  // exactly the same as above, the omitted args provided by default
+
+// Access date components
+
+Date.getFullYear()  // get the year (4 digits)
+Date.getMonth()  // get the month (from 0 (January) to 11 (December))
+Date.getDate()  // get the day of the month (from 1 to 31)
+Date.getDay()  // get the day of the week (from 0 (Sunday) to 6 (Saturday))
+Date.getHours()  // also: getMinutes(), getSeconds(), getMilliseconds() - get the corresponding components
+
+// All of the methods above return the components relative to the local time zone.
+// They also have their UTC counterparts: getUTCFullYear(), getUTCMonth(), getUTCDay() etc.
+
+let date = new Date();  // current date
+console.log(date.getHours());  // the hour in the local time zone
+console.log(date.getUTCHours());  // the hour in UTC+0
+
+// There are also two methods without the UTC variant:
+
+Date.getTime()  // returns timestamp for the date
+Date.getTimezoneOffseet()  // returns the difference between UTC and the local time zone (in minutes)
