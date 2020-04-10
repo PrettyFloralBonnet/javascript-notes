@@ -1732,3 +1732,17 @@ let date = new Date(2014, 0, 32)  // February 1st, 2014
 
 let date = new Date(2016, 1, 28);
 date.setDate(date.getDate() + 2);  // March 1st, 2016 (2016 was a leap year)
+
+// Date to number
+
+// When a Date object is converted to a number, it becomes a timestamp (same as date.getTime()):
+
+let date = new Date();
+console.log(+date);  // unix timestamp
+
+// This means dates can be subtracted, and the result is the difference in milliseconds.
+
+// Date.now()
+
+// This method also returns the current timestamp. Its result is identical to new Date().getTime(),
+// but it doesn't actually create the Date object (which is faster and doesn't involve garbage collection).
