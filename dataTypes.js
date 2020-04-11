@@ -1800,3 +1800,24 @@ for (let i = 0; i < 10; i++) {
     subtractTotalTime += benchmark(dateDiffSubtract);
     getTimeTotalTime += benchmark(dateDiffGetTime);
 }
+
+// Date.parse
+
+// The Date.parse(str) method can parse a date from a string.
+// The string format should be: YYYY-MM-DDTHH:mm:ss.sssZ, where:
+//
+// YYYY-MM-DD is year-month-day
+// The T character is used as a delimiter
+// HH:mm:ss.sss is hours:minutes:seconds:milliseconds
+// The Z character is the time zone (in the format: +-hh:mm); a single Z means UTC+0
+
+// The call to Date.parse(str) parses the string in the provided format and returns the timestamp.
+// If the format is invalid, it returns NaN.
+
+let timestamp = Date.parse('2014-01-26T12:01:30.374-07:00');
+console.log(timestamp);
+
+// It's also possible to instantly create a new Date object from a timestamp:
+
+let date = new Date(Date.parse('2014-01-26T12:01:30.374-07:00'));
+console.log(date);
