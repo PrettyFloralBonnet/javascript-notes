@@ -1821,3 +1821,10 @@ console.log(timestamp);
 
 let date = new Date(Date.parse('2014-01-26T12:01:30.374-07:00'));
 console.log(date);
+
+// More precise time measurements
+
+// Sometimes precise time measurements (e.g. microseconds) is needed. JavaScript itself does not provide
+// a way to measure time in microseconds, but most environments do (e.g. browsers offer a performance.now()
+// method that returns the number of milliseconds that passed since the page started loading,
+// down to a microsecond precision (3 digits after the dot); Node.js has a microtime module etc.)
