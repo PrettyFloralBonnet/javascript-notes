@@ -1746,3 +1746,57 @@ console.log(+date);  // unix timestamp
 
 // This method also returns the current timestamp. Its result is identical to new Date().getTime(),
 // but it doesn't actually create the Date object (which is faster and doesn't involve garbage collection).
+
+// Benchmarking
+
+// When we want to measure the time a given function takes:
+
+let dateDiffSubtract = (date1, date2) => {
+    return date2 - date1;
+}
+
+let dateDiffGetTime = (date1, date2) => {
+    return date2.getTime() - date1.getTime();
+}
+
+let benchmark = (func) => {
+    let date1 = new Date(0);
+    let date2 = new Date();
+
+    let start = Date.now();
+    for (let i =0; i < 100000; i++) func(date1, date2);
+    return Date.now() - start;
+}
+
+console.log(`Function ${dateDiffSubtract.name} took ${+benchmark(dateDiffSubtract)} ms.`);
+console.log(`Function ${dateDiffGetTime.name} took ${+benchmark(dateDiffGetTime)} ms.`);
+
+// Here, it turns out using getTime() is much faster (no type conversion).
+
+// But what if the CPU were doing something else when benchmarking these? That would influence the outcome.
+// For more reliable benchmarking, the benchmark suite should be rerun multiple times, e.g.:
+
+let subtractTotalTime = 0;
+let getTimeTotalTime = 0;
+
+for (let i = 0; i < 10; i++) {
+    subtractTotalTime += benchmark(dateDiffSubtract);
+    getTimeTotalTime += benchmark(dateDiffGetTime);
+}
+
+console.log(`Function ${dateDiffSubtract.name} took ${subtractTotalTime} ms to run 10 times.`);
+console.log(`Function ${dateDiffGetTime.name} took ${getTimeTotalTime} ms to run 10 times.`);
+
+// Moreover, modern JavaScript engines are capable of applying optimizations to code
+// that executes multiple times. That means initial runtimes may not be as well optimized
+// as later ones. Therefore we may even want to add a "warm up" run:
+
+// warm up
+benchmark(dateDiffSubtract);
+benchmark(dateDiffGetTime);
+
+// now benchmark
+for (let i = 0; i < 10; i++) {
+    subtractTotalTime += benchmark(dateDiffSubtract);
+    getTimeTotalTime += benchmark(dateDiffGetTime);
+}
