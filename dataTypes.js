@@ -1851,12 +1851,10 @@ let getWeekDay = (date) => {
     };
 
     if (date instanceof Date) {
-        let day = date.getDay();
-        return dayNames[day];
+        return dayNames[date.getDay()];
     } else {
         try {
-            let day = new Date(Date.parse(date)).getDay()
-            return dayNames[day];
+            return dayNames[new Date(Date.parse(date)).getDay()]
         }
         catch (e) {
             if (e instanceof TypeError) {
