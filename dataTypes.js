@@ -1840,7 +1840,7 @@ console.log(date);
 // -->
 
 let getWeekDay = (date) => {
-    let dayNames = {
+    const dayNames = {
         0: 'SUN',
         1: 'MON',
         2: 'TUE',
@@ -1855,7 +1855,7 @@ let getWeekDay = (date) => {
         return dayNames[day];
     } else {
         try {
-            let day = Date.parse(date).getDay()
+            let day = new Date(Date.parse(date)).getDay()
             return dayNames[day];
         }
         catch (e) {
