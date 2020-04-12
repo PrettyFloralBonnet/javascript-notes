@@ -1828,3 +1828,43 @@ console.log(date);
 // a way to measure time in microseconds, but most environments do (e.g. browsers offer a performance.now()
 // method that returns the number of milliseconds that passed since the page started loading,
 // down to a microsecond precision (3 digits after the dot); Node.js has a microtime module etc.)
+
+// TASK: Create a Date object for the date: Feb 20, 2012, 3:12 am (local time).
+// -->
+
+let date = new Date(2012, 1, 20, 3, 12);
+console.log(date);
+
+// TASK: Write a function getWeekDay(date) that returns the day of the week in the format:
+// 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'.
+// -->
+
+let getWeekDay = (date) => {
+    let dayNames = {
+        0: 'SUN',
+        1: 'MON',
+        2: 'TUE',
+        3: 'WED',
+        4: 'THU',
+        5: 'FRI',
+        6: 'SAT'
+    };
+
+    if (date instanceof Date) {
+        let day = date.getDay();
+        return dayNames[day];
+    } else {
+        try {
+            let day = Date.parse(date).getDay()
+            return dayNames[day];
+        }
+        catch (e) {
+            if (e instanceof TypeError) {
+                console.log('Invalid argument.')
+            }
+        }
+    }
+}
+
+let date = new Date(2012, 0, 3);
+getWeekDay(date);
