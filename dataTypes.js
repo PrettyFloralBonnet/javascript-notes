@@ -1866,3 +1866,16 @@ let getWeekDay = (date) => {
 
 let date = new Date(2012, 0, 3);
 getWeekDay(date);
+
+// TASK: Write a function getLocalDay(date) that returns the day of the week for date in the format where
+// the first day of the week is Monday (since Sunday is the default).
+// -->
+
+let getLocalDay = (date) => {
+    let defaultDay = date.getDay();
+    if (defaultDay == 0) {
+        return 6;
+    } else {
+        return defaultDay - 1;
+    }
+}
