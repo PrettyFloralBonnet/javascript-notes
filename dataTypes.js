@@ -1706,7 +1706,7 @@ console.log(date.getUTCHours());  // the hour in UTC+0
 // There are also two methods without the UTC variant:
 
 Date.getTime()  // returns timestamp for the date
-Date.getTimezoneOffseet()  // returns the difference between UTC and the local time zone (in minutes)
+Date.getTimezoneOffset()  // returns the difference between UTC and the local time zone (in minutes)
 
 // Set date components
 
@@ -1888,4 +1888,12 @@ let getLocalDay = (date) => {
 
 let getDateAgo = (date, days) => {
     return new Date(date - (days * 24 * 3600 * 1000)).getDate();
+}
+
+// TASK: Write a function getLastDayOfMonth(year, month) that returns the last day of the given month
+// (0-11) in the given year (in the four-digit format).
+// -->
+
+let getLastDayOfMonth = (year, month) => {
+    return new Date(year, month + 1, 0).getDate()
 }
