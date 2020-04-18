@@ -1879,3 +1879,13 @@ let getLocalDay = (date) => {
         return defaultDay - 1;
     }
 }
+
+// TASK: Create a function getDateAgo(date, days) that returns the day of the month that occurred
+// *days* ago after the *date* (e.g.: on the 20th day of the month, getDateAgo(newDate(), 1) should return
+// 19, for the 19th). The function should work for *days* equal to 365 and more, and should not modify
+// the *date* argument.
+// -->
+
+let getDateAgo = (date, days) => {
+    return new Date(date - (days * 24 * 3600 * 1000)).getDate();
+}
