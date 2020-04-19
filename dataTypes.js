@@ -1897,3 +1897,13 @@ let getDateAgo = (date, days) => {
 let getLastDayOfMonth = (year, month) => {
     return new Date(year, month + 1, 0).getDate()
 }
+
+// TASK: Write a function getSecondsToday() that returns the number of seconds from the beginning of today.
+// -->
+
+let getSecondsToday = () => {
+    let now = new Date();
+    let startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    diff = (now - startOfToday) / 1000;  // assumes the precalculated value of "now" is accurate enough
+    return Math.round(diff);
+}
