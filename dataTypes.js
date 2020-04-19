@@ -1904,6 +1904,16 @@ let getLastDayOfMonth = (year, month) => {
 let getSecondsToday = () => {
     let now = new Date();
     let startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    diff = (now - startOfToday) / 1000;  // assumes the precalculated value of "now" is accurate enough
+    let diff = (now - startOfToday) / 1000;  // assumes the precalculated value of "now" is accurate enough
+    return Math.round(diff);
+}
+
+// TASK: Write a function getSecondsTillTomorrow() that returns the number of seconds till tomorrow.
+// -->
+
+let getSecondsTillTomorrow = () => {
+    let now = new Date();
+    let startOfTomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    let diff = (startOfTomorrow - now) / 1000;
     return Math.round(diff);
 }
