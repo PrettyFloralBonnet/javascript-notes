@@ -1926,17 +1926,17 @@ let getSecondsTillTomorrow = () => {
 // if at least 1 hour had passed: full date in the format "DD.MM.YY HH:mm" (all in 2 digits)
 // -->
 
-let _ensureDoubleDigitFormat = (component) => {
-    if (component.length == 1) component = '0' + component;
-    return component;
+let _ensureDoubleDigitFormat = (dateComponent) => {
+    if (dateComponent < 10) dateComponent = '0' + dateComponent;
+    return dateComponent;
 }
 
 let _parseDate = (date) => {
-    let day = _ensureDoubleDigitFormat(String(date.getDate()));
-    let month = _ensureDoubleDigitFormat(String(date.getMonth() + 1));
+    let day = _ensureDoubleDigitFormat(date.getDate());
+    let month = _ensureDoubleDigitFormat(date.getMonth() + 1);
     let year = String(date.getFullYear()).slice(-2);
-    let hours = _ensureDoubleDigitFormat(String(date.getHours()));
-    let minutes = _ensureDoubleDigitFormat(String(date.getMinutes()));
+    let hours = _ensureDoubleDigitFormat(date.getHours());
+    let minutes = _ensureDoubleDigitFormat(date.getMinutes());
 
     return `${day}.${month}.${year} ${hours}:${minutes}`
 }
