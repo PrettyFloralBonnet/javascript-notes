@@ -1943,8 +1943,8 @@ let _parseDate = (date) => {
 
 let formatDate = (date) => {
     let diff = new Date() - date;
-    if (diff < 1000) return 'right now'
-    else if (diff < 60 * 1000) return `${diff / 1000} seconds ago`
-    else if (diff < 3600 * 1000) return `${diff / 60000} minutes ago`
+    if (diff < 1000) return 'right now';
+    else if (diff < 60 * 1000) return `${diff / 1000} seconds ago`;
+    else if (diff < 3600 * 1000) return `${diff / 60000} minutes ago`;
     else return _parseDate(date);
 }
