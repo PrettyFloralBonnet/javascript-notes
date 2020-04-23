@@ -1926,16 +1926,17 @@ let getSecondsTillTomorrow = () => {
 // if at least 1 hour had passed: full date in the format "DD.MM.YY HH:mm" (all in 2 digits)
 // -->
 
-let parseDate = (date) => {
-    let day = String(date.getDate());
-    if (day.length == 1) day = '0' + day;
-    let month = date.getMonth() + 1;
-    if (month.length == 1) month = '0' + month;
+let _ensureDoubleDigitFormat = (component) => {
+    if (component.length == 1) component = '0' + component;
+    return component;
+}
+
+let _parseDate = (date) => {
+    let day = _ensureDoubleDigitFormat(String(date.getDate()));
+    let month = _ensureDoubleDigitFormat(String(date.getMonth() + 1));
     let year = String(date.getFullYear()).slice(-2);
-    let hours = String(date.getHours());
-    if (hours.length == 1) hours = '0' + hours;
-    let minutes = String(date.getMinutes());
-    if (minutes.length == 1) minutes = '0' + minutes;
+    let hours = _ensureDoubleDigitFormat(String(date.getHours()));
+    let minutes = _ensureDoubleDigitFormat(String(date.getMinutes()));
 
     return `${day}.${month}.${year} ${hours}:${minutes}`
 }
@@ -1945,5 +1946,5 @@ let formatDate = (date) => {
     if (diff < 1000) return 'right now'
     else if (diff < 60 * 1000) return `${diff / 1000} seconds ago`
     else if (diff < 3600 * 1000) return `${diff / 60000} minutes ago`
-    else return parseDate(date);
+    else return _parseDate(date);
 }
