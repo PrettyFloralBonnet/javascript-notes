@@ -1930,6 +1930,7 @@ let parseDate = (date) => {
     let day = String(date.getDate());
     if (day.length == 1) day = '0' + day;
     let month = date.getMonth() + 1;
+    if (month.length == 1) month = '0' + month;
     let year = String(date.getFullYear()).slice(-2);
     let hours = String(date.getHours());
     if (hours.length == 1) hours = '0' + hours;
