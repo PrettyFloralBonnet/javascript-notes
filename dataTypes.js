@@ -1917,3 +1917,32 @@ let getSecondsTillTomorrow = () => {
     let diff = (startOfTomorrow - now) / 1000;
     return Math.round(diff);
 }
+
+// TASK: Create a function formatDate(date) that returns date in the following format:
+//
+// if less than 1 second had passed since date: "right now"
+// if at least 1 second, but less than 1 minute passed: "n seconds ago"
+// if at least 1 minute, but less than 1 hour: "n hours ago"
+// if at least 1 hour had passed: full date in the format "DD.MM.YY HH:mm" (all in 2 digits)
+// -->
+
+let parseDate = (date) => {
+    let day = String(date.getDate());
+    if (day.length == 1) day = '0' + day;
+    let month = date.getMonth() + 1;
+    let year = String(date.getFullYear()).slice(-2);
+    let hours = String(date.getHours());
+    if (hours.length == 1) hours = '0' + hours;
+    let minutes = String(date.getMinutes());
+    if (minutes.length == 1) minutes = '0' + minutes;
+
+    return `${day}.${month}.${year} ${hours}:${minutes}`
+}
+
+let formatDate = (date) => {
+    let diff = new Date() - date;
+    if (diff < 1000) return 'right now'
+    else if (diff < 60 * 1000) return `${diff / 1000} seconds ago`
+    else if (diff < 3600 * 1000) return `${diff / 60000} minutes ago`
+    else return parseDate(date);
+}
