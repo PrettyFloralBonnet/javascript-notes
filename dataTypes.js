@@ -1948,3 +1948,18 @@ let formatDate = (date) => {
     else if (diff < 3600 * 1000) return `${diff / 60000} minutes ago`;
     else return _parseDate(date);
 }
+
+// ----- JSON methods, toJSON -----
+
+// JSON (JavaScript Object Notation) is a generalized format used to represent values and objects.
+// It was initially made for JavaScript, but many other languages have adopted it since its conception.
+
+JSON.stringify(object)  // converts object to JSON-encoded string
+JSON.parse(json)  // converts JSON back into an object
+
+// A JSON-encoded object has some differences from an object literal:
+//
+// - strings always use double quotes
+// - object property names always use double quotes (e.g.: age: 30 becomes "age": 30)
+
+// JSON.stringify can be applied to primitive data types as well.
