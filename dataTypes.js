@@ -1962,4 +1962,41 @@ JSON.parse(json)  // converts JSON back into an object
 // - strings always use double quotes
 // - object property names always use double quotes (e.g.: age: 30 becomes "age": 30)
 
-// JSON.stringify can be applied to primitive data types as well.
+// JSON.stringify can be applied to objects and arrays, as well as some primitive data types
+// (strings, numbers, booleans and null).
+
+// JSON is a data-only, language-independent specification,
+// so some object properties specific to JavaScript are skipped by JSON.stringify. Those include:
+//
+// - function methods
+// - symbolic properties
+// - properties that store undefined
+//
+// E.g.: the result of calling JSON.stringify with the following object:
+
+let user = {
+    sayHi() { console.log('Hello!') },
+    [Symbol('id')]: 123,
+    something: undefined
+};
+
+// ...is going to be a representation of an empty object:
+
+console.log(JSON.stringify(user))  // {}
+
+// Nested objects are supported and converted automatically, as long as there are no circular references.
+// Those would result in an error, e.g.:
+
+let room = {
+    number: 23
+};
+
+let meetup = {
+    title: "Conference",
+    participants: ["john", "ann"]
+};
+
+meetup.place = room;  // meetup references room
+room.occupiedBy = meetup;  // room references meetup
+
+JSON.stringify(meetup);  // Error: Converting circular structure to JSON
