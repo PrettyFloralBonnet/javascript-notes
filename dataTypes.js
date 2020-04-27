@@ -2000,3 +2000,45 @@ meetup.place = room;  // meetup references room
 room.occupiedBy = meetup;  // room references meetup
 
 JSON.stringify(meetup);  // Error: Converting circular structure to JSON
+
+// Excluding and transforming: replacer
+
+// The full syntax of JSON.stringify is:
+
+let json = JSON.stringify(value, [replacer, space])
+
+// where value is the value to encode,
+// replacer is an array of properties to encode or a mapping function,
+// and space is the amount of space to use for formatting.
+
+let room = {
+    number: 23
+};
+
+let meetup = {
+    title: "Conference",
+    participants: [{ name: "John" }, { name: "Alice" }],
+    place: room  // meetup references room
+};
+
+room.occupiedBy = meetup;  // room references meetup
+
+console.log(JSON.stringify(meetup, ['title', 'participants']));  // {"title":"Conference","participants":[{},{}]}
+
+// However, this is too strict, because now objects in participants are empty, since name is not on the list.
+// We can fix that by passing this list as a replacer:
+
+['title', 'participants', 'place', 'name', 'number']
+
+// Now everything except for occupiedBy (which would cause a circular reference) is serialized,
+// but the list is very long.
+// Fortunately instead of passing an array, we can pass a function as the replacer
+
+console.log(JSON.stringify(meetup, function replacer(key, value) {
+    console.log(`${key}: ${value}`);
+    return (key == 'occupiedBy') ? undefined : value;
+}));
+
+// The replacer function gets every key/value pair (including nested objects and array items)
+// and is applied recursively. The value of this inside replacer is the object that contains
+// the current property.
