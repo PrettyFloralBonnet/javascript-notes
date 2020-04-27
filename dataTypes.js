@@ -2079,3 +2079,32 @@ console.log(JSON.stringify(user, null, 2));
     }
   }
 */
+
+// Custom toJSON
+
+// Similar to the toString method for string conversion, an object may define a custom method
+// toJSON, which will be automatically called by JSON.stringify whenever available. E.g.:
+
+let room = {
+    number: 23,
+    toJSON() {
+        return this.number;
+    }
+};
+
+let meetup = {
+    title: "Conference",
+    room
+};
+
+console.log(JSON.stringify(room));  // 23
+console.log(JSON.stringify(meetup));
+/*
+  {
+    "title":"Conference",
+    "room": 23
+  }
+*/
+
+// toJSON is used both for the direct call JSON.stringify(room),
+// and also when room is nested in another encoded object.
