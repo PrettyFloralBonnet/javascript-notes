@@ -2042,3 +2042,10 @@ console.log(JSON.stringify(meetup, function replacer(key, value) {
 // The replacer function gets every key/value pair (including nested objects and array items)
 // and is applied recursively. The value of this inside replacer is the object that contains
 // the current property.
+
+// The first call is special: it's made using a special “wrapper object”: {"": meetup}.
+// In other words, the first (key, value) pair has an empty key, and the value is the target object
+// as a whole. That’s why the first line is ":[object Object]".
+
+// The idea is to provide as much power for replacer as possible: it has a chance to analyze
+// and replace/skip even the entire object if necessary.
