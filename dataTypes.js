@@ -2001,8 +2001,6 @@ room.occupiedBy = meetup;  // room references meetup
 
 JSON.stringify(meetup);  // Error: Converting circular structure to JSON
 
-// Excluding and transforming: replacer
-
 // The full syntax of JSON.stringify is:
 
 let json = JSON.stringify(value, [replacer, space])
@@ -2010,6 +2008,10 @@ let json = JSON.stringify(value, [replacer, space])
 // where value is the value to encode,
 // replacer is an array of properties to encode or a mapping function,
 // and space is the amount of space to use for formatting.
+
+// Replacer
+
+// The replacer argument is used for excluding and replacing values upon stringification.
 
 let room = {
     number: 23
@@ -2049,3 +2051,31 @@ console.log(JSON.stringify(meetup, function replacer(key, value) {
 
 // The idea is to provide as much power for replacer as possible: it has a chance to analyze
 // and replace/skip even the entire object if necessary.
+
+// Formatting: space
+
+// Space is the number of spaces to use for pretty formatting.
+
+// Previously, all stringified objects had no indents or extra spaces. While that's fine if you want to
+// send an object over the network, it's not really human readable.
+
+let user = {
+    name: "John",
+    age: 25,
+    roles: {
+        isAdmin: false,
+        isEditor: true
+    }
+};
+  
+console.log(JSON.stringify(user, null, 2));
+/*
+  {
+    "name": "John",
+    "age": 25,
+    "roles": {
+      "isAdmin": false,
+      "isEditor": true
+    }
+  }
+*/
