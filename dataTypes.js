@@ -2108,3 +2108,15 @@ console.log(JSON.stringify(meetup));
 
 // toJSON is used both for the direct call JSON.stringify(room),
 // and also when room is nested in another encoded object.
+
+// JSON.parse
+
+// The JSON.parse() method decodes a JSON string and converts it back to an object.
+
+let value = JSON.parse(str, [reviver]);
+
+// ...where str is the JSON string to parse, and reviver is an optional function(key, value)
+// that will be called for each key value pair (and can transform the value).
+
+// Objects and arrays passed to JSON.parse can be as complex as they need to be,
+// as long as they conform to the JSON format.
