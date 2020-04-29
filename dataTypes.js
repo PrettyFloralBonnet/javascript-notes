@@ -2120,3 +2120,45 @@ let value = JSON.parse(str, [reviver]);
 
 // Objects and arrays passed to JSON.parse can be as complex as they need to be,
 // as long as they conform to the JSON format.
+
+// reviver
+
+// Let's say we received a stringified meetup object from the server:
+
+let meetup = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
+
+/// ...and now we need to deserialize it (to turn back into JavaScript object):
+
+let meetupDeserialized = JSON.parse(meetup);
+console.log(meetup.date.getDate());  // error
+
+// It errors out, because the value of meetupDeserialized.date is a string, not a Date object.
+
+// To let JSON.parse know that it should transform that string into a Date, we can pass the so called
+// reviving function as the second argument, so that (e.g.) all values are returned as they are,
+// but turns dates into Date object:
+
+let meetupDeserialized = JSON.parse(meetup, function (key, value) {
+    if (key == 'date') return new Date(value);
+    return value;
+});
+
+console.log(meetupDeserialized.date.getDate());  // it works now
+
+// This works for nested objects as well:
+
+let schedule = `
+{
+  "meetups": [
+    {"title":"Conference","date":"2017-11-30T12:00:00.000Z"},
+    {"title":"Birthday","date":"2017-04-18T12:00:00.000Z"}
+  ]
+}
+`;
+
+schedule = JSON.parse(schedule, function (key, value) {
+    if (key == 'date') return new Date(value);
+    return value;
+});
+
+console.log(schedule.meetups[1].date.getDate());
