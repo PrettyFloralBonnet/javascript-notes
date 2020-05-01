@@ -2173,3 +2173,27 @@ let user = {
 
 let userStringified = JSON.stringify(user);
 let userDeserialized = JSON.parse(userStringified);
+
+// TASK: Write a replacer function to stringify every property in the meetup object,
+// except for properties that reference meetup itself:
+
+let room = {
+    number: 23
+};
+
+let meetup = {
+    title: "Conference",
+    occupiedBy: [{ name: "John" }, { name: "Alice" }],
+    place: room
+};
+
+// circular references
+room.occupiedBy = meetup;
+meetup.self = meetup;
+
+let meetupStringified = JSON.stringify(meetup, function replacer (key, value) {
+    if (key != '' && value == meetup) return undefined;
+    return value;
+});
+
+console.log(meetupStringified);
