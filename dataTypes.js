@@ -2162,3 +2162,14 @@ schedule = JSON.parse(schedule, function (key, value) {
 });
 
 console.log(schedule.meetups[1].date.getDate());
+
+// TASK: Turn the user object into JSON and then read it back into a different variable.
+// -->
+
+let user = {
+    name: "John Smith",
+    age: 35
+};
+
+let userStringified = JSON.stringify(user);
+let userDeserialized = JSON.parse(userStringified);
