@@ -44,3 +44,15 @@ function pow(x, n) {
 // The maximum number of nested calls (including the first one) is called *recursion depth*.
 // In the example above, it is exactly n. The maximum recursion depth in JavaScript depends on
 // the engine implementation, but 10 000 can be safely assumed as acceptable.
+
+// Execution context and stack
+
+// Execution context is where the information about the execution process of a running function is stored.
+// It is an internal data structure that contains details about the execution of a function:
+// where the control flow is at a given moment, what the current variables are, what the value of *this* is,
+// etc. One function call has exactly one execution context associated with it.
+
+// When a function makes a nested call, the current function is paused, the execution context
+// associated with it is stored in a special data structure called execution context stack,
+// the nested call executes and funally, the previous execution context is retrieved from the stack,
+// and the outer function is resumed.
