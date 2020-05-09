@@ -135,3 +135,41 @@ function pow(x, n) {
 // However, sometimes the rewrite is non-trivial, especially when the function uses various recursive
 // subcalls depending on conditions, and merges their results or when the branching is more intricate.
 // The optimization may be unnecessary and/or not worth the hassle.
+
+// Recursive traversals
+
+let company = {
+    sales: [{
+        name: 'John',
+        salary: 1000
+    }, {
+        name: 'Alice',
+        salary: 1600
+    }],
+
+    development: {
+        sites: [{
+            name: 'Peter',
+            salary: 2000
+        }, {
+            name: 'Alex',
+            salary: 1800
+        }],
+
+        internals: [{
+            name: 'Jack',
+            salary: 1300
+        }]
+    }
+};
+
+// This company has departments. A department may have an array of staff - e.g. the sales department
+// has 2 employees: John and Alice.
+// A department may be split into subdepartments. Development has two branches: sites and internals.
+// Each of them has their own staff.
+// It is also possible that when a subdepartment grows, it divides further into teams.
+// E.g. the sites department may be split into teams for siteA and siteB in the future.
+// They can potentially split even further (not represented in the structure above,
+// just something to keep in mind).
+
+// Let’s say we want a function to get the sum of all salaries. How can we do that?
