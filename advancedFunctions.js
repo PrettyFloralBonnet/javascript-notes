@@ -176,3 +176,29 @@ let company = {
 
 // An iterative approach is not straightforward at all, because the structure is complex.
 // When more and more nested subloops become necessary to traverse a single object, it becomes quite ugly.
+
+// Let’s try recursion. Whenever the function receives a department to get salaries from,
+// there are two possibilities:
+//
+//  1) it’s an array of "people" objects, and salaries can be summed up using a loop,
+//  2) it’s an object of n subdepartments, and n recursive calls needs to be made
+//     to get the sum for each of one, and combine the results.
+
+// The first case is the base of recursion. The second is the recursive step.
+
+// A complex task is split into subtasks for smaller departments. They may be split further,
+// but sooner or later the split will end up at the base case.
+
+let sumSalaries = (department) => {
+    if (Array.isArray(department)) {
+        return department.reduce((prev, current) => prev + current.salary, 0);
+    } else {
+        let sum = 0;
+        for (let subdep of Object.values(department)) {
+            sum += sumSalaries(subdep);
+        }
+        return sum;
+    }
+}
+
+// The function above works for any level od subdepartment nesting.
