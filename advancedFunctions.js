@@ -173,3 +173,6 @@ let company = {
 // just something to keep in mind).
 
 // Let’s say we want a function to get the sum of all salaries. How can we do that?
+
+// An iterative approach is not straightforward at all, because the structure is complex.
+// When more and more nested subloops become necessary to traverse a single object, it becomes quite ugly.
