@@ -202,3 +202,85 @@ let sumSalaries = (department) => {
 }
 
 // The function above works for any level od subdepartment nesting.
+
+// Recursive structures
+
+// A recursive data structure is a structure that replicates itself in parts.
+
+// An example would be the company structure above - a company department is either an array of people,
+// or an object of departments.
+
+// Another example, maybe one that hits a little closer to home for web developers, is HTML and XML.
+// In an HTML document, an HTML tag may contain a list of text pieces, HTML comments or *other* HTML tags
+// (that may in turn contain further text pieces, comments or tags).
+
+// Linked list (as an example of a recursive structure)
+
+// A linked list is a data structure useful for when we want to store an ordered collection of objects,
+// like in an array, but we also need fast insertion and deletion (which arrays may not offer if these
+// operations take place near the beginning of the array, i.e. shift/unshift).
+
+// Linked list elements are recursively defined as objects with:
+//
+// value property,
+// next property (which references the next element or null if the element is the last)
+
+let linkedList = {
+    value: 1,
+    next: {
+        value: 2,
+        next: {
+            value: 3,
+            next: {
+                value: 4,
+                next: null
+            }
+        }
+    }
+};
+
+// An alternative way to create a linked list:
+
+let linkedList = { value: 1 };
+linkedList.next = { value: 2 };
+linkedList.next.next = { value: 3 };
+linkedList.next.next.next = { value: 4 };
+linkedList.next.next.next.next = null;
+
+// Linked lists can be easily split into multiple parts...
+
+let secondLinkedList = linkeList.next.next;
+linkedList.next.next = null;
+
+// ...and joined back later:
+
+linkedList.next.next = secondLinkedList;
+
+// Items can be inserted and removed anywhere easily. E.g. to prepend a new value,
+// the head of the list needs to be updated:
+
+let linkedList = { value: 1 };
+linkedList.next = { value: 2 };
+linkedList.next.next = { value: 3 };
+linkedList.next.next.next = { value: 4 };
+
+linkedList = { value: "new item", next: linkedList };  // prepend the new value to the list
+
+// To remove a value from the middle, the next property of the previous element needs to be changed:
+
+linkedList.next = linkedList.next.next;
+
+// Here, linkedList.next "jumped over" a value (from 1 to 2). The value "1" is now excluded from the chain,
+// and as long as it's not stored anywhere else, it will be removed from memory by the garbage collector.
+
+// Unlike with arrays, there is no en-masse renumbering here - elements can be rearranged easily.
+
+// Linked lists have their drawbacks, of course - the main one is that elements cannot be easily accessed
+// by their indices. In an array that’s easy: arr[n] is a direct reference. To do that in a linked list,
+// we would have to start from the first item and go to next n times to get the n-th element.
+
+// Linked lists can be enhanced further by adding a "prev" property in addition to next,
+// to reference the previous element, and gain the ability to easily move backwards along the list
+// (thus resulting in a so-called doubly-linked list). Another property that can be added is "tail",
+// referencing the last element of the list (it needs to be updated when adding/removing elements
+// from the end).
