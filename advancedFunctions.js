@@ -284,3 +284,24 @@ linkedList.next = linkedList.next.next;
 // (thus resulting in a so-called doubly-linked list). Another property that can be added is "tail",
 // referencing the last element of the list (it needs to be updated when adding/removing elements
 // from the end).
+
+// TASK: Write a function sumTo(n) that calculates the sum of numbers 1 + 2 + ... + n.
+// Use a for loop first, then recursion, then the arithmetic progression formula (3 separate solutions).
+// -->
+
+// for loop
+
+function sumTo(n) {
+    let result = n
+    for (n; n > 0; n--) {
+        result += n - 1;
+    }
+    return result;
+}
+
+// recursion
+
+function sumTo(n) {
+    if (n == 1) return 1;
+    return n + sumTo(n - 1);
+}
