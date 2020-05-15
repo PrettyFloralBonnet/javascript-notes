@@ -311,3 +311,10 @@ function sumTo(n) {
 function sumTo(n) {
     return n * (n + 1) / 2
 }
+
+// TASK: Write a function factorial(n) that calculates n! using recursive calls.
+// Hint: n! can be written down as n * (n - 1)!
+
+let factorial = (n) => {
+    return (n != 1) ? n * factorial(n - 1) : 1;
+}
