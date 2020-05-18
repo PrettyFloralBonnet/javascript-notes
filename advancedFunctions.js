@@ -314,7 +314,32 @@ function sumTo(n) {
 
 // TASK: Write a function factorial(n) that calculates n! using recursive calls.
 // Hint: n! can be written down as n * (n - 1)!
+// -->
 
 let factorial = (n) => {
     return (n != 1) ? n * factorial(n - 1) : 1;
+}
+
+// TASK: Write a function fib(n) that returns the n-th Fibonacci number.
+// The function should be fast (e.g. the call fib(77) should take a fraction of a second).
+//-->
+
+// recursive solution (slow!)
+
+let fib = (n) => {
+    if (n <= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+
+// the correct solution (faster, no duplicate computation):
+
+let fib = (n) => {
+    let a = 1;
+    let b = 1;
+    for (let i = 3; i <= n; i++) {
+        let c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
 }
