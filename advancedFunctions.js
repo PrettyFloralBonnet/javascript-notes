@@ -387,3 +387,33 @@ let printList = (list) => {
 
 // The loop is more cost-effective (no nested function calls). Recursion is shorter
 // and a bit more readable.
+
+// TASK: Write a function printListReversed(list) that outputs the list items
+// in the reverse order. Once again, provide a loop solution and a recursive solution.
+// -->
+
+// loop:
+
+let printListReversed = (list) => {
+    let tempList = list;
+    let arr = [];
+
+    while (tempList) {
+        arr.push(tempList.value);
+        tempList = tempList.next;
+    }
+
+    for (let i = arr.length - 1; i >= 0; i--) {
+        console.log(arr[i]);
+    }
+}
+
+// recursion:
+
+let printListReversed = (list) => {
+    if (list.next) {
+        printListReversed(list.next);
+    }
+
+    console.log(list.value);
+}
