@@ -343,3 +343,47 @@ let fib = (n) => {
     }
     return b;
 }
+
+// TASK: Given a singly-linked list:
+
+let linkedList = {
+    value: 1,
+    next: {
+        value: 2,
+        next: {
+            value: 3,
+            next: {
+                value: 4,
+                next: null
+            }
+        }
+    }
+};
+
+// ...write a function printList(list) that outputs the list items, one by one.
+// Provide two solutions: using a loop, and using recursion.
+// -->
+
+// loop:
+
+let printList = (list) => {
+    let tempList = list;
+
+    while (tempList) {
+        console.log(tempList.value);
+        tempList = tempList.next;
+    }
+}
+
+// recursion:
+
+let printList = (list) => {
+    console.log(list.value);
+
+    if (list.next) {
+        printList(list.next);
+    }
+}
+
+// The loop is more cost-effective (no nested function calls). Recursion is shorter
+// and a bit more readable.
