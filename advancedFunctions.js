@@ -1,4 +1,4 @@
-// Recursion and stack
+// RECURSION AND STACK
 
 // Recursion occurs when a function calls itself:
 
@@ -417,3 +417,43 @@ let printListReversed = (list) => {
 
     console.log(list.value);
 }
+
+// ----- REST PARAMETERS AND SPREAD SYNTAX -----
+
+// Many built-in JavaScript functions support an arbitrary number of arguments.
+// Custom made functions can be written the same way (and have array passed to them as parameters).
+
+// Rest parameters ...
+
+// A function can be called with any number of arguments, regardless of its definition. The code:
+
+function sum(a, b) {
+    return a + b;
+}
+
+console.log(sum(1, 2, 3, 4, 5));
+
+// ...is valid. Of course, only first two arguments will be counted.
+
+// The remaining parameters can be included in the function definition by using three dots ...,
+// followed by the name of an array that contains them. The dots mean something along the lines of
+// "gathher the remaining parameters into an array":
+
+function sumAll(...args) {
+    let sum = 0;
+    for (let arg of args) sum += arg;
+    return sum;
+}
+
+console.log(sumAll(1));  // 1
+console.log(sumAll(1, 2, 3, 4));  // 10
+
+// This syntax can be used in conjunction with positional arguments - but the ...rest parameters
+// must be placed at the end.
+
+// The "arguments" variable
+
+// There is a special array-like object named "arguments", which contains all arguments by index.
+// Back when rest parameters did not exist, using that object was the only way to get all arguments
+// of the function. Also, arrow functions do not have it. If we access the variable from an inside of
+// an arrow function, it will be taken from the outer function (similar to *this*).
