@@ -512,3 +512,17 @@ console.log(JSON.stringify(objCopy));  // {"a":1,"b":2,"c":3}
 
 // This way of copying objects is much shorter (and therefore preferable) compared to
 // let objCopy = Object.assign({}, obj) (or let arrCopy = Object.assign([], arr) in case of arrays).
+
+// ----- SCOPE -----
+
+// Code blocks
+
+// If a variable is declared inside a code block {...}, it is only accessible inside that block.
+// This applies to any variable declared inside of an if, for or while statement.
+// Actually, in for loops and while loops, variable declared outside of the curly brackets,
+// but within the loop construct (typically let i) are considered part of the block.
+
+// Nested functions
+
+// A function is nested when it is created inside of another function.
+// A nested function can be returned, either by itself or as a property of an object.
