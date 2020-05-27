@@ -525,4 +525,34 @@ console.log(JSON.stringify(objCopy));  // {"a":1,"b":2,"c":3}
 // Nested functions
 
 // A function is nested when it is created inside of another function.
-// A nested function can be returned, either by itself or as a property of an object.
+// A nested function can be returned by another function (either on its own or as a property of an object).
+
+// Lexical environment
+
+// Variables
+
+// In Javascript, every executed function, code block and the script itself have an internal (hidden)
+// object associated with them, called Lexical Environment.
+
+// The Lexical Environment is a specification object (meaning it only exists in the language specification,
+// and cannot be directly interacted with from the code) that consists of two parts:
+//
+// 1. Environment Record - an object that stores all local variables as its properties (along with some
+//    other info, such as the value of *this*)
+// 2. the outer reference - a reference to the outer lexical environment, associated with the outer scope.
+//
+// This means a "variable" is actually a property of a special internal object, the Environment Record.
+// To change a variable is to change the property of this object.
+
+// A global Lexical Environment has no outer reference (or this reference points to null).
+
+// As the code is executed, the Lexical Environment changes:
+
+// When the script starts, it is pre-populated with all declared variables. Initially, they are "uninitialized",
+// which is a special internal state where the a variable is known to the engine, but it cannot be referenced
+// until it has been declared (with let/const/var). This state is almost the same as when the variable doesn't exist.
+
+// Then, the variable definition appears. There is no assignment yet, so its value is undefined, but the variable is usable.
+// This means it can be assigned a value, and then that value can be changed (assuming it was declared using let/var).
+
+// Function declarations
