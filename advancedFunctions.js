@@ -556,3 +556,8 @@ console.log(JSON.stringify(objCopy));  // {"a":1,"b":2,"c":3}
 // This means it can be assigned a value, and then that value can be changed (assuming it was declared using let/var).
 
 // Function declarations
+
+// A function is a value just like a variable. However, a function declaration is instantly fully initialized.
+// When a Lexical Environment is created, a function declaration immediately becomes ready to use.
+// That's why, unlike with function expressions, a function created with a function declaration can be used
+// even if the call is placed earlier in the code than the declaration itself.
