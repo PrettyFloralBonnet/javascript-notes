@@ -561,3 +561,12 @@ console.log(JSON.stringify(objCopy));  // {"a":1,"b":2,"c":3}
 // When a Lexical Environment is created, a function declaration immediately becomes ready to use.
 // That's why, unlike with function expressions, a function created with a function declaration can be used
 // even if the call is placed earlier in the code than the declaration itself.
+
+// Inner and outer Lexical Environment
+
+// When a function runs, a new Lexical Environment is created at the beginning of the call, to store local variables
+// and call parameters. During the function call, two Lexical Environments exist: an inner one (for the call itself)
+// and an outer one (global). The inner LE has also a reference to the outer one.
+
+// When access to a variable is needed, the inner LE is searched first, then the outer one, etc. all the way towards
+// the outermost one and finally the global one.
