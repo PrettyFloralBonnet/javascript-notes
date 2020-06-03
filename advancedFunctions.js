@@ -577,3 +577,43 @@ console.log(JSON.stringify(objCopy));  // {"a":1,"b":2,"c":3}
 // (or requires special handling). In JavaScript, all functions are closures out of the gate (except for those created
 // with the "new Function" syntax) -- they remember where they were created thanks to the hidden [[Environment]] property,
 // and their code can access outer variables.
+
+// Garbage collection
+
+// A Lexical Environment is usually removed from memory after the function call is done. As with any JavaScript object,
+// it's only kept in memory as long as it's reachable.
+
+// However, if a nested function exists and is still reachable after the end of the outer function call, then it has the
+// [[Environment]] property referencing the Lexical Environment. In such a case, the Lexical Environment would still be
+// reachable even after the function call is concluded, and would therefore remain in memory:
+
+function f() {
+    let enclosedNumber = 451;
+    return function () {
+        console.log(enclosedNumber);
+    }
+}
+
+let g = f();  // g.[[Environment]] stores a reference to the Lexical Environment of the corresponding f() call
+
+// If f() is called multiple times, and the resulting functions are saved, all corresponding LE objects will be retained
+// in memory. They can be explicitly cleaned up later, e.g.:
+
+g = null;  // memory is cleaned up, and the value of enclosedNumber is removed from memory
+
+// At least that's how it works in theory. In practice, JavaScript engines try to optimize that. They analyze variable usage,
+// and if it's "obvious" (from the code) that an outer variable is not used, it gets removed. An important side effect in V8
+// (Chrome, Opera) is that such a variable will become unavailable for debugging:
+
+function f() {
+    let randomNumber = Math.random();
+    function g() {
+        debugger;  // console.log(randomNumber) --> Error: variable `randomNumber' has been optimized out
+    }
+    return g;
+}
+
+let g = f();
+g();
+
+// At least the console error is verbose in this case.
