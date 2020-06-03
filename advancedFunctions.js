@@ -570,3 +570,10 @@ console.log(JSON.stringify(objCopy));  // {"a":1,"b":2,"c":3}
 
 // When access to a variable is needed, the inner LE is searched first, then the outer one, etc. all the way towards
 // the outermost one and finally the global one.
+
+// Closures
+
+// A closure is a function that remembers its outer variables and can access them. In some languages, that's not possible
+// (or requires special handling). In JavaScript, all functions are closures out of the gate (except for those created
+// with the "new Function" syntax) -- they remember where they were created thanks to the hidden [[Environment]] property,
+// and their code can access outer variables.
