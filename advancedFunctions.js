@@ -617,3 +617,14 @@ let g = f();
 g();
 
 // At least the console error is verbose in this case.
+
+// TASK: Write a function sum() that works like this: sum(a)(b) = a + b (yes, use double parentheses).
+// -->
+
+function sum(a) {
+    return function (b) {
+        return a + b;
+    }
+}
+
+console.log(sum(1)(2))  // 3
