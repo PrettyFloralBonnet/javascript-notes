@@ -628,3 +628,26 @@ function sum(a) {
 }
 
 console.log(sum(1)(2))  // 3
+
+// TASK: Using the Array.filter(f) method, make a set of reusable filters:
+//
+//  inBetween(a, b) – between a and b or equal to them (inclusively)
+//  inArray([...]) – in the given array
+//
+// ...that can be used in the following way:
+//
+//  arr.filter(inBetween(3,6)) – selects only values between 3 and 6.
+//  arr.filter(inArray([1,2,3])) – selects only elements matching with one of the members of [1,2,3].
+// -->
+
+function inBetween(a, b) {
+    return (x) => {
+        return x > a && x < b;
+    }
+}
+
+function inArray(arr) {
+    return (x) => {
+        return arr.includes(x);
+    }
+}
