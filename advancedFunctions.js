@@ -643,11 +643,24 @@ console.log(sum(1)(2))  // 3
 function inBetween(a, b) {
     return (x) => {
         return x > a && x < b;
-    }
+    };
 }
 
 function inArray(arr) {
     return (x) => {
         return arr.includes(x);
-    }
+    };
+}
+
+// TASK: Write a function byField(fieldName) that can be used as an argument for the sort() method
+// in order to sort the following array:
+
+let users = [
+    { name: "John", age: 20, surname: "Johnson" },
+    { name: "Pete", age: 18, surname: "Peterson" },
+    { name: "Ann", age: 19, surname: "Hathaway" }
+];
+
+function byField(fieldName) {
+    return (a, b) => a[fieldName] > b[fieldName] ? 1 : -1;
 }
