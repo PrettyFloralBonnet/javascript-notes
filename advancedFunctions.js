@@ -519,7 +519,7 @@ console.log(JSON.stringify(objCopy));  // {"a":1,"b":2,"c":3}
 
 // If a variable is declared inside a code block {...}, it is only accessible inside that block.
 // This applies to any variable declared inside of an if, for or while statement.
-// Actually, in for loops and while loops, variable declared outside of the curly brackets,
+// Actually, with for loops and while loops, variables declared outside of the curly brackets,
 // but within the loop construct (typically let i) are considered part of the block.
 
 // Nested functions
@@ -663,4 +663,45 @@ let users = [
 
 function byField(fieldName) {
     return (a, b) => a[fieldName] > b[fieldName] ? 1 : -1;
+}
+
+// TASK: The following code:
+
+function makeArmy() {
+    let shooters = [];
+
+    let i = 0;
+    while (i < 10) {
+        let shooter = function () {
+            console.log(i);
+        };
+        shooters.push(shooter);
+        i++;
+    }
+
+    return shooters;
+}
+
+let army = makeArmy();
+
+// ...has an error that results in all elements of the array logging the same value (10),
+
+army[0]();  // 10
+army[5]();  // also 10
+
+// Change the code to make the functions in the array return numbers from 0 to 10.
+// -->
+
+function makeArmy() {
+    let shooters = [];
+
+    for (let i = 0; i < 10; i++) {  // moved the i declaration into the loop
+        let shooter = function () {
+            console.log(i);
+        };
+        shooters.push(shooter);
+        i++;
+    }
+
+    return shooters;
 }
