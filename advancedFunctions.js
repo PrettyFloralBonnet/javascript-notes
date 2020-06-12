@@ -761,3 +761,20 @@ var user = "Pete";
 var user = "John";  // this "var" does nothing (already declared, no error)
 
 console.log(user);  // John
+
+// var allows variables to be declared after they are used
+
+// Declarations made using "var" are processed when the function (or script) starts:
+
+function sayHi() {
+    phrase = "Hello";
+    console.log(phrase);
+    var phrase;
+}
+sayHi();
+
+// The code above will work. Such behaviour is referred to as hoisting, because all variables declared with
+// "var" are "hoisted" (raised) to the top of the function.
+
+// Declarations are hoisted. Assignments are not. All "var" declarations are processed at the start of the function,
+// so they can be referenced at any time, but they will be undefined until a value is assigned to them.
