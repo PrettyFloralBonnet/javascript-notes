@@ -705,3 +705,59 @@ function makeArmy() {
 
     return shooters;
 }
+
+// ----- THE OLD "VAR" -----
+
+// While in general "var" is no longer used in modern scripts, it’s important to understand the differences
+// between it and "let" when migrating old scripts, to avoid odd errors.
+
+// var has no block scope
+
+// Normally variables declared inside code blocks are not visible outside of the block scope:
+
+if (true) {
+    let test = true;  // use "let"
+}
+
+console.log(test);  // Error: test is not defined
+
+// ...but if we use "var":
+
+if (true) {
+    var test = true;  // use "let"
+}
+
+console.log(test);  // true
+
+// Variables declared with "var" are either function-wide or global (they're visible through blocks).
+// The same thing applies to loops:
+
+for (var i = 0; i < 10; i++) {
+  // ...
+}
+
+console.log(i);  // 10 (i is visible after the loop)
+
+// If a code block is inside of a function, "var" becomes a function-level variable:
+
+function sayHi() {
+    if (true) {
+        var phrase = "Hello";
+    }
+    console.log(phrase);
+}
+
+sayHi();
+console.log(phrase);  // Error: phrase is not defined
+
+// The above happens because back when "var" was in use, JavaScript code blocks didn't have Lexical Environments.
+
+// var accepts redeclarations
+
+// With "var", we can redeclare a variable any number of times. If we use var with a variable that's already
+// declared, it simply gets ignored:
+
+var user = "Pete";
+var user = "John";  // this "var" does nothing (already declared, no error)
+
+console.log(user);  // John
