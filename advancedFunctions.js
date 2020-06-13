@@ -778,3 +778,50 @@ sayHi();
 
 // Declarations are hoisted. Assignments are not. All "var" declarations are processed at the start of the function,
 // so they can be referenced at any time, but they will be undefined until a value is assigned to them.
+
+// IIFE
+
+// Since there was no block-level visibility in the past, programmers found a way to emulate it with IIFE - 
+// Immediately Invoked Function Expressions.
+
+// An IIFE can look like this:
+
+(function () {
+    let message = "Hello";
+    console.log(message);
+})();
+
+// In the example above, a function expression is created and immediately called, so it executes right away
+// and has its own private variables.
+
+// The reason the IIFE is wrapped in parentheses is when the interpreter encounters the "function" keyword in the code,
+// it parses it as a start of a function declaration. However, a function declaration requires a function name,
+// so the code would error out. And then even if we do add a name, it would still error out, because function declarations
+// cannot be called immediately:
+
+// function go() {
+// do sth
+// }();  // <-- Expression expected (cannot immediately call a function declaration)
+
+// The parentheses are a trick to make the JavaScript interpreter see the function as created in the context of another
+// expression, and therefore treat it as a function expression (so that it doesn't need a name and can be called immediately).
+
+// There are in fact multiple ways to create an IIFE:
+
+(function () {
+    console.log("Parentheses around the function");
+})();
+
+(function () {
+    console.log("Parentheses around the entire expression");
+}());
+
+!function () {
+    console.log("Bitwise operator NOT at the beginning of the expression");
+}();
+
++function () {
+    console.log("Unary plus at the beginning of the expression");
+}();
+
+// Again, this is mostly for historical purposes - nowadays there should be no reason to write code like this.
