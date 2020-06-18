@@ -872,3 +872,15 @@ if (!window.Promise) {
 }
 
 // Afterwards, polyfills may be created to make up for the lack of modern functionality.
+
+// ----- FUNCTION OBJECT, NFE -----
+
+// Functions are objects in JavaScript - we can call them, but also add or remove properties to them,
+// pass by reference etc.
+
+// Functions have built-in properites such as name (default ones are created based on context), length
+// (returns the number of parameters the function has).
+
+// Custom properties can be added as well. Note that a property assigned to a function, e.g. sayHi.counter = 0,
+// does not define a local variable "counter" inside it. In other words, a "counter" property and a "counter" variable
+// are two different things.
