@@ -884,3 +884,36 @@ if (!window.Promise) {
 // Custom properties can be added as well. Note that a property assigned to a function, e.g. sayHi.counter = 0,
 // does not define a local variable "counter" inside it. In other words, a "counter" property and a "counter" variable
 // are two different things.
+
+// Named Function Expression
+
+// Function expressions can be given names:
+
+let sayHi = function func(who) {
+    console.log(`Hello, ${who}`);
+};
+
+// This is still a function expression (not a declaration), nothing broke, and the function is still available as "sayHi()".
+// However, now the function can be referenced internally (all the while the name is not visible outside of the function):
+
+let sayHi = function func(who) {
+    if (who) {
+        console.log(`Hello, ${who}`);
+    } else {
+        func("Guest");  // internal function call to itself
+    };
+};
+sayHi(); // Hello, Guest
+
+func(); // Error, func is not defined (not visible outside of the function)
+
+// The above can be done without NFE as well, but then if the function gets reassigned in the outer scope, e.g.:
+
+let welcome = sayHi;
+sayHi = null;
+
+// ...it stops working, because the function uses the sayHi variable from the outer lexical environment (there is no
+// local sayHi, so the outer one is used, and at the moment of the call it equals to null). NFE is local to the function,
+// and so it solves that problem.
+
+// NFE syntax does not exist for function declarations.
