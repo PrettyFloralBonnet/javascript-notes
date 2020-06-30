@@ -977,3 +977,30 @@ function makeCounter() {
 
     return counter;
 }
+
+// TASK: Write a function sum() that would work like this:
+
+sum(1)(2) == 3;  // 1 + 2
+sum(1)(2)(3) == 6;  // 1 + 2 + 3
+sum(5)(-1)(2) == 6
+sum(6)(-1)(-2)(-3) == 0
+sum(0)(1)(2)(3)(4)(5) == 15
+
+// You may need to set up a custom object to primitive conversion for your function.
+// -->
+
+function sum(a) {
+
+    let currentSum = a;
+
+    function f(b) {
+        currentSum += b;
+        return f;
+    }
+
+    f.toString = function () {
+        return currentSum;
+    };
+
+    return f;
+}
