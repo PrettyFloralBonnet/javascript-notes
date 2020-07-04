@@ -1033,3 +1033,16 @@ function getFunc() {
 getFunc()();  // error: value is not defined
 
 // This means they can't reference outer variables (in order to protect from errors and avoid problems with minifiers).
+
+// ----- SCHEDULING: SETTIMEOUT AND SETINTERVAL -----
+
+// We may decide not to call a function right now, but at a specified later time. It's called "scheduling a call".
+
+// There are two methods for it:
+//
+//      - setTimeout allows to run a function once, after a given time interval,
+//      - setInterval allows to run a function repeatedly, starting after a given time interval, and then again and again
+//      after that same interval.
+
+// These methods are not part of the JavaScript specifications, but most emvironments provide them (e.g. most browsers,
+// Node.js).
