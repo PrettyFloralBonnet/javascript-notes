@@ -1040,9 +1040,38 @@ getFunc()();  // error: value is not defined
 
 // There are two methods for it:
 //
-//      - setTimeout allows to run a function once, after a given time interval,
-//      - setInterval allows to run a function repeatedly, starting after a given time interval, and then again and again
+//      setTimeout allows to run a function once, after a given time interval,
+//      setInterval allows to run a function repeatedly, starting after a given time interval, and then again and again
 //      after that same interval.
 
 // These methods are not part of the JavaScript specifications, but most emvironments provide them (e.g. most browsers,
 // Node.js).
+
+let timerId = setTimeout(func|code, [delay], [arg1], [arg2]) //, ...)
+
+// func|code
+//      A function (or a string containing the code, for historical reasons) to be executed.
+// delay
+//      The delay before the call, in milliseconds (1000 ms = 1 second), 0 by default.
+// arg1, arg2…
+//      Arguments for the function (not supported in IE9-).
+
+// Cancelling with clearTimeout
+
+// A call to setTimeout returns a "timer identifier" called timerId, which can be used to cancel the execution.
+
+let timerId = setTimeout(
+    // ...
+);
+
+clearTimeout(timerId);
+
+// In the code below, the function is scheduled for execution and then it is cancelled. As a result, nothing happens:
+
+let timerId = setTimeout(() => console.log("This is never executed."), 1000);
+console.log(timerId);  // timer identifier
+clearTimeout(timerId);
+console.log(timerId);  // same identifier (does not become null after cancelling)
+
+// In a browser, the timer identifier is a number. In other environments, it can be something else (e.g. in Node.js it returns
+// a timer object with additional methods).
