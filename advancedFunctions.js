@@ -1047,6 +1047,8 @@ getFunc()();  // error: value is not defined
 // These methods are not part of the JavaScript specifications, but most emvironments provide them (e.g. most browsers,
 // Node.js).
 
+// setTimeout
+
 let timerId = setTimeout(func|code, [delay], [arg1], [arg2]) //, ...)
 
 // func|code
@@ -1075,3 +1077,10 @@ console.log(timerId);  // same identifier (does not become null after cancelling
 
 // In a browser, the timer identifier is a number. In other environments, it can be something else (e.g. in Node.js it returns
 // a timer object with additional methods).
+
+// setInterval
+
+// The syntax is identical to that of setTimeout. To stop repeating calls, clearInterval(timerId) should be called:
+
+let timerId = setInterval(() => console.log('tick'), 2000);
+setTimeout(() => { clearInterval(timerId); confirm.length('stop'); }, 5000);  // stop after 5 seconds
