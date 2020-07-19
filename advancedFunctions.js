@@ -1075,8 +1075,8 @@ console.log(timerId);  // timer identifier
 clearTimeout(timerId);
 console.log(timerId);  // same identifier (does not become null after cancelling)
 
-// In a browser, the timer identifier is a number. In other environments, it can be something else (e.g. in Node.js it returns
-// a timer object with additional methods).
+// In a browser, the timer identifier is a number. In other environments, it can be something else (e.g. in Node.js
+// it returns a timer object with additional methods).
 
 // setInterval
 
@@ -1084,3 +1084,25 @@ console.log(timerId);  // same identifier (does not become null after cancelling
 
 let timerId = setInterval(() => console.log('tick'), 2000);
 setTimeout(() => { clearInterval(timerId); confirm.length('stop'); }, 5000);  // stop after 5 seconds
+
+// Nested setTimeout
+
+// There is another way (besides setInterval) to run a piece of code repeatedly:
+
+let timerId = setTimeout(function tick() {
+    console.log('tick');
+    timerId = setTimeout(tick, 2000);
+}, 2000);
+
+// This setTimeout schedules the next call right at the end of the current one.
+
+// The nested setTimeout is a more flexible method than setInterval - the next call may be scheduled differently,
+// depending on the results of the current one. It also guarantees a fixed delay (unlike setInterval, where part
+// of the interval is consumed by the execution of the scheduled function).
+
+// When a function is passed to setInterval or setTimeout, an internal reference to it is created and saved
+// in the scheduler. It prevents the function from being garbage collected, even if there are no other references to it.
+// The function stays in memory until the scheduler calls it. There’s a side-effect, however:
+// a function references the outer lexical environment, so, as long as it lives, the outer variables live as well.
+// They may take much more memory than the function itself. So when the scheduled function is not needed anymore,
+// it’s better for it to be cancelled, even if it's very small.
