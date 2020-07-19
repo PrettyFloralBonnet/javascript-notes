@@ -1106,3 +1106,21 @@ let timerId = setTimeout(function tick() {
 // a function references the outer lexical environment, so, as long as it lives, the outer variables live as well.
 // They may take much more memory than the function itself. So when the scheduled function is not needed anymore,
 // it’s better for it to be cancelled, even if it's very small.
+
+// Zero delay setTimeout
+
+// A special use case exists: setTimeout(func, 0), or just setTimeout(func).
+
+// This schedules the execution of func as soon as possible, but only after the currently executing script is complete.
+// The function is effectively scheduled to run right after the current script:
+
+setTimeout(() => console.log("World"));
+console.log("Hello");
+
+// The first line puts the call in the "calendar" after 0 ms. But the scheduler will only "check the calendar"
+// after the current script is complete. As a result, "Hello" is first, and "World" comes second.
+// There are advanced browser-related use cases for the zero delay timeout (related to event loop microtasks and macrotasks).
+
+// In the browser, there is a limitation of how often nested timers can run. As per the HTML5 standard, after five nested timers,
+// the interval is forced to be at least 4 milliseconds. For server-side JavaScript, that limitation does not exist,
+// and also there are other ways to schedule an immediate asynchronous job (e.g. setImmediate in Node.js).
