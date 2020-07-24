@@ -1124,3 +1124,27 @@ console.log("Hello");
 // In the browser, there is a limitation of how often nested timers can run. As per the HTML5 standard, after five nested timers,
 // the interval is forced to be at least 4 milliseconds. For server-side JavaScript, that limitation does not exist,
 // and also there are other ways to schedule an immediate asynchronous job (e.g. setImmediate in Node.js).
+
+// TASK: Write a function printNumbers(from, to) that outputs a number every second, starting with from and ending with to.
+// Provide two solutions: using setInterval, and using nested setTimeout.
+// -->
+
+let printNumbers = (from, to) => {
+    let num = from;
+    let timerId = setInterval(() => {
+        console.log(num);
+        if (num === to) clearInterval(timerId);
+        num++;
+    }, 1000)
+}
+
+let printNumbers = (from, to) => {
+    let num = from;
+    setTimeout(function go() {
+        console.log(num);
+        if (num < to) {
+            setTimeout(go, 1000);
+        }
+        num++;
+    }, 1000);
+}
