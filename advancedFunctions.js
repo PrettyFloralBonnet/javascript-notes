@@ -1148,3 +1148,35 @@ let printNumbers = (from, to) => {
         num++;
     }, 1000);
 }
+
+// ----- DECORATORS AND FORWARDING, CALL/APPLY -----
+
+// Transparent caching
+
+function slow(x) {
+    // e.g. CPU heavy job
+    console.log(`Called with ${x}`);
+    return x;
+}
+
+function cachingDecorator(func) {
+    let cache = new Map();
+
+    return function (x) {
+        if (cache.has(x)) {
+            return cache.get(x);
+        }
+        let result = func(x);
+
+        cache.set(x, result);
+        return result;
+    };
+}
+
+slow = cachingDecorator(slow);
+
+console.log(slow(1));  // slow(1) is cached
+console.log(slow(2));  // slow(2) is cached
+
+// We can call cachingDecorator for any function, and it will return the caching wrapper.
+// By separating caching from the main function code, we keep the latter more simple.
