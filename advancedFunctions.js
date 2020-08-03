@@ -1335,3 +1335,21 @@ console.log("Again: " + worker.slow(3, 5));
 
 // Now the function works with any number of arguments (though the hash function would also need to be adjusted
 // to allow any number of arguments. Also, more complex cases may require different hasing functions.
+
+// func.apply
+
+// Instead of func.call(this, ...arguments), func.apply(this, arguments) can be used:
+
+func.apply(context, args)
+
+// It runs the function func while setting *this* to context and using an array-like object args as the list of arguments.
+// The only syntax difference between it and func.call is that while call expects a list of arguments,
+// apply takes an array-like object. So these two calls are almost the same:
+
+func.call(context, ...args);  // pass an array as list with spread syntax
+func.apply(context, args);  // pass an array-like object
+
+// For objects that are both iterable and array-like, like an actual array, either can be used -- 
+// though apply will probably be faster, because most JavaScript engines have better internal optimization for it.
+
+// Passing all arguments along with the context to another function is referred to as call forwarding.
