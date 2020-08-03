@@ -733,7 +733,7 @@ console.log(test);  // true
 // The same thing applies to loops:
 
 for (var i = 0; i < 10; i++) {
-  // ...
+    // ...
 }
 
 console.log(i);  // 10 (i is visible after the loop)
@@ -949,12 +949,12 @@ function makeCounter() {
         return counter.count++;
     };
 
-    counter.set = function(value) {
+    counter.set = function (value) {
         counter.count = value;
         return counter.count;
     };
 
-    counter.decrease = function() {
+    counter.decrease = function () {
         return counter.count--;
     };
 
@@ -1009,7 +1009,7 @@ function sum(a) {
 
 // There is one more, rarely used way to create a function:
 
-let func = new Function ([arg1, arg2, ...argN], functionBody);
+let func = new Function([arg1, arg2, ...argN], functionBody);
 
 // ...e.g.:
 
@@ -1049,7 +1049,7 @@ getFunc()();  // error: value is not defined
 
 // setTimeout
 
-let timerId = setTimeout(func|code, [delay], [arg1], [arg2]) //, ...)
+let timerId = setTimeout(func | code, [delay], [arg1], [arg2]) //, ...)
 
 // func|code
 //      A function (or a string containing the code, for historical reasons) to be executed.
@@ -1353,3 +1353,43 @@ func.apply(context, args);  // pass an array-like object
 // though apply will probably be faster, because most JavaScript engines have better internal optimization for it.
 
 // Passing all arguments along with the context to another function is referred to as call forwarding.
+
+// Borrowing a method
+
+// Let's make one more minor improvement to the hashing function:
+
+function hash(args) {
+    return args[0] + ',' + args[1];
+}
+
+// Thus far, it works only with two arguments. To make it accept more, a solution could be to use arr.join method:
+
+function hash(args) {
+    return args.join();
+}
+
+// ...but unfortunately, that won't work, because when hash(arguments) is called, the args object is not a real array
+// (despite being both an array-like and an iterable)
+
+// However, arr.join() can still be used in the following way:
+
+function hash() {
+    alert([].join.call(arguments));
+}
+
+hash(1, 2);
+
+// This trick is called method borrowing. We take a join method from a regular array([].join) and use[].join.call
+// to run it in the context of arguments.
+
+// Decorators and function properties
+
+// It is generally safe to replace a function or a method with a decorated one -- except when the original function
+// had properties on it (e.g. func.calledCount or something along those lines). In such a case the decorated function
+// will not provide them (as it's just a wrapper).
+
+// Some decorators may provide their own properties. A decorator may, for example, count how many times
+// a function was invoked, and how much time it took, and provide this information via wrapper properties.
+
+// There is a way to create decorators that keep access to function properties, but this requires
+// using a special Proxy object to wrap functions.
