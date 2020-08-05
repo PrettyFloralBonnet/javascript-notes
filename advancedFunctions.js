@@ -1395,7 +1395,7 @@ hash(1, 2);
 // using a special Proxy object to wrap functions.
 
 // TASK: Create a decorator spy(func) that returns a wrapper that saves all calls to the function in its calls property.
-// Have every call saved as an array of arguments.
+// Have every call saved as an array of arguments:
 
 function work(a, b) {
     console.log(a + b); // work is an arbitrary function or method
@@ -1420,3 +1420,28 @@ function spy(func) {
     wrapper.calls = [];
     return wrapper;
 }
+
+// TASK: Create a decorator delay(f, ms) that delays each call to f by ms milliseconds:
+
+function f(x) {
+    console.log(x);
+}
+
+let delay1000 = delay(f, 1000);
+let delay1500 = delay(f, 1500);
+
+f1000("test");  // shows "test" after 1000 ms
+f1500("test");  // shows "test" after 1500 ms
+
+// Have the solution accept multiple arguments.
+// -->
+
+function delay(func, ms) {
+    function wrapper(...args) {
+        setTimeout(() => func.apply(this, args), ms);
+    };
+    return wrapper;
+}
+
+let f1000 = delay(f, 1000)
+f1000('test')
