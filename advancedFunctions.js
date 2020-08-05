@@ -1393,3 +1393,30 @@ hash(1, 2);
 
 // There is a way to create decorators that keep access to function properties, but this requires
 // using a special Proxy object to wrap functions.
+
+// TASK: Create a decorator spy(func) that returns a wrapper that saves all calls to the function in its calls property.
+// Have every call saved as an array of arguments.
+
+function work(a, b) {
+    console.log(a + b); // work is an arbitrary function or method
+}
+
+work = spy(work);
+
+work(1, 2);
+work(4, 5);
+
+for (let args of work.calls) {
+    console.log('call:' + args.join());  // "call:1,2", "call:4,5"
+}
+
+// -->
+
+function spy(func) {
+    function wrapper(...args) {
+        wrapper.calls.push(args);
+        return func.apply(this, args);
+    }
+    wrapper.calls = [];
+    return wrapper;
+}
