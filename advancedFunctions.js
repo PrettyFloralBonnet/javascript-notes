@@ -1445,3 +1445,31 @@ function delay(func, ms) {
 
 let f1000 = delay(f, 1000)
 f1000('test')
+
+// The result of debounce(f, ms) decorator is a wrapper which:
+//
+// 1) suspends calls to f until there’s ms milliseconds of inactivity ("cooldown period" of no calls),
+// 2) invokes f with the latest arguments (arguments from previous calls are ignored).
+//
+// For instance, we had a function f and replaced it with f = debounce(f, 1000).
+// The cooldown period is calculated from the last attempted call.
+
+let f = _.debounce(console.log, 1000);
+
+f("a");
+setTimeout(() => f("b"), 200);
+setTimeout(() => f("c"), 500);
+
+// This is a useful way of processing sequences of events, e.g. handling user inputs
+// (no need to call a function on every letter).
+
+// Implement a debounce decorator.
+// -->
+
+function debounce(func, ms) {
+    let timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), ms);
+    };
+}
