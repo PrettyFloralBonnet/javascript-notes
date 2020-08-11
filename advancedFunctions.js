@@ -1522,3 +1522,44 @@ function throttle(func, ms) {
     }
     return wrapper;
 }
+
+// ----- FUNCTION BINDING -----
+
+// When object methods are passed as callbacks (e.g. to setTimeout), *this* is lost:
+
+let user = {
+    firstName: "John",
+    sayHi() {
+        console.log(`Hello, ${this.firstName}!`);
+    }
+};
+
+setTimeout(user.sayHi, 1000);  // undefined
+
+// The reason for the undefined is setTimeout got the function user.sayHi separately from the object.
+// This is a known problem, but it can be fixed.
+
+// Solution 1: a wrapper
+
+// The simplest solution is to use a wrapping function:
+
+let user = {
+    firstName: "John",
+    sayHi() {
+        console.log(`Hello, ${this.firstName}!`);
+    }
+};
+
+setTimeout(function () {
+    user.sayHi();  // Hello, John!
+}, 1000);
+  
+// Now it works, because it receives user from the outer lexical environment, and then calls the method normally.
+// Shorter version:
+  
+  setTimeout(() => user.sayHi(), 1000);  // Hello, John!
+  
+// However, if the user variable is reassigned, the function will reference the wrong object.
+// The next solution guarantees such a thing won't happen.
+
+// Solution 2: bind
