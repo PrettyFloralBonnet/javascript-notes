@@ -1563,3 +1563,66 @@ setTimeout(function () {
 // The next solution guarantees such a thing won't happen.
 
 // Solution 2: bind
+
+let boundFunc = func.bind(context);  // simplified syntax
+
+// The result of func.bind(context) is a special function-like object that is callable as a function,
+// and transparently passes the call to func, while setting this equal to the provided context argument.
+// In other words, calling boundFunc is like calling func, but with a fixed *this*:
+
+let user = {
+    firstName: "John"
+};
+
+function func() {
+    console.log(this.firstName);
+}
+
+let funcUser = func.bind(user);
+funcUser(); // John
+
+// It also works with object methods:
+
+let user = {
+    firstName: "John",
+    sayHi() {
+        console.log;(`Hello, ${this.firstName}!`);
+    }
+};
+
+let sayHi = user.sayHi.bind(user);
+sayHi();  // Hello, John!
+setTimeout(sayHi, 1000);  // Hello, John!
+  
+// Even if the value of user changes within 1 second, sayHi uses the pre-bound value,
+// which is a reference to the old user object.
+  
+// We take the method user.sayHi and bind it to user. The sayHi variable is a bound function
+// and it can be called alone or passed to setTimeout. Regardless, the context will be correct.
+  
+// Arguments are passed as is -- only this is fixed by bind:
+
+let user = {
+    firstName: "John",
+    say(phrase) {
+        console.log(`${phrase}, ${this.firstName}!`);
+    }
+};
+
+let say = user.say.bind(user);
+
+say("Hello");  // Hello, John ("Hello" argument is passed to say)
+say("Bye");  // Bye, John ("Bye" is passed to say)
+  
+// bindAll -- a method of convenience
+  
+// If an object has many methods that need to be passed around a lot, they can all be bound in a loop:
+  
+for (let key in user) {
+    if (typeof user[key] == 'function') {
+        user[key] = user[key].bind(user);
+    }
+}
+  
+// JavaScript libraries also provide functions for convenient mass binding, e.g.
+// _.bindAll(object, methodNames) in lodash.
