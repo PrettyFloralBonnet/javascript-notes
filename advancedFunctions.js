@@ -1613,8 +1613,11 @@ let say = user.say.bind(user);
 
 say("Hello");  // Hello, John ("Hello" argument is passed to say)
 say("Bye");  // Bye, John ("Bye" is passed to say)
+
+// Note: a function cannot be rebound (the bound function object only remembers the context
+// at the time of creation). Moreover, the result of bind is an object separate from the original.
   
-// bindAll -- a method of convenience
+// bindAll -- for convenience
   
 // If an object has many methods that need to be passed around a lot, they can all be bound in a loop:
   
@@ -1656,3 +1659,31 @@ console.log(double(5));  // = multiply(2, 5) = 10
 // Partial application is useful when we have a very generic function and want a less universal variant for convenience
 // (e.g. we have a function send(from, to, text), but inside of a user object we may want to use a partial variant of it
 // like sendTo(to, text) that always sends from the current user).
+
+// Going partial without context
+
+// The native bind() does not allow to fix arguments only, without context. However, a function which does allow it
+// it can be easily implemented:
+
+function partial(func, ...argsBound) {
+    return function(...args) {
+        return func.call(this, ...argsBound, ...args);
+    }
+}
+
+let user = {
+    firstName: "John",
+    say(time, phrase) {
+        console.log(`[${time}] ${this.firstName}: ${phrase}!`);
+    }
+};
+
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+user.sayNow("Hello");  // [10:00] John: Hello!
+
+// The result of partial() is a wrapper that calls func with the same context it has received (for user.sayNow
+// it's user), arguments from the partial call (in that case, the date and hour) and the arguments given to
+// the wrapper ("Hello").
+
+// The lodash library already contains an implementation of this (_.partial).
