@@ -1626,3 +1626,33 @@ for (let key in user) {
   
 // JavaScript libraries also provide functions for convenient mass binding, e.g.
 // _.bindAll(object, methodNames) in lodash.
+
+// Partial function application
+
+// Arguments can be bound in the same way *this* can:
+
+// let bound = func.bind(context, [arg1], [arg2], ...);
+
+// Given a multiplication function multiply(a,b)...
+
+function multiply(a, b) {
+    return a * b;
+}
+
+// ...let's use bind to create a function double():
+
+let double = multiply.bind(null, 2);
+
+console.log(double(3));  // = multiply(2, 3) = 6
+console.log(double(4));  // = multiply(2, 4) = 8
+console.log(double(5));  // = multiply(2, 5) = 10
+
+// The call to multiply.bind(null, 2) creates a new function double() that passes calls to multiply,
+// fixing null as the context and 2 as the first argument. Subsequent arguments are passed as they appear.
+
+// This is referred to as partial function application -- we create a new function by fixing some
+// parameters of the existing one.
+
+// Partial application is useful when we have a very generic function and want a less universal variant for convenience
+// (e.g. we have a function send(from, to, text), but inside of a user object we may want to use a partial variant of it
+// like sendTo(to, text) that always sends from the current user).
