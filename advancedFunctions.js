@@ -1687,3 +1687,72 @@ user.sayNow("Hello");  // [10:00] John: Hello!
 // the wrapper ("Hello").
 
 // The lodash library already contains an implementation of this (_.partial).
+
+// TASK: The call to askForPassword() in the code below should check the password
+// and then call user.loginOk/loginFail, depending on the answer.
+// However, currently it results in an error. Why?
+// Fix the call without changing the code in the function or the user object.
+
+function askForPassword(ok, fail) {
+    let password = prompt("Password?", '');
+    if (password == "rockstar") ok();
+    else fail();
+}
+
+let user = {
+    name: 'John',
+
+    loginOk() {
+        console.log(`${this.name} logged in`);
+    },
+
+    loginFail() {
+        console.log(`${this.name} failed to log in`);
+    },
+
+};
+
+askForPassword(user.loginOk, user.loginFail)  // error: this is not defined
+
+// -->
+
+askForPassword = askForPassword.bind(user);
+askForPassword(user.loginOk, user.loginFail);
+
+// or:
+
+askPassword(user.loginOk.bind(user), user.loginFail.bind(user));
+
+// or:
+
+askPassword(() => user.loginOk(), () => user.loginFail());  // no context for arrow functions
+
+// TASK: The user object from aboce was modified. Now instead of two functions loginOk/loginFail,
+// it only has a single function user.login(true/false).
+
+// What should be passed to askPassword in the code below, so that it calls user.login(true) as ok
+// and user.login(false) as fail?
+
+// Like before, only modify the call.
+
+function askPassword(ok, fail) {
+    let password = prompt("Password?", '');
+    if (password == "rockstar") ok();
+    else fail();
+}
+
+let user = {
+    name: 'John',
+
+    login(result) {
+        console.log(this.name + (result ? ' logged in' : ' failed to log in'));
+    }
+};
+
+// -->
+
+askPassword(user.login.bind(user, true), user.login.bind(user, false));
+
+// or:
+
+askPassword(() => user.login(true), () => user.login(false));
