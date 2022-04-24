@@ -1,27 +1,3 @@
-'use strict';  // introduced in 2009 with ES5 (unnecessary when using ES6 modules)
-console.log('Hello, World!');
-
-// ----- VARIABLES -----
-
-let hello = 'Hello, World!', message = hello;
-alert(hello);
-alert(message);
-
-// legal characters: letters, digits, $, _
-let _ = 'This is not python!';  // in JS, _ has no special meaning as variable name
-
-const pageLoadTime = 0  // constant calculated at runtime
-
-// constants known ahead of runtime (note the naming convention)
-const COLOR_RED = '#F00';
-const COLOR_GREEN = "#0F0";
-const COLOR_BLUE = "#00F";
-const COLOR_ORANGE = "#FF7F00";
-
-let color = COLOR_BLUE;
-
-var oldType = ''  // the old 'var'
-
 // ----- DATA TYPES -----
 
 // Number
