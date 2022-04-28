@@ -1,24 +1,4 @@
-// ----- TYPE CONVERSIONS -----
 
-// string conversion
-
-String(null)  // 'null'
-String(3)  // '3'
-
-// numeric conversion
-
-Number(null)  // 0
-Number(undefined)  // NaN
-Number(true)  // 1
-Number('3')  // 3
-Number('')  // 0
-Number('0')  // 0
-Number('hello')  // NaN
-
-// boolean conversion
-
-Boolean('0')  // true (string is not empty)
-const FALSY_VALUES = [0, '', null, undefined, NaN];
 
 // ----- OPERATORS -----
 
