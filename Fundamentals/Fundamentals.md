@@ -212,3 +212,47 @@ Boolean('0')  // true (string is not empty)
 ```
 
 Unlike some other programming languages (such as PHP), the string `"0"` becomes true. In JS, a non-empty string is always `true`.
+
+# Operators
+
+An operator that takes a single operand is called a unary operator. One that takes two operands is a binary operator.
+
+Operators `++` and `--` can be placed both before and after the variable (in the prefix and postfix form). The latter performs the incrementation, but returns the value from before the incrementation:
+
+```js
+let counter = 1;
+let a = counter++;
+console.log(a);  // 1
+console.log(counter)  // 2
+```
+
+## Operator precedence
+
+If an expression has more than one operator, the execution order is defined by their precedence. Aside from standard rules (maths, parentheses), unary operators have higher precedence than their binary counterparts. If the precedence is the same, the execution order is from left to right. The assignment operator's precedence is very low.
+
+## Bitwise operators
+
+Bitwise operators treat arguments as 32-bit integers and they work on the level of their binary representation. They are not specific to JS - they are supported in most programming languages.
+
+List of bitwise operators:
+
+* AND ( `&` )
+* OR ( `|` )
+* XOR ( `^` )
+* NOT ( `~` )
+* LEFT SHIFT ( `<<` )
+* RIGHT SHIFT ( `>>` )
+* ZERO-FILL RIGHT SHIFT ( `>>>` )
+
+More on bitwise operators: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
+
+## Comma
+
+The comma operator allows to evaluate several expressions. Each comma separated expression will be evaluated, but only the last result will be returned:
+
+```js
+let a = (1 + 2, 3 + 4);
+console.log(a);  // 7; 1 + 2 is evaluated and immediately discarded
+```
+
+Comma has a very low precedence (lower than the assignment operator), so parentheses are needed in the example above.

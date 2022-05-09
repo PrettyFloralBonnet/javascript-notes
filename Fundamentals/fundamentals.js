@@ -1,37 +1,3 @@
-
-
-// ----- OPERATORS -----
-
-// increment/decrement
-
-// operators ++ and -- can be placed before ('prefix') and after ('postfix') a variable
-let counter = 1;
-let a = ++counter;
-alert(a);  // 2
-
-// but...
-let counter = 1;
-let a = counter++;  // 'postfix' form increments counter but returns old value
-alert(a);  // 1
-
-// bitwise operators
-
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
-
-// Bitwise operators treat arguments as 32-bit integers.
-// They work on the level of their binary representation,
-// but return standard JavaScript numbers.
-
-// comma
-
-// The comma operator allows us to evaluate several expressions:
-
-let a = (1 + 2, 3 + 4);
-console.log(a);  // 7; 1 + 2 is evaluated and immediately discarded
-
-// Each of them is evaluated, but only the result of the last one is returned.
-// Comma has a very low precedence (lower than '='), so parentheses are needed in the example above.
-
 // ----- COMPARISONS -----
 
 // for string comparison, JavaScript uses a dictionary/lexographical order
