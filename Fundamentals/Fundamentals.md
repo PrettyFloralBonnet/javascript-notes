@@ -1,4 +1,5 @@
 # Hello, world!
+
 JS can be inserted into any part of an HTML document with the help of the `<script>` tag.
 
 ```html
@@ -34,6 +35,36 @@ The `<script>` tag has a few attributes that are rarely used anymore, but can be
 * language `<script language=...>`
 
 As a rule, only the simplest scripts are put directly into HTML. More complex ones are kept in separate files. These files will be cached by the browser for the performance benefit attained when other pages reference the same script.
+
+# Interaction (alert, prompt, confirm)
+
+## `alert()`
+
+```js
+let message = "Hello!";
+alert(message);
+```
+
+`alert()` shows a message in a modal window and pauses script execution until "OK" is pressed.
+
+## `prompt()`
+
+```js
+result = prompt("What is your name?", "JC Denton");
+alert(`Welcome to the coalition, ${result}!`);
+```
+
+`prompt()` returns the text from the input field, or `null` if the input was cancelled. The optional second parameter can be used to specify the default value of the input field.
+
+## `confirm()`
+
+```js
+question = "Is this podracing?";
+result = confirm(`${question}`);
+```
+
+`confirm()` shows a modal window with a question and two buttons: "OK" and "Cancel".
+It returns `true` if "OK" was clicked, and `false` otherwise.
 
 # Use strict
 

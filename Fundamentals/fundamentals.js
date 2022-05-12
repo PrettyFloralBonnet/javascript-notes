@@ -1,29 +1,3 @@
-// ----- INTERACTION: ALERT, PROMPT, CONFIRM -----
-
-// alert()
-
-let message = '!';
-alert(message);
-
-// This shows a message in a modal window and pauses script execution until 'OK' is pressed
-
-// prompt()
-
-result = prompt(title, _default);
-
-// 'title' is the text to show to the user
-// _default is the optional default value of the input field
-
-// prompt() returns the text from the input field or null if the input was cancelled
-
-// confirm()
-
-question = 'Is this podracing?'
-result = confirm(`${question}`);
-
-// This shows a modal window with the question and two buttons: OK and Cancel
-// Returns true if OK was pressed and false otherwise
-
 // ----- CONDITIONAL OPERATORS -----
 
 // TASK: Using if..else, write the code which gets a number via prompt, and then alerts:
