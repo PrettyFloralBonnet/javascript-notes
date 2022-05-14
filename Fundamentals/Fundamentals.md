@@ -337,3 +337,35 @@ console.log(NaN == NaN);  // false
 ```
 
 To check if a value is `NaN`, use `isNaN()` function.
+
+# Conditional branching
+
+## The `if` statement
+
+The `if` statement evaluates the expression in parentheses, converts it into boolean, and executes a block of code if the result is `true`. It may contain an optional `else` block which executes only when the result is `false`. To test seceral variants of a condition, `else if` is used.
+
+```js
+let year = prompt('What year was ECMAScript 2015 published?', '');
+
+if (year < 2015) {
+  alert('Later than that.');
+} else if (year > 2015) {
+  alert('Sooner than that.');
+} else {
+  alert('Correct!');
+}
+```
+
+## Ternary operator
+
+The question mark operator `?`, also called the ternary operator because it takes three operands, is a shorthand way to evaluate a condition and assign a variable based on the result:
+
+```js
+let age = prompt('How old are you?', 18);
+
+let accessAllowed = age > 18 ? true : false;
+```
+
+The condition is evaluated. If it's truthy, the virst value after the question mark is returned. If it's falsy, the second value is returned.
+
+Ternary operator expressions can be nested.
