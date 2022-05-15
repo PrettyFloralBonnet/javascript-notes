@@ -369,3 +369,54 @@ let accessAllowed = age > 18 ? true : false;
 The condition is evaluated. If it's truthy, the virst value after the question mark is returned. If it's falsy, the second value is returned.
 
 Ternary operator expressions can be nested.
+
+# Logical operators
+
+There are four logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT) and `??` (Nullish Coalescing).
+
+## `||` (OR)
+
+The `||` (OR) operator evaluates operands from left to right, converting them to boolean. If the result of the evaluation is `true`, it stops and returns the original value of that operand. If all operands are falsy, the last operand is returned.
+
+This means a chain of OR operators returns the first truthy value, or the last one, if no truthy values were found:
+
+```js
+console.log(1 || 0);  // 1
+console.log(true || "hello");  // true
+console.log(null || 1);  // 1
+console.log(null || 0 || 1);  // 1
+console.log(undefined || null || 0);  // 0 (returns the last value)
+```
+
+## `&&` (AND)
+
+The `&&` (AND) operator evaluates operands from left to right and converts them to boolean. If the result is `false`, it stops and returns the original value of that operand. If all results are `true`, it returns the last operand.
+
+Therefore, a chain of AND operators returns the first falsy value, or the last value, if no falsy values were found:
+
+```js
+console.log(1 && 0);  // 0
+console.log(1 && 5);  // 5
+console.log(null && 5);  // null
+console.log(0 && "hello");  // 0
+console.log(1 && 2 && null && 3);  // null
+console.log(1 && 2 && 3);  // 3 (returns the last value)
+```
+
+Operator precedence of AND `&&` is higher than OR `||`.
+
+## `!` (NOT)
+
+The `!` (NOT) operator converts the operand to boolean and returns the inverse value.
+
+```js
+console.log(!true);  // false
+```
+
+A double NOT `!!` is sometimes used as a shorthand to perform a boolean conversion:
+
+```js
+console.log(!!"non-empty string");  // true (note the two '!' operators)
+```
+
+Operator precedence of NOT `!` is the highest of all logical operators.
