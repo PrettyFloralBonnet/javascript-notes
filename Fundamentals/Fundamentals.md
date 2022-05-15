@@ -420,3 +420,30 @@ console.log(!!"non-empty string");  // true (note the two '!' operators)
 ```
 
 Operator precedence of NOT `!` is the highest of all logical operators.
+
+## Nullish coalescing operator `??`
+
+The result of `a ?? b` is `a` if `a` is not `null` or `undefined`, or `b` otherwise. In other words, `??` returns the first argument if it is defined (it's value is not `null` or `undefined`), or the second argument otherwise.
+
+The most common use case for `??` is to provide a default value.
+
+`??` is quite similar to `||`, but the key difference between them is that `??` returns the first *defined* value, while `||` returns the first *truthy* value. `||` doesn't distinguish between `false`, `0`, an empty string and `null` or `undefined`:
+
+```js
+let height = 0;
+
+console.log(height || 100);  // 100
+console.log(height ?? 100);  // 0
+```
+
+The operator precedence of `??` is the same as `||`.
+
+## Using `??` with `&&` or `||`
+
+For safety reasons, JavaScript forbids using `??` together with the `&&` and `||` operators, unless the precedence is explicitly specified using parentheses:
+
+```js
+let x = 1 && 2 ?? 3;  // Syntax error
+```
+
+The limitation was explicitly added to the language specification in order to avoid programming mistakes.
