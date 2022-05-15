@@ -436,11 +436,7 @@ console.log(height || 100);  // 100
 console.log(height ?? 100);  // 0
 ```
 
-The operator precedence of `??` is the same as `||`.
-
-## Using `??` with `&&` or `||`
-
-For safety reasons, JavaScript forbids using `??` together with the `&&` and `||` operators, unless the precedence is explicitly specified using parentheses:
+The operator precedence of `??` is the same as `||`. For safety reasons, JavaScript forbids using `??` together with the `&&` and `||` operators, unless the precedence is explicitly specified using parentheses:
 
 ```js
 let x = 1 && 2 ?? 3;  // Syntax error
