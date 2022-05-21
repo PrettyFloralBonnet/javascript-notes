@@ -465,3 +465,26 @@ outer: for (let i = 0; i < 3; i++) {
   }
 }
 ```
+
+# The `switch` statement
+
+The `switch` statement can replace multiple `if` checks. It's a more descriptive way to compare a value with multiple variants. The value is checked for strict equality with values in subsequent `case` entries. If a match is found, the code from the corresponding `case` is executed until the `break`, or until the end of the `switch` statement. If there are no matches, the `default` code is executed. If there are no `break` statements, the execution continues to the next case.
+
+
+```js
+let a = 3 + 1;
+
+switch(a) {
+    case 3:
+        console.log(`Value is lower than target ${a}.`);
+        break;
+    case 4:
+        console.log('The values match.');
+        break;
+    case 5:
+        console.log(`Value is higher than target ${a}.`);
+        break;
+    default:  // executes if no case matches
+        console.log(`No match found for target ${a}.`)
+}
+```
