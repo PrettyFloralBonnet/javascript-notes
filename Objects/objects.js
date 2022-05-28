@@ -1,8 +1,3 @@
-// ----- OBJECTS: THE BASICS -----
-
-let user = new Object;  // object constructor syntax
-let user = {};  // object literal syntax
-
 let user = {
     name: 'John',
     age: 30,
