@@ -13,4 +13,13 @@ let user = new Object();  // "object constructor" syntax
 let user = {};  //  "object literal" syntax
 ```
 
-Properties are accessible using the dot notation (e.g. `user.name`) abd can be added, removed and read at any time.
+Properties are accessible using the dot notation (e.g. `user.name`) abd can be added, removed and read at any time. To remove a property, use a `delete` operator (e.g. `delete user.age;`).
+
+The last property may end with a trailing comma.
+
+Multiword property names can be used, but they must be quoted (e.g. `"likes birds": true`). Dot access won't work for multiword properties, but an alternative exists: square bracket notation.
+
+```js
+let user = {};
+user["likes birds"] = true;
+```
