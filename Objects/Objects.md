@@ -23,3 +23,29 @@ Multiword property names can be used, but they must be quoted (e.g. `"likes bird
 let user = {};
 user["likes birds"] = true;
 ```
+
+Square brackets are more powerful than dot notation. They allow for property names to be computed in an expression (*computed properties*), e.g.:
+
+```js
+let bag = {
+    [prompt("What fruit?", "orange")] : 5
+};
+
+let fruit = "apple";
+bag[fruit + "Computers"] = 0;
+
+bag  // Object { grape: 5, appleComputers: 0 }
+```
+
+## Property value shorthand
+
+Existing variables or function arguments are often used as values for property names. This is, in fact, so common that a shorthand exists to use them in such capacity:
+
+```js
+function createUser(name, age) {
+    return {
+        name, // same as name: name
+        age,  // same as age: age
+    };
+}
+```
