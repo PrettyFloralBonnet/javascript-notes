@@ -49,3 +49,11 @@ function createUser(name, age) {
     };
 }
 ```
+
+## Existence check
+
+Any property in an object is accessible. If the property doesn't exist, accessing it will return `undefined`. For this reason, a strict comparison with `undefined` can be used to check if the given property exists or not.
+
+A simpler way to do that is to use the `in` keyword (`"name" in object`), in an expression which returns `true` if the name exists in the object (is the name of one of the object's properties) and `false` otherwise.
+
+If a property actually stores the value of `undefined` (which it generally should not), the strict comparison will return `true`, but the `in` will work. However, for empty or unknown values, `null` should be used.
