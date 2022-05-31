@@ -5,4 +5,4 @@ Notes and exercises from [The Modern JavaScript Tutorial](https://javascript.inf
 
 1. [Introduction](https://github.com/PrettyFloralBonnet/javascript-notes/blob/master/Introduction/Introduction.md)
 2. [JavaScript Fundamentals](https://github.com/PrettyFloralBonnet/javascript-notes/blob/master/Fundamentals/Fundamentals.md)
-3.
+3. [Objects](https://github.com/PrettyFloralBonnet/javascript-notes/blob/master/Objects/Objects.md)
