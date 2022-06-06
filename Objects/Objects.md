@@ -57,3 +57,20 @@ Any property in an object is accessible. If the property doesn't exist, accessin
 A simpler way to do that is to use the `in` keyword (`"name" in object`), in an expression which returns `true` if the name exists in the object (is the name of one of the object's properties) and `false` otherwise.
 
 If a property actually stores the value of `undefined` (which it generally should not), the strict comparison will return `true`, but the `in` will work. However, for empty or unknown values, `null` should be used.
+
+## The `for...in` loop
+
+There is a loop that allows to walk through all keys in an object
+
+```js
+let user = {
+    name: "John",
+    age: 30,
+    isAdmin: true
+};
+
+for (let key in user) {
+    alert(key);  // name, age, isAdmin
+    alert(user[key]); // John, 30, true
+}
+```
