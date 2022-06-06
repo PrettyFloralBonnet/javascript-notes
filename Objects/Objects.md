@@ -37,6 +37,8 @@ bag[fruit + "Computers"] = 0;
 bag  // Object { grape: 5, appleComputers: 0 }
 ```
 
+Javascript objects are partially ordered: integer properties (strings that can be converted to integers without any changes) are sorted, while properties of other types will appear in creation order.
+
 ## Property value shorthand
 
 Existing variables or function arguments are often used as values for property names. This is, in fact, so common that a shorthand exists to use them in such capacity:
