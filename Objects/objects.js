@@ -1,15 +1,3 @@
-// copying by reference
-
-// a variable stores an address in memory, not the object itself
-
-let user = { name: 'John' };
-let admin = user;
-
-admin.name = 'Pete'; // changed by the "admin" reference
-alert(user.name); // 'Pete', changes are seen from the "user" reference
-
-// two independent objects are never equal, even if they have identical properties
-
 // Object.assign
 
 let user = { name: "John" };

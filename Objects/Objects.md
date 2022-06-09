@@ -62,7 +62,7 @@ If a property actually stores the value of `undefined` (which it generally shoul
 
 ## The `for...in` loop
 
-There is a loop that allows to walk through all keys in an object
+There is a loop, known as the `for...in` loop, that allows to walk through all keys in an object:
 
 ```js
 let user = {
@@ -76,3 +76,34 @@ for (let key in user) {
     alert(user[key]); // John, 30, true
 }
 ```
+
+## References and copying
+
+Primitive data types are always copied "as a whole value". This means that when we copy a primitive value, e.g.:
+
+```js
+let message = "Hello!";
+let phrase = message;
+```
+
+...then as a result we get two independent variables, each holding a string `"Hello!"`.
+
+Objects are not like that. A variable assigned to an object does not store the object itself, but rather its address in memory, or a **reference** to it. When an object variable is copied, the reference is copied, but the actual object is not duplicated.
+
+So, with something like:
+
+```js
+let user = { name: "John" };
+let admin = user;
+```
+
+...we now have two variables, each referencing the same object. This means that making any changes to the object referencing it through one of the variables will also affect the output from the other variable:
+
+```js
+admin.name = 'Pete';
+console.log(user.name);  // 'Pete'
+```
+
+### Comparison by reference
+
+Two objects are equal only if they are the same object. For comparisons like `obj1 > obj2` (or comparions against a primitive), objects are converted into primitives.
