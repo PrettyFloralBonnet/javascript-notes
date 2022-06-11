@@ -107,3 +107,19 @@ console.log(user.name);  // 'Pete'
 ### Comparison by reference
 
 Two objects are equal only if they are the same object. For comparisons like `obj1 > obj2` (or comparions against a primitive), objects are converted into primitives.
+
+## Cloning and merging
+
+Copying by reference is sufficient for most purposes. However, it is possible to actually clone an object.
+
+In order to do that, it is necessary to create a new object and replicate the structure of the existing one by iterating over its properties and copying them on the primitive level:
+
+```js
+let clone = {};
+
+for (let key in user) {
+    clone[key] = user[key];
+}
+```
+
+Another way to achieve this is to use the method `Object.assign(target, [source1, source2, source3...])`, where `target` is the target object and all the optional `sourceN` are the source objects. This copies all properties of all source objects onto the target, and returns it. If the copied property name already exists in the target objects, it gets overwritten.

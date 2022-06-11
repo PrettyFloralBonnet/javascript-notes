@@ -1,21 +1,3 @@
-// Object.assign
-
-let user = { name: "John" };
-
-let permissions1 = { canView: true };
-let permissions2 = { canEdit: true };
-
-// copies all properties from permissions1 and permissions2 into user
-Object.assign(user, permissions1, permissions2);
-
-// now user = { name: "John", canView: true, canEdit: true }
-
-// deep cloning
-
-// https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data
-
-// lodash, _.cloneDeep(obj)
-
 // TASK: Write the function isEmpty(obj) which returns true if the object has no properties, false otherwise.
 // -->
 
