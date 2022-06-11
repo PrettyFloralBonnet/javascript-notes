@@ -123,3 +123,13 @@ for (let key in user) {
 ```
 
 Another way to achieve this is to use the method `Object.assign(target, [source1, source2, source3...])`, where `target` is the target object and all the optional `sourceN` are the source objects. This copies all properties of all source objects onto the target, and returns it. If the copied property name already exists in the target objects, it gets overwritten.
+
+### Nested cloning
+
+Since object properties can themselves be references to other objects, they will be copied by reference if a clone is made. As a result, any changes to the nested properties of the clone will result in changes of the nested properties of the original.
+
+To circumvent this, a cloning loop can be used that examines each property of the original object, and if that property is also an object, it replicates its structure as well. This is called "deep cloning", which can be implemented using recursion or the built-in function from the `lodash` library (`_.cloneDeep(obj)`).
+
+### Const objects
+
+Because objects are stored as references, object values assigned to a `const` can actually be modified. The `const` fixes the value of the variable, but not the contents of an object. However, making object properties constant is actually possible, if needed (see Property flags and descriptors).
