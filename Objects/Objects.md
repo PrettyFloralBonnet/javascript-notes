@@ -138,7 +138,7 @@ Because objects are stored as references, object values assigned to a `const` ca
 
 The main concept behind memory management in JavaScript is reachability. If a value is accessible or usable in any way, it is reachable. This means it is guaranteed to be stored in memory.
 
-Some values are inherently reachable and cannot be deleted. These are:
+Some values are inherently reachable and cannot be deleted. These are called roots, and they are:
 
 * local variables
 * parameters of the current function
@@ -151,3 +151,20 @@ Any other value is considered reachable, as long as it is reachable from a root 
 A background process of the JavaScript engine called the **garbage collector** monitors all objects and removes the ones that have become unreachable.
 
 The basic garbage collection algorithm is called "mark-and-sweep". JS engines apply many optimizations to make it fast without affecting execution.
+
+# Symbols
+
+Only two types may serve as object property keys: string and symbol. If other types are used in this capacity, they are automatically converted to strings.
+
+We've looked at strings, so let's take a look at symbols next. A symbol represents a **unique identifier**. It can be created by calling `Symbol()` and it can be given a description (also referred to as a symbol name) upon creation:
+
+```js
+let id = Symbol("id");
+```
+
+Symbols are guaranteed to be unique (even if we create many symbols with the same description, they will be different values). They also do not automatically convert to a string where other primitive types do. If you really want to show a symbol, we need to use the `toString()` method:
+
+```js
+let id = Symbol("id");
+console.log(id.toString());
+```

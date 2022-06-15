@@ -1,18 +1,3 @@
-// ----- SYMBOL TYPE -----
-
-// Object property keys may be either of string type, or of symbol type.
-
-// id is a symbol with the description "id"
-let id = Symbol("id");
-
-// Symbols are guaranteed to be unique - even if many symbols with the same description are created,
-// they are different values.
-
-// Symbols do not autoconvert to strings:
-
-let id = Symbol("id");
-alert(id);  // TypeError: Cannot convert a Symbol value to a string
-
 // if we want to use a symbol in an object literal, we need brackets around it:
 
 let user = {
