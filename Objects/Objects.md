@@ -168,3 +168,16 @@ Symbols are guaranteed to be unique (even if we create many symbols with the sam
 let id = Symbol("id");
 console.log(id.toString());
 ```
+
+## "Hidden" properties
+
+Symbols allow for creation of hidden properties, which cannot be accessed or overwritten:
+
+```js
+let user = { name: "John" };
+let id = Symbol("id");
+
+user[id] = "someValue";
+```
+
+Such properties will also be skipped in a `for...in` loop. However, direct access using square brackets notation, as well as using `Object.assign()` will still work.

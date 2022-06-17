@@ -1,22 +1,3 @@
-// if we want to use a symbol in an object literal, we need brackets around it:
-
-let user = {
-    name: "John",
-    [id]: 123
-};
-
-// symbols are skipped by for..in and Object.keys():
-
-let user = {
-    name: "John",
-    age: 30,
-    [id]: 123
-};
-
-for (let key in user) alert(key);  // name, age (no symbols)
-
-// they are, however, copied over by Object.assign()
-
 // ----- OBJECT METHODS, "THIS" -----
 
 // verbose way
