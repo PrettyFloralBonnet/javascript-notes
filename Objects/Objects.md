@@ -200,3 +200,9 @@ Many symbols exist internally. They can be used to fine-tune various aspects of 
 * `Symbol.toPrimitive`
 
 For example, `Symbol.toPrimitive` allows us to describe object to primitive conversion.
+
+# Object methods; `this`
+
+Objects are usually created to represent entities of the real world (users, or**ders etc.). In the re world, a user can act: add something to cart, log in, log out etc.
+
+In **object oriented programming** (or OOP, a code writing paradigm emphasizing the use of objects as representations of entities), actions are represented by functions stored as properties. A function that is a property of an object is called a **method**.
