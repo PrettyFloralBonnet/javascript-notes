@@ -1,39 +1,3 @@
-// ----- OBJECT METHODS, "THIS" -----
-
-// verbose way
-let user = {
-    name: 'John',
-    age: 30
-};
-
-user.greet = function() {
-    alert('Hello!');
-};
-
-// shorthand way (not fully identical but usually preferred)
-
-let user = {
-    name: 'John',
-    age: 30,
-    greet() {
-        alert('Hello!');
-    }
-};
-
-// An object method often needs to access the information stored in the object.
-// To access the object, a method can use the *this* keyword.
-
-let user = {
-    name: 'John',
-    age: 30,
-    greet() {
-        alert(`Hi, I am ${this.name}!`)
-    }
-}
-
-// The value of *this* is evaluated at run-time, depending on the context.
-// This means, among other things, that functions utilizing it may be reused with different objects.
-
 // Arrow functions have no *this*
 
 // If we reference *this* from an arrow function, it’s taken from the outer “normal” function:

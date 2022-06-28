@@ -207,6 +207,31 @@ Objects are usually created to represent entities of the real world (users, or**
 
 In **object oriented programming** (or OOP, a code writing paradigm emphasizing the use of objects as representations of entities), actions are represented by functions stored as properties. A function that is a property of an object is called a **method**.
 
+Here's one way to add a function as an object method:
+
+```js
+let user = {
+    name: 'John',
+    age: 30
+};
+
+user.greet = function() {
+    console.log("Hello!");
+};
+```
+
+That is quite verbose, so here's a shorthand way (not completely identical, but usually actually preferred):
+
+```js
+let user = {
+    name: 'John',
+    age: 30,
+    greet() {
+        console.log("Hello!");
+    }
+};
+```
+
 ## `this` in methods
 It's common for an object method to need access to the information stored in the object itself. The `this` keyword allows for such access. The value of `this` is the object "before the dot" - the one used to call the method.
 
