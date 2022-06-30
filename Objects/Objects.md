@@ -211,3 +211,21 @@ In **object oriented programming** (or OOP, a code writing paradigm emphasizing 
 It's common for an object method to need access to the information stored in the object itself. The `this` keyword allows for such access. The value of `this` is the object "before the dot" - the one used to call the method.
 
 It is possible to access the object without using `this`, by referencing it via an outer variable, but such code is unreliable (e.g. if the object reference is copied to another variable and then the object is overwritten).
+
+## `this` is not bound
+
+`this` can be used by any function. Its value is evaluated during runtime, and it can be anything.
+
+The same function can have a different `this` when called by different objects. It can even be referenced without an object at all:
+
+```js
+function thisWithNoObject() {
+    console.log(this);
+}
+
+thisWithNoObject()  // undefined
+```
+
+Without strict mode, the value of `this` in the example above would be the global object (`window` in the browser).
+
+In most cases, using `this` without an object is a mistake. However, it also means `this` is not bound to anything, and a function utilizing it can be used by different objects, which offers a lot of flexibility.
