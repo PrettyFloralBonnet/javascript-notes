@@ -206,3 +206,8 @@ For example, `Symbol.toPrimitive` allows us to describe object to primitive conv
 Objects are usually created to represent entities of the real world (users, or**ders etc.). In the re world, a user can act: add something to cart, log in, log out etc.
 
 In **object oriented programming** (or OOP, a code writing paradigm emphasizing the use of objects as representations of entities), actions are represented by functions stored as properties. A function that is a property of an object is called a **method**.
+
+## `this` in methods
+It's common for an object method to need access to the information stored in the object itself. The `this` keyword allows for such access. The value of `this` is the object "before the dot" - the one used to call the method.
+
+It is possible to access the object without using `this`, by referencing it via an outer variable, but such code is unreliable (e.g. if the object reference is copied to another variable and then the object is overwritten).
