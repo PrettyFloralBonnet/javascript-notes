@@ -254,3 +254,25 @@ thisWithNoObject()  // undefined
 Without strict mode, the value of `this` in the example above would be the global object (`window` in the browser).
 
 In most cases, using `this` without an object is a mistake. However, it also means `this` is not bound to anything, and a function utilizing it can be used by different objects, which offers a lot of flexibility.
+
+## `this` in arrow functions
+
+If we reference `this` from within the scope of an arrow function, its value will be taken from the immediate outer context:
+
+```js
+let oldMeme = {
+    name: 'Commander Shepard',
+    location: 'Citadel',
+    getDiscount() {
+        let endorse = () => {
+            console.log(
+                `I'm ${this.name} and this is my favorite store
+                on the ${this.location}.`
+                );
+        };
+        endorse();
+    }
+};
+
+oldMeme.getDiscount();
+```

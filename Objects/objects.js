@@ -1,20 +1,3 @@
-// Arrow functions have no *this*
-
-// If we reference *this* from an arrow function, it’s taken from the outer “normal” function:
-
-let oldMeme = {
-    name: 'Commander Shepard',
-    location: 'Citadel',
-    getDiscount() {
-        let endorse = () => {
-            alert(`I'm ${this.name} and this is my favorite store on the ${this.location}.`);
-        };
-        endorse();
-    }
-};
-
-oldMeme.getDiscount();  // I'm Commander Shepard and this is my favorite store on the Citadel.
-
 // TASK: Create an object "calculator" with three methods:
 //
 //   read() prompts for two values and saves them as object properties
