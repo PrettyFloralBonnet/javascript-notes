@@ -64,18 +64,6 @@ let ladder = {
     }
 };
 
-// ----- OBJECT TO PRIMITIVE CONVERSION -----
-
-// When objects are subjected to various operations (maths, printing etc.), they are converted to primitive types.
-
-// In boolean context, all objects are true.
-
-// When mathematical functions are applied to objects, numeric conversion takes place
-// (e.g. two Date objects cabn be subtracted, and the result of date1 - date2 
-// is the time difference between the two dates)
-
-// When objects are being output (e.g. alert, print), string conversion takes place
-
 // When the operator is unsure what type to expect (binary +, comparison ==), "default" conversion takes place
 
 
