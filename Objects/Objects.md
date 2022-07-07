@@ -201,6 +201,25 @@ Many symbols exist internally. They can be used to fine-tune various aspects of 
 
 For example, `Symbol.toPrimitive` allows us to describe object to primitive conversion.
 
+# Constructors, `new` operator
+
+## Constructor function
+
+The main purpose of constructor functions is to implement reusable object creation code. A constructor function is a regular function, named with a capital letter, and only correctly executed with a `new` operator:
+
+```js
+function User(name) {
+    this.name = name;
+    this.isAdmin = false;
+}
+
+let user = new User("Jack");
+```
+
+When such a function is executed with `new`, a new empty object is created and assigned to `this`, the function body is executed (usually adding properties to `this` or modifying it), and then the value of `this` is returned.
+
+It allows for creation of multiple new instances of a given object without resorting to object literals over and over.
+
 # Object methods; `this`
 
 Objects are usually created to represent entities of the real world (users, or**ders etc.). In the re world, a user can act: add something to cart, log in, log out etc.
