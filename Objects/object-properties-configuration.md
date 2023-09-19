@@ -170,4 +170,11 @@ let user = {
 };
 ```
 
-As a result, the property `fullName` is both readable and writeable.
+As a result, the property `fullName` is both readable and writeable:
+
+```js
+user.fullName = "John Shepard";
+
+user.name  // John
+user.surname  // Shepard
+```
