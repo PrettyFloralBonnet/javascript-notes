@@ -106,3 +106,68 @@ and `writable: false` for all existing properties)
 
 The corresponding checks are, respectively: `Object.isExtensible`, `Object.isSealed` and
 `Object.isFrozen`.
+
+# Property getters and setters
+
+Object properties come in the form of *data properties* (the kind we've been working with
+so far) and *accessor properties*. The latter are essentially functions executed on getting
+and setting a value of a data property.
+
+Accessor properties are represented by "getter" and "setter" methods. In an object literal,
+they are denoted by `get` and `set`:
+
+```js
+let obj = {
+  get propertyName() {
+    // getter, the code executed on access to propertyName
+  },
+
+  set propertyName(value) {
+    // setter, the code executed on setting the value of propertyName
+  }
+};
+```
+
+For instance, let's say we have a `user` object with `name` and `surname`:
+
+```js
+let user = {
+  name: "John",
+  surname: "Smith"
+};
+```
+
+Now we want to add a `fullName` property, the value of which should be `"John Smith"`.
+Because we don't want to copy-paste existing information, we can implement it as an accessor:
+
+```js
+let user = {
+  name: "John",
+  surname: "Smith",
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  }
+};
+```
+
+From the outside, an accessor property looks just like a regular one. That's the idea behind accessor properties: we don't call `user.fullName` as a function. Instead, we read and call it just like a regular property. The getter function runs behind the scenes.
+
+Back to our example. The `fullName` accessor property currently only has a getter. If we attempt to assign a value to it (`user.fullName` = "John Shepard"), that will result in an error. Let's fix that by adding a corresponding setter:
+
+```js
+let user = {
+  name: "John",
+  surname: "Smith",
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  },
+
+  set fullName(value) {
+    [this.name, this.surname] = value.split(" ");
+  }
+};
+```
+
+As a result, the property `fullName` is both readable and writeable.
