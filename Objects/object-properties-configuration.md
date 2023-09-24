@@ -178,3 +178,20 @@ user.fullName = "John Shepard";
 user.name  // John
 user.surname  // Shepard
 ```
+
+## Accessor descriptors
+
+Descriptors for accessor properties are different from those of data properties in that
+they don't have `value` or `writable`. Instead, they have `get` and `set` functions.
+They retain `enumerable` and `configurable`.
+
+Attempting to supply a `value` and `get` in the same descriptor will result in an error.
+
+## Smarter getters and setters
+
+Setters can make use of "private" properties (e.g. `_name`) to enforce limitations on
+values passed to the setter (e.g. making sure a username fulfills certain criteria).
+
+Technically, external code is still able to access properties that start with an
+underscore, but by a widely used convention they should be treated as internal and
+should not be touched from the outside of the object.
