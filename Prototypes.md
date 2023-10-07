@@ -1,4 +1,4 @@
-## Prototype
+# Prototype
 
 In JS, objects have a special hidden `[[Prototype]]` property that is either `null`, or it references another object.
 
@@ -14,7 +14,7 @@ Inherited properties are listed in a `for..in` loop, but skipped by `Object.keys
 
 All objects inherit from `Object.prototype` (which is where the object built in methods come from). All properties of `Object.prototype` have the `enumerable` flag set to `false` (so they won't show up in `for..in` loops).
 
-### `prototype` property
+## `prototype` property
 
 Functions have a default property named `prototype`, which is an object with a single property: `constructor`. The constructor points to the function object itself (by default, it can be overwritten).
 

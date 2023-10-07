@@ -1,9 +1,9 @@
-# Property flags and descriptors
+## Property flags and descriptors
 
 An object property is actually much more than just a key-value pair. They are much more 
 flexible and powerful than it may seem at first glance.
 
-## Property flags
+### Property flags
 
 Object properties have 3 special attributes (besides `value`), or "flags":
 
@@ -68,9 +68,9 @@ can be used together:
 let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
 ```
 
-## Effects of flags
+### Effects of flags
 
-### Non-writable
+#### Non-writable
 
 ```js
 let user = {
@@ -84,16 +84,16 @@ Object.defineProperty(user, "name", {
 user.name = "Pete"; // Error: Cannot assign to read only property 'name'
 ```
 
-### Non-enumerable
+#### Non-enumerable
 
 Non-enumerable properties are excluded from `for..in` loops, as well as from `Object.keys`.
 
-### Non-configurable
+#### Non-configurable
 
 A non-configurable property can't be deleted, and its attributes can't be modified. Making
 a property non-configurable is a one-way street - it cannot be changed back with `defineProperty`.
 
-## Manipulating the entire object
+### Manipulating the entire object
 
 Property descriptors work at the level of individual properties. However, methods that
 impact or check the entire object also exist:
