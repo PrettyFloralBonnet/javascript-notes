@@ -23,3 +23,27 @@ Constructor functions do not usually have a `return` statement. However, if one 
 
 * if `return` contains an object, that object is returned (instead of `this`)
 * if `return` contains a primitive, it is ignored.
+
+## Exercises
+
+### Accumulator
+
+Create a constructor function `Accumulator(startingValue)` that creates an object which:
+* stores the current value in the property `value` (initialized as `startingValue`)
+* implements a `read()` method that prompts for a number and adds it to `value`
+
+Solution:
+
+```js
+function Accumulator(startingValue) {
+    this.value = startingValue;
+    this.read = () => {
+        this.value += +prompt('Enter a number: ', '');
+    }
+}
+
+let accumulator = new Accumulator(5);
+console.log(accumulator.value);  // 5
+accumulator.read();
+console.log(accumulator.value);  // 5 + whatever was added during read()
+```

@@ -75,3 +75,83 @@ let oldMeme = {
 oldMeme.getDiscount();  
 // "I'm Commander Shepard, and this is my favourite store on the Citadel.
 ```
+
+## Excercises
+
+### Calculator
+
+Create an object "calculator" with three methods:
+
+* `read()` prompts for two values and saves them as object properties
+* `sum()` returns the sum of saved values
+* `mul()` multiplies saved values and returns the result
+
+Solution:
+
+```js
+let calculator = {
+    read() {
+        this.first = +prompt('Enter first number: ', '');
+        this.second = +prompt('Enter second number: ', '');
+    },
+    sum() {
+        return this.first + this.second;
+    },
+    mul() {
+        return this.first * this.second;
+    }
+};
+```
+
+### Chaining
+
+This `ladder` object allows to "go" up and down, modifying the value of `step` along the way:
+
+```js
+let ladder = {
+    step: 0,
+    up() {
+        this.step++;
+    },
+    down() {
+        this.step--;
+    },
+    showStep: function () { // shows the current step
+        alert(this.step);
+    }
+};
+```
+
+However, calls need to be made in sequence:
+
+```js
+ladder.up();
+ladder.up();
+ladder.down();
+ladder.showStep();  // 1
+```
+Modify the code to make the calls chainable, like this:
+
+```js
+ladder.up().up().down().showStep();
+```
+
+Solution:
+
+```js
+let ladder = {
+    step: 0,
+    up() {
+        this.step++;
+        return this;
+    },
+    down() {
+        this.step--;
+        return this;
+    },
+    showStep: function () {
+        alert(this.step);
+        return this;
+    }
+};
+```
