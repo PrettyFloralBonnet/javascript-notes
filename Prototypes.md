@@ -1,4 +1,4 @@
-# Prototype
+## Prototype
 
 In JS, objects have a special hidden `[[Prototype]]` property that is either `null`, or it references another object.
 
