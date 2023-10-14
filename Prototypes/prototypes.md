@@ -13,9 +13,3 @@ Note that the value of `this` is not affected by prototypes at all. In a method 
 Inherited properties are listed in a `for..in` loop, but skipped by `Object.keys()`, `Object.values()` and so on. There's also a built-in method `Object.hasOwnProperty(key)` which returns `true` if the object has its own (not inherited) `key` property.
 
 All objects inherit from `Object.prototype` (which is where the object built in methods come from). All properties of `Object.prototype` have the `enumerable` flag set to `false` (so they won't show up in `for..in` loops).
-
-## `prototype` property
-
-Functions have a default property named `prototype`, which is an object with a single property: `constructor`. The constructor points to the function object itself (by default, it can be overwritten).
-
-The `prototype` property is used whenever a new object is created using the `new` operator. Specifically, it sets `[[Prototype]]` of the newly created object.
