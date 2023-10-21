@@ -25,3 +25,19 @@ Instead of using the class syntax, one could use a function syntax, and the resu
 2. A string representation of a class constructor starts with "class"
 3. Class methods are non-enumerable
 4. All code inside of a class construct is always automatically in `strict` mode
+
+## Usage and properties
+
+Just like regular functions, classes can be defined inside other expressions, passed around, returned, assigned etc. Moreover, just like object literals, they may include getters, setters and computed properties.
+
+## Class fields
+
+Class fields is a syntax that allows for adding properties other than methods to classes:
+
+```js
+class User {
+    name = "John"
+}
+```
+
+These are **set for individual objects**, not in the prototype.
