@@ -1,0 +1,53 @@
+## Class inheritance
+
+Class inheritance is a way for one class to extend another.
+
+```js
+class Animal {
+    constructor(name) {
+        this.name = name;
+        this.speed = 0;
+    }
+}
+
+class Rabbit extends Animal {
+    run(speed) {
+        this.speed = speed;
+    }
+}
+
+let rabbit = new Rabbit("Pinky");
+rabbit.run(60);
+```
+
+Internally, the `extends` keyword uses the prototype mechanics. It sets `Rabbit.prototype.__proto__` to `Animal.prototype`, so if a method is not found in `Rabbit.prototype`, it is then taken from `Animal.prototype`.
+
+Any expression is allowed after `extends`. This means we may e.g. create a class factory function, and then have other classes extended by the result of that function.
+
+## Overriding methods
+
+By default, all methods not specified in the child class are taken from the parent class. However, if we specify a method on a child class that's named identically as a method in the parent class, it will be overridden.
+
+If we don't want to replace the parent method entirely, but tweak its functionality instead, we can use the `super` keyword. For example, we can call the parent method by invoking `super.method()` and then do something else.
+
+Arrow functions have no `super`. If `super` is accessed within the body of an arrow function in a method call, it will reference the parent class.
+
+## Overriding constructors
+
+If a class extends another class and has no `constructor`, the following "empty" constructor is generated:
+
+```js
+class Rabbit extends Animal {
+    constructor(...args) {
+        super(...args);
+    }
+}
+```
+
+If we do create a distinct constructor in the child class, **it must call `super()`**, and it must do so before it is able to use `this`. A child class constructor (derived constructor, as labelled in a special internal property `[[ConstructorKind]]: "derived"`) behaves differently with `new` than regular constructors.
+
+When a regular function is executed with `new`, an empty object is created and assigned to `this`. But when a derived constructor runs, it doesn't happen. The parent constructor is expected to do it instead. This is why a derived constructor must call `super()` in order to execute the parent constructor. Otherwise, the object for `this` will not be created.
+
+Not only methods, but also class fields can be overridden. However, the parent constructor always uses its own field value, not the overridden one. Class fields are initialized before the constructor in the base class, and after `super()` for the derived class. This difference between fields and methods is specific to Javascript.
+
+Methods remember their class/object in the internal `[[HomeObject]]` property, thanks to which `super` is able to resolve parent methods. For this reason, it is not safe to copy a method that uses `super` from one object to another.
