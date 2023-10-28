@@ -51,3 +51,9 @@ When a regular function is executed with `new`, an empty object is created and a
 Not only methods, but also class fields can be overridden. However, the parent constructor always uses its own field value, not the overridden one. Class fields are initialized before the constructor in the base class, and after `super()` for the derived class. This difference between fields and methods is specific to Javascript.
 
 Methods remember their class/object in the internal `[[HomeObject]]` property, thanks to which `super` is able to resolve parent methods. For this reason, it is not safe to copy a method that uses `super` from one object to another.
+
+## Extending built-in classes
+
+Built-in classes such as `Array`, `Map` etc. are also extensible. Moreover, built-in methods such as `filter`, `map` etc., when used with an instance of a class extending a built-in class, return new objects of the child class.
+
+Furthermore, that behaviour can be customized using a special static getter `Symbol.species`. If that getter is defined, it should return a constructor that JS will use internally to create new entities using built-in methods.
