@@ -93,3 +93,11 @@ console.log(Object.prototype.toString.call(user));  // [object User]
 ```
 
 `Object.prototype.toString` essentially functions as a more advanced `typeof`.
+
+## Mixins
+
+Javascript does not allow for multiple inheritance. An object can only have one `[[Prototype]]`, and a class can only extend one other class.
+
+To get around that, mixins can be used. A **mixin** is a class containing methods that can be used by other classes without a need to inherit from it. It provides methods that implement a certain behaviour, which can be added to other classes.
+
+Methods can be added to classes using `Object.assign()`. Mixins may end up overwriting existing methods on classes they're used with, so it's a good idea to pay close attention to method naming on a mixin to minimize the chances of that happening.
