@@ -57,3 +57,39 @@ Methods remember their class/object in the internal `[[HomeObject]]` property, t
 Built-in classes such as `Array`, `Map` etc. are also extensible. When an instance of a class that extends a built-in class calls a built-in method inherited from the parent class (such as `filter`, `map`, and so on), an object of the child class is returned.
 
 Moreover, that behaviour can be customized using a special static getter `Symbol.species`. If that getter is defined, it should return a constructor that JS will use internally to create new entities using built-in methods.
+
+## Class checking
+
+The `instanceof` operator allows for checking whether the object belongs to a certain class:
+
+```js
+let arr = [1, 2, 3];
+console.log(arr instanceof Array);  // true
+console.log(arr instanceof Object);  // true
+```
+
+In the example above, since `Array` inherits from `Object`, both class checking statements are true.
+
+Normally, `instanceof` examines the prototype chain when performing the check. However, it's also possible to set up custom logic using the static method `Symbol.hasInstance(obj)`. Most classes don't have it, but if it is defined, it will be used for the check instead (it should return `true` or `false`).
+
+Another way to check an object's class is using `Object.prototype.toString` in the context of the target object:
+
+```js
+const prototypeToString = Object.prototype.toString;
+
+console.log(prototypeToString.call(1));  // [object Number]
+console.log(prototypeToString.call([]));  // [object Array]
+console.log(prototypeToString.call(null));  // [object Null]
+```
+
+The behaviour of an object's `toString` can be modified using the property `Symbol.toStringTag`:
+
+```js
+let user = {
+    [Symbol.toStringTag]: "User"
+};
+
+console.log(Object.prototype.toString.call(user));  // [object User]
+```
+
+`Object.prototype.toString` essentially functions as a more advanced `typeof`.
