@@ -54,6 +54,6 @@ Methods remember their class/object in the internal `[[HomeObject]]` property, t
 
 ## Extending built-in classes
 
-Built-in classes such as `Array`, `Map` etc. are also extensible. Moreover, built-in methods such as `filter`, `map` etc., when used with an instance of a class extending a built-in class, return new objects of the child class.
+Built-in classes such as `Array`, `Map` etc. are also extensible. When an instance of a class that extends a built-in class calls a built-in method inherited from the parent class (such as `filter`, `map`, and so on), an object of the child class is returned.
 
-Furthermore, that behaviour can be customized using a special static getter `Symbol.species`. If that getter is defined, it should return a constructor that JS will use internally to create new entities using built-in methods.
+Moreover, that behaviour can be customized using a special static getter `Symbol.species`. If that getter is defined, it should return a constructor that JS will use internally to create new entities using built-in methods.
