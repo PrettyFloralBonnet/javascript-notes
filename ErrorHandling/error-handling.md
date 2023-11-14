@@ -89,3 +89,16 @@ window.onerror = function(
 ```
 
 The role of the global handler is usually not to recover the script execution, but to notify the developers of what's happened.
+
+## Custom errors
+
+It's possible to create custom errors by extending existing ones:
+
+```js
+class CustomError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+    }
+}
+```
