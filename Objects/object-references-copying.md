@@ -25,7 +25,7 @@ admin.name = 'Pete';
 console.log(user.name);  // 'Pete'
 ```
 
-### Comparison by reference
+## Comparison by reference
 
 Two objects are equal only if they are the same object. For comparisons like `obj1 > obj2` (or comparions against a primitive), objects are converted into primitives.
 
@@ -51,6 +51,6 @@ Since object properties can themselves be references to other objects, they will
 
 To circumvent this, a cloning loop can be used that examines each property of the original object, and if that property is also an object, it replicates its structure as well. This is called "deep cloning", which can be implemented using recursion or the built-in function from the `lodash` library (`_.cloneDeep(obj)`).
 
-### Const objects
+## Const objects
 
-Because objects are stored as references, object values assigned to a `const` can actually be modified. The `const` fixes the value of the variable, but not the contents of an object. However, making object properties constant is actually possible, if needed (see Property flags and descriptors).
+Because objects are stored as references, object values assigned to a `const` can actually be modified. The `const` fixes the value of the variable, but not the contents of an object. However, making object properties constant is actually possible, if needed (see [Property flags and descriptors](/Objects/property-flags-descriptors.md)).
