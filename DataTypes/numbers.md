@@ -90,7 +90,6 @@ The most reliable way to work around this issue is usually use the built-in Numb
 12.36.toFixed(1)  // "12.4, the rounding goes to the nearest value (somewhat similar to `Math.round`)
 ```
 
-
 ### Dealing with `NaN` and `Infinity`
 
 Both `Infinity` and `NaN` belong to the `number` type, but they're not exactly "normal" numbers. Special built-in functions exist to deal with them:
