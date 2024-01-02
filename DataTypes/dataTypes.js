@@ -970,7 +970,7 @@ Object.entries(obj)  // returns an array of [key, value] pairs
 
 // Note the differences from Map: syntax and return value (the latter is an iterable for Map)
 
-// Similar to a for..in loop, these methods ignore properties that use Symbols as keys.
+// Similar to a for...in loop, these methods ignore properties that use Symbols as keys.
 // If getting symbolic keys is what were after, there’s a separate method:
 
 Object.getOwnPropertySymbols(obj)

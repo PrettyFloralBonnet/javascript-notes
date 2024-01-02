@@ -8,7 +8,7 @@ Object properties have 3 special attributes (besides `value`), or "flags":
 
 * `writable` - whether the value can be changed (or is it read-only)
 * `enumerable` - whether the property appears when the object properties are listed (e.g.
-via a `for..in` loop)
+via a `for...in` loop)
 * `configurable` - whether the property can be deleted, and if these attributes can be modified
 
 ### Accessing the flags
@@ -79,7 +79,7 @@ user.name = "Pete"; // Error: Cannot assign to read only property 'name'
 
 ### Non-enumerable
 
-Non-enumerable properties are excluded from `for..in` loops, as well as from `Object.keys`.
+Non-enumerable properties are excluded from `for...in` loops, as well as from `Object.keys`.
 
 ### Non-configurable
 

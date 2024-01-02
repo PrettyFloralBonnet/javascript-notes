@@ -42,7 +42,7 @@ let str = 'Hello';
 console.log(str.at(-1));  // o
 ```
 
-We can also iterate over string characters with `for..of`:
+We can also iterate over string characters with `for...of`:
 
 ```js
 for (let char of "Hello") {

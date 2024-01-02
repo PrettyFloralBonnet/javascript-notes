@@ -10,6 +10,6 @@ One of the ways to set the object's `[[Prototype]]` is to use the historical get
 
 Note that the value of `this` is not affected by prototypes at all. In a method call `this` is always the object before the dot, regardless of where the method is found (the object or its prototype).
 
-Inherited properties are listed in a `for..in` loop, but skipped by `Object.keys()`, `Object.values()` and so on. There's also a built-in method `Object.hasOwnProperty(key)` which returns `true` if the object has its own (not inherited) `key` property.
+Inherited properties are listed in a `for...in` loop, but skipped by `Object.keys()`, `Object.values()` and so on. There's also a built-in method `Object.hasOwnProperty(key)` which returns `true` if the object has its own (not inherited) `key` property.
 
-All objects inherit from `Object.prototype` (which is where the object built in methods come from). All properties of `Object.prototype` have the `enumerable` flag set to `false` (so they won't show up in `for..in` loops).
+All objects inherit from `Object.prototype` (which is where the object built in methods come from). All properties of `Object.prototype` have the `enumerable` flag set to `false` (so they won't show up in `for...in` loops).
