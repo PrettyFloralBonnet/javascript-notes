@@ -322,23 +322,49 @@ console.log(arr.concat([3, 4], 5, 6));  // 1,2,3,4,5,6
 
 If an array-like object has a special property `Symbol.isConcatSpreadable`, it's treated as an array by `concat()`.
 
-// Searching an array
+## Searching
 
-// indexOf, lastIndexof, includes
+All methods described below involve searching through an array in some way.
 
-arr.indexOf(item, i)  // looks for item starting from i (optional), returns index of the item if found, otherwise -1.
-arr.lastIndexOf(item, i)  // same as above, except from right to left
-arr.includes(item, i)   // looks for item starting from i, returns true if found
+### `indexOf` and `lastIndexOf`
 
+The methods `arr.indexOf(item, i)` and `arr.lastIndexOf(item, i)` both look for `item` starting from `i` (which is optional) and return the index of the item, if it's found (or `-1` otherwise).
+
+The only difference between them is that `arr.lastIndexOf()` goes from right to left.
+
+```js
 let arr = [1, 0, 1, 5];
 console.log(arr.indexOf("hello"));  // -1
 console.log(arr.indexOf(0));  // 1
 console.log(arr.indexOf(1));  // 0
 console.log(arr.lastIndexOf(1));  // 2
+```
+
+### `includes`
+
+The `arr.includes(item, i)` method looks for `item` starting from `i` and returns `true` if it's found.
+
+```js
+let arr = [1, 0, 1, 5];
 console.log(arr.includes(5));  // true
+console.log(arr.includes(6));  // false
+```
 
-// find, findIndex
+Fun fact: `arr.includes()` will correctly recognize `NaN`, whereas `arr.indexOf()` will not:
 
+```js
+const arr = [NaN];
+console.log(arr.indexOf(NaN));  // -1 (incorrect)
+console.log(arr.includes(NaN));  // true
+```
+
+### `find`
+
+The method `arr.find(callbackFn)` returns the first element of the provided array that satisfies the provided testing function `callbackFn`. If no element does, `undefined` is returned.
+
+This is very useful for searching through arrays of objects (which are very common, e.g. in JSON structures).
+
+```js
 let users = [
     {id: 1, name: "John"},
     {id: 2, name: "Pete"},
@@ -347,23 +373,46 @@ let users = [
   
 let user = users.find(item => item.id == 1);
 console.log(user.name);  // John
+```
+
+On top of the `item` argument, the `callbackFn` also accepts two more: `index` and `array` (similar to the callback function in `forEach`).
+
+### `findIndex` and `findLastIndex`
+
+These are very similar to `find`, but they return the index of the element that satisfies the testing function instead of the element itself. If the element is not found, `-1` is returned.
+
+Similar to `arr.lastIndexOf()`, `arr.findLastIndex()` searches from right to left.
+
+```js
+let users = [
+    {id: 1, name: "John"},
+    {id: 2, name: "Pete"},
+    {id: 3, name: "Mary"},
+    {id: 4, name: "John"},
+
+];
 
 let johnsIndex = users.findIndex(item => item.name == "John");
 console.log(johnsIndex);  // 0
 
-// if item is not found, find returns undefined, and findIndex returns -1
+let johnsLastIndex = users.findLastIndex(item => item.name == "John");
+console.log(johnsLastIndex);  // 3
+```
 
-// filter
+### `filter`
 
+The method `arr.filter(callbackFn)` creates a shallow copy of a portion of the provided array, filtered down to just the elements which satisfy the provided testing function `callbackFn`. If no element does, an empty array is returned.
+
+```js
 let users = [
     {id: 1, name: "John"},
     {id: 2, name: "Pete"},
     {id: 3, name: "Mary"}
 ];
   
-let someUsers = users.filter(item => item.id < 3);  // filter returns array of matching results
-  
-console.log(someUsers);  // [{id: 1, name: "John"},{id: 2, name: "Pete"}]
+let filteredUsers = users.filter(item => item.id < 3);
+console.log(filteredUsers)  // [{id: 1, name: "John"}, {id: 2, name: "Pete"}]
+```
 
 // Transforming an array
 
