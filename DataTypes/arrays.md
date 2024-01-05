@@ -57,7 +57,9 @@ This compounds with the length of the array (the more elements it has, the more 
 
 ## Iteration
 
-Using a `for` loop:
+### With a "classic" `for` loop
+
+Here's what iterating over an array using a `for` loop looks like:
 
 ```js
 const ARR = ["Apple", "Orange", "Pear"];
@@ -67,7 +69,9 @@ for (let i = 0; i < ARR.length; i++) {
 }
 ```
 
-Using a `for...of` statement, which executes a loop that operates on a sequence of values sourced from any iterable object, such as `Array`, `String`, `Map`, `Set`, `NodeList` (and any other DOM collection) etc.:
+### Using a `for...of` statement
+
+The `for...of` statement executes a loop that operates on a sequence of values sourced from any iterable object, such as `Array`, `String`, `Map`, `Set`, `NodeList` (and any other DOM collection) etc.:
 
 ```js
 const ARR = ["Apple", "Orange", "Pear"];
@@ -76,6 +80,25 @@ for (const element of ARR) {
     console.log(element);
 }
 ```
+
+### Using `forEach`
+
+The method `arr.forEach(callbackFn [, thisArg])` runs the `callbackFn` function for every item of the array. The return value of `forEach()` is `undefined`.
+
+The `callbackFn` takes three arguments: the element, the index, and the array itself:
+
+```js
+let names = ["John", "Jane", "Bob"];
+names.forEach((item, index, array) => {
+    console.log(`${item} at index ${index} in ${array}`);
+});
+
+// "John at index 0 in names"
+// "Jane at index 1 in names"
+// "Bob at index 2 in names"
+```
+
+### Using `for...in` (well, you could, but don't)
 
 Technically, since arrays are objects, they can be iterated over using `for...in` (a statement that iterates over all enumerable string properties of an object, including inherited ones, but excluding ones keyed by symbols) as well, but that's a bad idea:
 * the `for...in` statement iterates over all properties specified above, not just indices, which means we can end up with more than we need
@@ -298,20 +321,6 @@ console.log(arr.concat([3, 4], 5, 6));  // 1,2,3,4,5,6
 ```
 
 If an array-like object has a special property `Symbol.isConcatSpreadable`, it's treated as an array by `concat()`.
-
-// forEach
-
-// runs a function for every item of the array
-// returns undefined
-
-let lotrCharacters = ["Bilbo", "Gandalf", "Nazgul"];
-lotrCharacters.forEach((item, index, array) => {
-    console.log(`${item} at index ${index} in ${array}`);
-});
-
-// "Bilbo at index 0 in lotrCharacters
-// "Gandalf at index 1 in lotrCharacters
-// "Nazgul at index 2 in lotrCharacters
 
 // Searching an array
 
