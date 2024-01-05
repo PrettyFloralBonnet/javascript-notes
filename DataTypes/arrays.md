@@ -83,7 +83,7 @@ for (const element of ARR) {
 
 ### Using `forEach`
 
-The method `arr.forEach(callbackFn [, thisArg])` runs the `callbackFn` function for every item of the array. The return value of `forEach()` is `undefined`.
+The method `arr.forEach(callbackFn [, thisArg])` runs the `callbackFn` function for every item of the array.
 
 The `callbackFn` takes three arguments: the element, the index, and the array itself:
 
@@ -97,6 +97,8 @@ names.forEach((item, index, array) => {
 // "Jane at index 1 in names"
 // "Bob at index 2 in names"
 ```
+
+The optional `thisArg` argument is the value to be used as `this` when the `callbackFn` is executed. For more information, see a section [below](/DataTypes/arrays.md#array-methods-and-this).
 
 ### Using `for...in` (well, you could, but don't)
 
@@ -263,10 +265,8 @@ The `arr.splice()` method is kind of a swiss army knife for arrays, as it can re
 
 ```js
 arr.splice(index [, deleteCount, element1, ..., elementN])
-// index is where the deletion and/or insertion operations will start
-// deleteCount is the number of elements to be removed
-// element1, ..., elementN are the elements to be inserted in their place
 ```
+The deletion and/or insertion operations will start at `index`, `deleteCount` is the number of elements to be removed, and `element1, ..., elementN` are the elements to be inserted.
 
 For example:
 
@@ -440,7 +440,7 @@ console.log(result);  // 15
 console.log(Array.isArray({}));  // false
 console.log(Array.isArray([]));  // true
 
-// *this* in array methods
+## Array methods and `this`
 
 // Almost all array methods that call functions – find, filter, map (with a notable exception of sort),
 // accept an optional additional parameter: thisArg.
