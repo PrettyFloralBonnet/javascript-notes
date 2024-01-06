@@ -246,7 +246,7 @@ console.log(String(arr));  // "1,2,3"
 
 An empty array becomes an empty string.
 
-## Adding and removing items
+## Adding and removing items to an array
 
 ### Pushing, popping, shifting and unshifting
 
@@ -322,7 +322,7 @@ console.log(arr.concat([3, 4], 5, 6));  // 1,2,3,4,5,6
 
 If an array-like object has a special property `Symbol.isConcatSpreadable`, it's treated as an array by `concat()`.
 
-## Searching
+## Searching an array
 
 All methods described below involve searching through an array in some way.
 
@@ -414,29 +414,65 @@ let filteredUsers = users.filter(item => item.id < 3);
 console.log(filteredUsers)  // [{id: 1, name: "John"}, {id: 2, name: "Pete"}]
 ```
 
-// Transforming an array
+## Transforming an array
 
-// map
+These methods transform and reorder arrays.
 
-// map calls a function for each element of the array and returns the array of results
+### `map`
 
-let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
-console.log(lengths);  // 5,7,6
+The method `arr.map()` calls a function for each element of the array and returns a new array with the results.
+```js
+let names = ["John", "Jane", "Bob"];
+let nameLengths = names.map(name => name.length);
+console.log(nameLengths);  // [ 5, 7, 6 ]
+```
 
-// sort(fn)
+### `sort`
 
-// sort() sorts the array in place
-// it also returns the sorted array, but that is usually ignored (as it's unnecessary)
+The method `arr.sort()` sorts the array in place (modifies the original array). Technically it also returns the sorted array, but in practice that is usually ignored.
 
-// by default, the items are sorted as strings:
+By default, the items are sorted lexicographically (they are converted to strings for comparison):
 
-let arr = [1, 2, 15];
-arr.sort();
-console.log(arr);  // 1, 15, 2
+```js
+let numbers = [1, 2, 15];
+numbers.sort();
 
-// to use a non-default sorting order, a function needs to be passed as an argument to sort()
-// a comparison function is only required to return a positive number to say “greater”,
-// and a negative number to say “lesser”
+console.log(numbers);  // [ 1, 15, 2 ]
+```
+
+For non-default sorting to be used, we need to pass a comparator function to `sort()` that will define the sorting order:
+
+```js
+arr.sort(function(a, b) {
+    return a - b;
+});
+```
+
+The comparator function takes two parameters, typically referred to as `a` and `b`. The function should return a negative, zero, or positive value, indicating (respectively) whether `a` should be placed before, at the same position as, or after `b` in the sorted array.
+
+The comparator function will walk the array, compare its elements, and reorder them. It will try to make as few comparisons as possible.
+
+```js
+let numbers = [4, 2, 5, 1, 3];
+
+numbers.sort(function(a, b) {
+    console.log(`now comparing: ${a} and ${b}`)
+  return a - b;
+});
+
+// now comparing: 4 and 2
+// now comparing: 4 and 5
+// now comparing: 5 and 1
+// now comparing: 4 and 1
+// now comparing: 2 and 1
+// now comparing: 5 and 3
+// now comparing: 4 and 3
+// now comparing: 2 and 3
+
+console.log(numbers);  // [ 1, 2, 3, 4, 5 ]
+```
+
+In order to ensure proper sort behaviour, the comparator function is expected to have certain properties listed [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description). The default lexicographical comparator satisfies all of these constraints, which ensures that the sorting is stable. For more information on sort stability, go to [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sort_stability) and [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sorting_with_non-well-formed_comparator).
 
 // reverse
 
