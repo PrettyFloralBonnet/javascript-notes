@@ -54,7 +54,7 @@ let salaries = {
 };
 
 // ...write the function sumSalaries(salaries) that returns the sum of all salaries.
-// Use Object.values and the for..of loop. If salaries is empty, then the result must be 0.
+// Use Object.values and the for...of loop. If salaries is empty, then the result must be 0.
 // -->
 
 let sumSalaries = (salaries) => {

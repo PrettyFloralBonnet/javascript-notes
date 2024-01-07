@@ -1,6 +1,8 @@
 ##  JavaScript notes
 This is a collection of notes and exercises from [The Modern JavaScript Tutorial](https://javascript.info/) by [Ilya Kantor](https://github.com/javascript-tutorial).
 
+Some sections also contain extra information from the [MDN JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference).
+
 ## Table of contents
 
 1. Introduction
@@ -28,14 +30,36 @@ This is a collection of notes and exercises from [The Modern JavaScript Tutorial
     6. [Optional chaining](/Objects/optional-chaining.md)
     7. [Symbols](/Objects/symbol-type.md)
     8. [Object to primitive conversion](/Objects/object-to-primitive-conversion.md)
-    9. [Property flags and descriptors](/Objects/property-flags-descriptors.md)
-    10. [Property getters and setters](/Objects/property-getters-setters.md)
+    9. [Object keys, values and entries*](/Objects/object-keys-values-entries.md)
+    10. [Destructuring*](/Objects/destructuring.md)
+    11. [Property flags and descriptors](/Objects/property-flags-descriptors.md)
+    12. [Property getters and setters](/Objects/property-getters-setters.md)
 4. Data types
-5. Functions
+    1. [Methods of primitives](/DataTypes/methods-of-primitives.md)
+    2. [Numbers](/DataTypes/numbers.md)
+    3. [Strings](/DataTypes/strings.md)
+    4. [Arrays](/DataTypes/arrays.md)
+    5. [Iterables*](/DataTypes/iterables.md)
+    6. [Map and Set*](/DataTypes/map-set.md)
+    7. [WeakMap and WeakSet*](/DataTypes/weakmap-weakset.md)
+    8. [Date and time*](/DataTypes/date-time.md)
+    9. [JSON*](/DataTypes/json.md)
+5. Functions*
 6. Prototypes
+    1. [Introduction to prototypes](/Prototypes/prototypes.md)
+    2. [Prototype property](/Prototypes/prototype-property.md)
+    3. [Native prototypes](/Prototypes/native-prototypes.md)
+    4. [Prototype methods](/Prototypes/prototype-methods.md)
 7. Classes
+    1. [Class basics](/Classes/class-basics.md)
+    2. [Class inheritance](/Classes/class-inheritance.md)
+    3. [Static fields](/Classes/static-fields.md)
+    4. [Private and protected fields](/Classes/private-protected-fields.md)
 8. Error handling
+    1. [Error handling](/ErrorHandling/error-handling.md)
 9. Promises
 10. Generators
 11. Modules
 12. Miscellaneous
+
+\* work in progress
