@@ -46,6 +46,13 @@ console.log(fruits);  // ["Pineapple", "Lemon", "Apple", "Orange", "Peach"]
 
 At their base, arrays are objects. It is possible to add an arbitrary property to an array, or (as mentioned earlier) assign a value to an index larger than the array's length. However, these should be avoided, because once the JS engine detects we are working with an array as if it was a regular object, internal array-specific optimizations will cease to apply, losing the advantages of using an array in the first place.
 
+Since arrays are objects, the `typeof` operator doesn't actually help to identify them. However, a built-in array method `Array.isArray()` does:
+
+```js
+console.log(Array.isArray({}));  // false
+console.log(Array.isArray([]));  // true
+```
+
 ## Performance
 
 The methods `pop` and `push` are fast, whereas `shift` and `unshift` are slow. This is due to the fact that when the array is shifted (or unshifted), the following operations need to be performed:
@@ -474,56 +481,65 @@ console.log(numbers);  // [ 1, 2, 3, 4, 5 ]
 
 In order to ensure proper sort behaviour, the comparator function is expected to have certain properties listed [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description). The default lexicographical comparator satisfies all of these constraints, which ensures that the sorting is stable. For more information on sort stability, go to [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sort_stability) and [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#sorting_with_non-well-formed_comparator).
 
-// reverse
+Quick hint: for sorting strings with non-ASCII characters (e.g. strings with accented characters like e, é, è, a, ä, etc.), strings the string method `localeCompare()`:
 
+```js
+const items = ["réservé", "premier", "communiqué", "café", "adieu", "éclair"];
+items.sort((a, b) => a.localeCompare(b));
+
+console.log(items);  // ['adieu', 'café', 'communiqué', 'éclair', 'premier', 'réservé']
+```
+
+### `reverse`
+
+The method `arr.reverse()` reverses the order of elements in the array.
+
+```js
 let arr = [1, 2, 3, 4, 5];
 arr.reverse();
+
 console.log(arr);  // 5,4,3,2,1
+```
 
-// reverse() reverses the order of elements in the array, and returns the reversed array
+### `join` (and `split`)
 
-// split, join
+The method `arr.join([separator])` takes all elements of the array, and creates a new string from them by concatenating them separated by the provided (optional) `separator`:
 
-// split() splits a string into an array by the given delimiter
+```js
+let names = ["John", "Jane", "Aerith"];
+console.log(names.join(", "));  // "John, Jane, Aerith"
+console.log(names.join("-"));  // "John-Jane-Aerith"
+```
 
-let names = 'Bilbo, Gandalf, Nazgul';
-let arr = names.split(', ');
+If the `separator` is not provided, the value `","` is used by default. If the array only has one item, a string of that item is returned without the separator.
 
-for (let name of arr) {
-    console.log(`A message to ${name}.` ); // "A message to Bilbo" (etc.)
-}
+Strings have a method `str.split([separator, limit])` that does the opposite: divides the string into an ordered list of substrings based on the provided (and once again, optional) `separator`, and creates a new array of those substrings:
 
-// split also accepts an optional second argument, a limit to the length of the array (rarely used)
+```js
+let sequence = "alpha-theta-gamma-delta";
+console.log(sequence.split("-"));  // [ "alpha", "theta", "gamma", "delta" ]
+```
 
-// join() does the reverse - it creates a string from the elements of the array, joined by the delimiter:
+If `separator` is omitted, an array with the calling string as the single element will be returned.
 
-let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
-let str = arr.join(', ');
+The second optional argument is `limit`, which is a non-negative integer that specifies the limit on the number of substrings to be included in the array.
 
-console.log(str); // Bilbo, Gandalf, Nazgul
+### `reduce`/`reduceRight`
 
-// reduce
+The method `arr.reduce()` is used to calculate a single value based on the contents of the array.
 
-// reduce is used to calculate a single value based on the array
-
+```js
 let arr = [1, 2, 3, 4, 5];
-let result = arr.reduce((acc, item) => acc + item, 0);  // can accept two more arguments to represent index and array
+let result = arr.reduce((acc, item) => acc + item, 0);
+
 console.log(result);  // 15
+```
 
-// as function is applied, the result of the previous function call is passed to the next one as the first argument
+As the function is applied, the result of the previous function call is passed to the next one as the first argument.
 
-// if there’s no initial value, reduce() takes the first element of the array as the initial value
-// and starts the iteration from the 2nd element
-// this can result in an error if array is empty, so it's advisable to always provide the initial value
+If there's no initial value, `reduce()` takes the first element of the array as the initial value, and starts the iteration from the second element. This can actually result in an error if the array is empty, so it's advisable to always provide the initial value.
 
-// the method reduceRight() does the same, but goes from right to left
-
-// Array.isArray()
-
-// Arrays are object, so typeof doesn't help to identify them. This is what isArray() is for:
-
-console.log(Array.isArray({}));  // false
-console.log(Array.isArray([]));  // true
+The method `arr.reduceRight()` does the same thing, but goes from right to left.
 
 ## Array methods and `this`
 
