@@ -526,7 +526,7 @@ The second optional argument is `limit`, which is a non-negative integer that sp
 
 ### `reduce`/`reduceRight`
 
-The method `arr.reduce()` is used to calculate a single value based on the contents of the array.
+The method `arr.reduce(fn [, initial])` is used to calculate a single value based on the contents of the array.
 
 ```js
 let arr = [1, 2, 3, 4, 5];
@@ -537,16 +537,15 @@ console.log(result);  // 15
 
 As the function is applied, the result of the previous function call is passed to the next one as the first argument.
 
-If there's no initial value, `reduce()` takes the first element of the array as the initial value, and starts the iteration from the second element. This can actually result in an error if the array is empty, so it's advisable to always provide the initial value.
+If there's no `initial` value, `reduce()` takes the first element of the array as the initial value, and starts the iteration from the second element. This can actually result in an error if the array is empty, so it's advisable to always provide the initial value.
 
 The method `arr.reduceRight()` does the same thing, but goes from right to left.
 
 ## Array methods and `this`
 
-// Almost all array methods that call functions – find, filter, map (with a notable exception of sort),
-// accept an optional additional parameter: thisArg.
-// The value of thisArg parameter becomes *this* for the function:
+Almost all array methods that take callback functions as arguments (such as `find`, `filter`, `map` etc.) accept an additional optional parameter: `thisArg`, the value of which becomes `this` for the function:
 
+```js
 let army = {
     minAge: 18,
     maxAge: 27,
@@ -568,29 +567,23 @@ let soldiers = users.filter(army.canJoin, army);
 console.log(soldiers.length);  // 2
 console.log(soldiers[0].age);  // 20
 console.log(soldiers[1].age);  // 23
+```
 
-// If we used users.filter(army.canJoin), then army.canJoin would be called as a standalone function
-// with this=undefined, leading to an instant error.
-// The call to users.filter(army.canJoin, army) can be replaced with users.filter(user => army.canJoin(user)).
+In the example above, if we used `users.filter(army.canJoin)`, then `army.canJoin` would have been called as a standalone function, with `this` equal to `undefined`, leading to an error.
 
-// other methods
+However, the call to `users.filter(army.canJoin, army)` can also be replaced with `users.filter(user => army.canJoin(user))`, which might be more readable.
 
-// some(fn), every(fn)
+## Other methods
 
-// These check the array by calling a function on each element of the array (similar to map).
-// If any/all results are true, they return true.
+There are plenty of other built-in methods for arrays. For more information, see the [array reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
-// fill(value, start, end)
+## Exercises (part 2)
 
-// fills the array with repeating value from index start to end
+### Camelize
 
-// copyWithin(target, start, end)
+Write a function `camelize(str)` that changes dash-separated words like "my-short-string" into camel-cased "myShortString".
 
-// copies elements of the array from  start to end into itself at position target, overwriting existing elements.
-
-// TASK: Write a function camelize(str) that changes dash-separated words like "my-short-string" into camel-cased "myShortString".
-// -->
-
+```js
 let camelize = (str) => {
     let chunks = str.split('-');
 
@@ -601,31 +594,27 @@ let camelize = (str) => {
 
     return camelCasedChunks.join('');
 };
+```
 
-// TASK: Write a function filterRange(arr, a, b) that looks for elements between a and b in arr and returns them in a new array.
-// The function should not modify arr.
-// -->
+### Filter range
 
+Write a function `filterRange(arr, a, b)` that looks for elements with values higher or equal to `a` and lower or equal `b` in `arr`, and returns them in a new array. The function should not modify the original array.
+
+```js
 let filterRange = (arr, a, b) => {
-    if (b > arr.length) return arr.slice(a);
-    else return arr.slice(a, b);
-};
-
-// Uhh, it turns out it was about values, not indices:
-// -->
-
-let filterRange = (arr, a, b) => {
-    let filtered = arr.filter((n) => {
-        if (n >= a && n <= b) return n;
+    let filtered = arr.filter((item) => {
+        if (item >= a && item <= b) return item;
     });
+
     return filtered;
 };
+```
 
-// TASK: Write a function filterRangeInPlace(arr, a, b) that gets an array arr and removes all values from it except ones between a and b.
-// The test is: a ≤ arr[i] ≤ b.
-// The function should only modify the array. It should not return anything.
-// -->
+### Filter range in place
 
+Write a function `filterRangeInPlace(arr, a, b)` that takes `arr` and removes all values from it, except for ones between `a` and `b`.
+
+```js
 let filterRangeInPlace = (arr, a, b) => {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] < a || arr[i] > b) {
@@ -634,30 +623,24 @@ let filterRangeInPlace = (arr, a, b) => {
         }
     }
 }
+```
 
-// TASK: Sort the array in decreasing order:
-// -->
+### Sort in decreasing order
 
+Sort the array in decreasing order.
+
+```js
 let arr = [5, 2, 1, -10, 8];
 
 arr.sort((a, b) => b - a);
 console.log(arr);
+```
 
-// TASK: Create a function copySorted(arr) that returns a sorted copy of arr, but keeps arr unmodified.
-// -->
+### Calculator
 
-let copySorted = (arr) => {
-    let arrCopy = arr.slice();
-    return arrCopy.sort((a, b) => a - b);
-}
+Create an constructor function `Calculator` that creates extensible calculator objects. First, implement the method `calculate(str)` that takes a string in the format "NUMBER operator NUMBER" (e.g.: "1 + 2", delimited by spaces) and returns the result. It should understand addition and subtraction. Then, create the method `addMethod(name, func)` that "teaches" the calculator a new operation. It should accept the operator (`name`) and a two-parameter function that implements the operator. For instance, if we add multiplication `*`, division `/` and power `**`, it should look like this:
 
-// TASK: Create an constructor function Calculator that creates extensible calculator objects.
-// First, implement the method calculate(str) that takes a string in the format “NUMBER operator NUMBER”
-// (e.g.: "1 + 2", delimited by spaces) and returns the result. It should understand addition and subtraction.
-// Then add the method addMethod(name, func) that "teaches" the calculator a new operation.
-// It should accept the operator (name) and a two-parameter function that implements the operator.
-// For instance, if we add multiplication *, division / and power **, it should look like this:
-
+```js
 let powerCalc = new Calculator;
 powerCalc.addMethod("*", (a, b) => a * b);
 powerCalc.addMethod("/", (a, b) => a / b);
@@ -665,9 +648,9 @@ powerCalc.addMethod("**", (a, b) => a ** b);
 
 let result = powerCalc.calculate("2 ** 3");
 console.log( result ); // 8
+```
 
-// -->
-
+```js
 function Calculator() {
     this.supportedOperators = ['+', '-']
     this.supportedMethods = [
@@ -689,10 +672,13 @@ function Calculator() {
         this.supportedMethods.push(method);
     }
 }
+```
 
-// TASK: Given an array of user objects, each with a property name, write code that creates an array of names.
-// -->
+### Map to names
 
+Given an array of user objects, each with a property `name`, write code that creates an array of names.
+
+```js
 let users = [
     {id: 1, name: "John"},
     {id: 2, name: "Pete"},
@@ -700,11 +686,13 @@ let users = [
 ];
 
 let names = users.map((user) => user.name);
+```
 
-// TASK: Given an array of user objects, each with name, surname and id properties,
-// write code that creates an array of objects with id and fullName, where fullName is generated from name and surname.
-// -->
+### Map to objects
 
+Given an array of user objects, each with `name`, `surname` and `id` properties, write code that creates an array of objects with `id` and `fullName`, where `fullName` is generated from `name` and `surname`.
+
+```js
 let users = [
     {id: 1, name: "John", surname: "Smith"},
     {id: 2, name: "Pete", surname: "Hines"},
@@ -717,17 +705,13 @@ let fullNameUsers = users.map((user) => {
     mappedUsers.fullName = `${user.name} ${user.surname}`;
     return mappedUsers;
 });
+```
 
-// or (tutorial solution - note the additional '()' wrapping the object returned by the callback function):
+### Sort users by age
 
-let fullNameUsers = users.map((user) => ({
-    fullName: `${user.name} ${user.surname}`,
-    id: user.id
-}));
+Write the function `sortByAge(users)` that gets an array of objects with the `age` property and sorts them by age.
 
-// TASK: Write the function sortByAge(users) that gets an array of objects with the age property and sorts them by age.
-// -->
-
+```js
 let users = [
     { name: "John", age: 25 },
     { name: "Pete", age: 30 },
@@ -737,12 +721,13 @@ let users = [
 let sortByAge = (users) => {
     users.sort((a, b) => a.age - b.age)
 }
+```
 
-// Write the function shuffle(array) that randomly reorders elements of the array.
-// All possible element orders should have an equal probability.
-// -->
+### Fisher-Yates shuffle
 
-// Fisher-Yates shuffle
+Write the function `shuffle(array)` that randomly reorders elements of the array. All possible element orders should have an equal probability to occur.
+
+```js
 let shuffle = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
         let randomIndex = Math.floor(Math.random() * (i + 1))
@@ -751,11 +736,13 @@ let shuffle = (arr) => {
         arr[randomIndex] = currentElement;
     }
 }
+```
 
-// TASK: Write the function getAverageAge(users) that gets an array of objects
-// with property age and returns the average age.
-// -->
+### Average age
 
+Write the function `getAverageAge(users)` that gets an array of objects with property `age` and returns the average age.
+
+```js
 let getAverageAge = (users) => {
     let totalAge = 0;
     users.forEach((user) => {
@@ -769,10 +756,13 @@ let getAverageAge = (users) => {
 let getAverageAge = (users) => {
     return users.reduce((acc, user) => acc + user.age, 0) / users.length;
 }
+```
 
-// TASK: Create a function unique(arr) that returns an array with unique items of arr.
-// -->
+### Unique array members
 
+Create a function `unique(arr)` that returns an array with unique items of `arr`.
+
+```js
 let unique = (arr) => {
     let uniqueArr = [];
     arr.forEach((element) => {
@@ -782,12 +772,13 @@ let unique = (arr) => {
     });
     return uniqueArr;
 }
+```
 
-// TASK: Given an array of user objects with properties id, name, age,
-// create a function groupById(arr) that creates an object with user.id properties as keys and entire array items as values.
-// Assume id is unique. Use reduce() in the solution.
-// -->
+### Group users by ID
 
+Given an array of user objects with properties `id`, `name` and `age`, create a function `groupById(arr)` that creates an object with `user.id` properties as keys and entire array items as values. Assume `id` is unique. Use `reduce()` in the solution.
+
+```js
 let users = [
     {id: 'john', name: "John Smith", age: 20},
     {id: 'ann', name: "Ann Smith", age: 24},
@@ -800,3 +791,4 @@ let groupById = (arr) => {
         return acc;
     }, {});
 };
+```
