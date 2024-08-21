@@ -133,59 +133,56 @@ Any recursion can be rewritten as a loop, and the loop variant usually can be ma
 
 ## Recursive traversals
 
+Recursive traversals are another example of applied recursion.
+
 ```js
 let company = {
-    sales: [{
-        name: 'John',
-        salary: 1000
-    }, {
-        name: 'Alice',
-        salary: 1600
-    }],
-
+    sales: [
+        {
+            name: 'John',
+            salary: 1000
+        },
+        {
+            name: 'Alice',
+            salary: 1600
+        }
+    ],
     development: {
-        sites: [{
-            name: 'Peter',
-            salary: 2000
-        }, {
-            name: 'Alex',
-            salary: 1800
-        }],
-
-        internals: [{
-            name: 'Jack',
-            salary: 1300
-        }]
+        sites: [
+            {
+                name: 'Peter',
+                salary: 2000
+            },
+            {
+                name: 'Alex',
+                salary: 1800
+            }
+        ],
+        internals: [
+            {
+                name: 'Jack',
+                salary: 1300
+            }
+        ]
     }
 };
 ```
 
-// This company has departments. A department may have an array of staff - e.g. the sales department
-// has 2 employees: John and Alice.
-// A department may be split into subdepartments. Development has two branches: sites and internals.
-// Each of them has their own staff.
-// It is also possible that when a subdepartment grows, it divides further into teams.
-// E.g. the sites department may be split into teams for siteA and siteB in the future.
-// They can potentially split even further (not represented in the structure above,
-// just something to keep in mind).
+This company has departments. A department may have an array of staff - e.g. the sales department has 2 employees: John and Alice. A department may be split into subdepartments. Development has two branches: sites and internals Each branch has its own staff. It is also possible that when a subdepartment grows, it divides further into teams, e.g. the sites department may be split into teams for Site A and Site B in the future. They can potentially split even further (not represented in the structure above, just something to keep in mind).
 
-// Let’s say we want a function to get the sum of all salaries. How can we do that?
+Let's say we want a function to get the sum of all salaries. How can we do that?
 
-// An iterative approach is not straightforward at all, because the structure is complex.
-// When more and more nested subloops become necessary to traverse a single object, it becomes quite ugly.
+An iterative approach is not straightforward at all, because the structure is complex. When more and more nested subloops become necessary to traverse a single object, it becomes quite ugly.
 
-// Let’s try recursion. Whenever the function receives a department to get salaries from,
-// there are two possibilities:
-//
-//  1) it’s an array of "people" objects, and salaries can be summed up using a loop,
-//  2) it’s an object of n subdepartments, and n recursive calls needs to be made
-//     to get the sum for each of one, and combine the results.
+So, let's try recursion. Whenever the function receives a department to get salaries from, there are two possibilities:
+1. it's an array of "people" objects, and salaries can be summed up using a loop
+2. it's an object of `n` subdepartments, and `n` recursive calls needs to be made to get the sum for each of one, and combine the results.
 
-// The first case is the base of recursion. The second is the recursive step.
+The first case is the base of recursion. The second is the recursive step.
 
-// A complex task is split into subtasks for smaller departments. They may be split further,
-// but sooner or later the split will end up at the base case.
+A complex task is split into subtasks for smaller departments. They may be split further, but sooner or later the split will end up at the base case.
 
+```js
 let sumSalaries = (department) => {
     if (Array.isArray(department)) {
         return department.reduce((prev, current) => prev + current.salary, 0);
@@ -197,10 +194,11 @@ let sumSalaries = (department) => {
         return sum;
     }
 }
+```
 
-// The function above works for any level od subdepartment nesting.
+This works for any level od subdepartment nesting.
 
-// Recursive structures
+### Recursive structures
 
 // A recursive data structure is a structure that replicates itself in parts.
 
