@@ -131,7 +131,7 @@ The iterative solution uses a single context, changing the values of i and resul
 
 Any recursion can be rewritten as a loop, and the loop variant usually can be made more effective. However, sometimes the rewrite is non-trivial, especially when the function uses various recursive subcalls depending on conditions, and merges their results or when the branching is more intricate. The optimization might be unnecessary and/or not worth the trouble, as recursion usually results in shorter code, easier to understand and support.
 
-## Recursive traversals
+### Recursive traversals
 
 Recursive traversals are another example of applied recursion.
 
@@ -200,26 +200,17 @@ This works for any level od subdepartment nesting.
 
 ### Recursive structures
 
-// A recursive data structure is a structure that replicates itself in parts.
+A recursive data structure is a structure that replicates itself in parts. One example would be the company structure mentioned above - a company department is either an array of people, or an object of departments.
 
-// An example would be the company structure above - a company department is either an array of people,
-// or an object of departments.
+Another is HTML and XML. In an HTML document, an HTML tag may contain a list of text pieces, HTML comments or *other* HTML tags (that may in turn contain further text pieces, comments or tags).
 
-// Another example, maybe one that hits a little closer to home for web developers, is HTML and XML.
-// In an HTML document, an HTML tag may contain a list of text pieces, HTML comments or *other* HTML tags
-// (that may in turn contain further text pieces, comments or tags).
+Yet another example is a **linked list**. A linked list is a data structure useful for when we want to store an ordered collection of objects, like in an array, but we also need fast insertion and deletion (which arrays may not offer if these operations take place near the beginning of the array, i.e. shift/unshift).
 
-// Linked list (as an example of a recursive structure)
+Linked list elements are recursively defined as objects with:
+* `value` property
+* `next` property (which references the next element, or `null` if the element is the last)
 
-// A linked list is a data structure useful for when we want to store an ordered collection of objects,
-// like in an array, but we also need fast insertion and deletion (which arrays may not offer if these
-// operations take place near the beginning of the array, i.e. shift/unshift).
-
-// Linked list elements are recursively defined as objects with:
-//
-// value property,
-// next property (which references the next element or null if the element is the last)
-
+```js
 let linkedList = {
     value: 1,
     next: {
@@ -233,57 +224,63 @@ let linkedList = {
         }
     }
 };
+```
 
-// An alternative way to create a linked list:
+or:
 
+```js
 let linkedList = { value: 1 };
 linkedList.next = { value: 2 };
 linkedList.next.next = { value: 3 };
 linkedList.next.next.next = { value: 4 };
 linkedList.next.next.next.next = null;
+```
 
-// Linked lists can be easily split into multiple parts...
+Linked lists can be easily split into multiple parts...
 
-let secondLinkedList = linkeList.next.next;
+```js
+let secondLinkedList = linkedList.next.next;
 linkedList.next.next = null;
+```
 
-// ...and joined back later:
+...and joined back later:
 
+```js
 linkedList.next.next = secondLinkedList;
+```
 
-// Items can be inserted and removed anywhere easily. E.g. to prepend a new value,
-// the head of the list needs to be updated:
+Elements can be easily inserted and removed at any point in the structure. E.g. to prepend a new value, the head of the list needs to be updated:
 
+```js
 let linkedList = { value: 1 };
 linkedList.next = { value: 2 };
 linkedList.next.next = { value: 3 };
 linkedList.next.next.next = { value: 4 };
 
 linkedList = { value: "new item", next: linkedList };  // prepend the new value to the list
+```
 
-// To remove a value from the middle, the next property of the previous element needs to be changed:
+To remove a value from the middle, the `next` property of the previous element needs to be changed:
 
+```js
 linkedList.next = linkedList.next.next;
+```
 
-// Here, linkedList.next "jumped over" a value (from 1 to 2). The value "1" is now excluded from the chain,
-// and as long as it's not stored anywhere else, it will be removed from memory by the garbage collector.
+Here, `linkedList.next` "jumped over" a value (from `1` to `2`). The value `1` is now excluded from the chain, and as long as it's not stored anywhere else, it will be removed from memory by the garbage collector. Unlike with arrays, no en-masse renumbering ocurrs, and the elements can be rearranged easily.
 
-// Unlike with arrays, there is no en-masse renumbering here - elements can be rearranged easily.
+Linked lists have their drawbacks, of course. The main one is that elements cannot be easily accessed by their indices. In an array, that's easy: arr[n] is a direct reference. To do that in a linked list, we would have to start from the first item and go to next `n` times to get the n-th element.
 
-// Linked lists have their drawbacks, of course - the main one is that elements cannot be easily accessed
-// by their indices. In an array that’s easy: arr[n] is a direct reference. To do that in a linked list,
-// we would have to start from the first item and go to next n times to get the n-th element.
+Linked lists can be enhanced further by adding a `prev` property in addition to `next`, to reference the previous element, and gain the ability to easily move backwards along the list (thus resulting in a so-called **doubly-linked list**). Another property that can be added is `tail`, referencing the last element of the list (it needs to be updated when adding/removing elements from the end).
 
-// Linked lists can be enhanced further by adding a "prev" property in addition to next,
-// to reference the previous element, and gain the ability to easily move backwards along the list
-// (thus resulting in a so-called doubly-linked list). Another property that can be added is "tail",
-// referencing the last element of the list (it needs to be updated when adding/removing elements
-// from the end).
+## Exercises
 
-// TASK: Write a function sumTo(n) that calculates the sum of numbers 1 + 2 + ... + n.
-// Use a for loop first, then recursion, then the arithmetic progression formula (3 separate solutions).
-// -->
+### Sum to `n`
 
+Write a function `sumTo(n)` that calculates the sum of numbers `1 + 2 + ... + n`. Use a for loop first, then recursion, then the arithmetic progression formula (3 separate solutions).
+
+Solution:
+
+```js
 // for loop
 
 function sumTo(n) {
@@ -306,19 +303,27 @@ function sumTo(n) {
 function sumTo(n) {
     return n * (n + 1) / 2
 }
+```
 
-// TASK: Write a function factorial(n) that calculates n! using recursive calls.
-// Hint: n! can be written down as n * (n - 1)!
-// -->
+### Factorial
 
+Write a function `factorial(n)` that calculates `n!` using recursive calls Hint: `n!` can be written down as `n * (n - 1)!`.
+
+Solution:
+
+```js
 let factorial = (n) => {
     return (n != 1) ? n * factorial(n - 1) : 1;
 }
+```
 
-// TASK: Write a function fib(n) that returns the n-th Fibonacci number.
-// The function should be fast (e.g. the call fib(77) should take a fraction of a second).
-//-->
+### Fibonacci numbers
 
+Write a function `fib(n)` that returns the n-th Fibonacci number. The function should be fast (e.g. the call `fib(77)` should take a fraction of a second).
+
+Solution:
+
+```js
 // recursive solution (slow!)
 
 let fib = (n) => {
@@ -338,9 +343,13 @@ let fib = (n) => {
     }
     return b;
 }
+```
 
-// TASK: Given a singly-linked list:
+### Linked list
 
+Given a linked list:
+
+```js
 let linkedList = {
     value: 1,
     next: {
@@ -354,11 +363,13 @@ let linkedList = {
         }
     }
 };
+```
 
-// ...write a function printList(list) that outputs the list items, one by one.
-// Provide two solutions: using a loop, and using recursion.
-// -->
+...write a function `printList(list)` that outputs the list items, one by one. Provide two solutions: using a loop, and using recursion.
 
+Solution:
+
+```js
 // loop:
 
 let printList = (list) => {
@@ -379,14 +390,17 @@ let printList = (list) => {
         printList(list.next);
     }
 }
+```
 
-// The loop is more cost-effective (no nested function calls). Recursion is shorter
-// and a bit more readable.
+The loop is more cost-effective (no nested function calls). Recursion is shorter and a bit more readable.
 
-// TASK: Write a function printListReversed(list) that outputs the list items
-// in the reverse order. Once again, provide a loop solution and a recursive solution.
-// -->
+### Reversed linked list
 
+Write a function `printListReversed(list)` that outputs the list items in the reverse order. Once again, provide a loop solution and a recursive solution.
+
+Solution:
+
+```js
 // loop:
 
 let printListReversed = (list) => {
@@ -412,3 +426,4 @@ let printListReversed = (list) => {
 
     console.log(list.value);
 }
+```
