@@ -30,8 +30,8 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     6. [Optional chaining](/Objects/optional-chaining.md)
     7. [Symbols](/Objects/symbol-type.md)
     8. [Object to primitive conversion](/Objects/object-to-primitive-conversion.md)
-    9. [Object keys, values and entries*](/Objects/object-keys-values-entries.md)
-    10. [Destructuring*](/Objects/destructuring.md)
+    9. [Object keys, values and entries](/Objects/object-keys-values-entries.md)*
+    10. [Destructuring](/Objects/destructuring.md)*
     11. [Property flags and descriptors](/Objects/property-flags-descriptors.md)
     12. [Property getters and setters](/Objects/property-getters-setters.md)
 4. Data types
@@ -39,12 +39,23 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     2. [Numbers](/DataTypes/numbers.md)
     3. [Strings](/DataTypes/strings.md)
     4. [Arrays](/DataTypes/arrays.md)
-    5. [Iterables*](/DataTypes/iterables.md)
-    6. [Map and Set*](/DataTypes/map-set.md)
-    7. [WeakMap and WeakSet*](/DataTypes/weakmap-weakset.md)
-    8. [Date and time*](/DataTypes/date-time.md)
+    5. [Iterables](/DataTypes/iterables.md)*
+    6. [Map and Set](/DataTypes/map-set.md)*
+    7. [WeakMap and WeakSet](/DataTypes/weakmap-weakset.md)*
+    8. [Date and time](/DataTypes/date-time.md)*
     9. [JSON*](/DataTypes/json.md)
 5. Functions*
+    1. [Recursion](/Functions/recursion.md)
+    2. [Spread syntax](/Functions/spread.md)
+    3. [Scope and closures](/Functions/scope-and-closures.md)*
+    4. [The old `var`](/Functions/old-var.md)*
+    5. [Global object](/Functions/global-object.md)*
+    6. [Function object, NFE](/Functions/function-object-nfe.md)*
+    7. [The `new Function` syntax](/Functions/new-function-syntax.md)*
+    8. [Scheduling: `setTimeout` and `setInterval`](/Functions/scheduling.md)*
+    9. [Decorators and forwarding](/Functions/decorators-forwarding.md)*
+    10. [Function binding](/Functions/function-binding.md)*
+    11. [Arrow functions, revisited](/Functions/arrow-functions.md)*
 6. Prototypes
     1. [Introduction to prototypes](/Prototypes/prototypes.md)
     2. [Prototype property](/Prototypes/prototype-property.md)
