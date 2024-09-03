@@ -1,26 +1,21 @@
-// ----- ITERABLES -----
+## Iterables
 
-// An iterable is a generalization of arrays. It's what makes an object usable with a for..of loop.
+Iterables are objects which represent collections (so e.g. arrays, strings, lists, sets etc.) that can be iterated over using a `for...of` loop.
 
-// A rule of thumb is any object representing a collection (arrays, strings, lists, sets etc.) is an iterable.
+### `Symbol.iterator`
 
+Let's say we have an object which represents a range of numbers:
+
+```js
 let range = {
     from: 1,
     to: 5
 }
+```
 
-// To make this range iterable, we need to add a special method called Symbol.iterator.
-//
-//  1. When the for..of loop starts, it calls that method once (or errors out if the method is not found).
-//     The method must return an iterator (an object with the method *next*).
-//  2. Then, the for..of loop continues to work the iterator only.
-//  3. When the loop goes to the next value, it calls next() on the iterator.
-//  4. The result of next() must have the form: {done: Boolean, value: any}.
-//     The done=true means that the iteration is finished. Otherwise, value is equal to the next value.
-//
+To make this range iterable, we need to add a special method called `Symbol.iterator`:
 
-// Full implementation:
-
+```js
 let range = {
     from: 1,
     to: 5
@@ -43,29 +38,39 @@ range[Symbol.iterator] = function() {
 for (let num of range) {
     console.log(num);  // 1, 2, 3, 4, 5
 }
+```
 
-// iterable vs. array-like
+Here's what's happening in detail:
 
-// These are two different concepts:
-//
-// - Iterables are objects that implement the Symbol.iterator method
-// - Array-likes are objects that have indices and length
-//
-// Strings are an example of both.
-// However, the range object implemented above is not an array-like (since it has neither length or indices)
-// Here's an example of an object that's an array-like, but not an iterable:
+1. When the `for...of` loop starts, it calls that method once (or errors out if the method is not found). The method must return an iterator (an object with the method `next()`).
+2. Then, the `for...of` loop continues to work with that returned object only.
+3. When the loop goes to the next value, it calls `next()` on the iterator.
+4. The result of `next()` must have the form: `{ done: Boolean, value: any }`, where `done === true` means that the iteration is finished, otherwise `value` is the next value.
 
+### Iterable vs. array-like
+
+These two terms may seem similar, but they are two different concepts:
+
+* Iterables are objects that implement the `Symbol.iterator` method
+* Array-likes are objects that have indices and `length`
+
+Strings are both iterables and array-likes. However, the range object implemented above is not an array-like (since it has neither length or indices).
+
+Here's an example of an object that's an array-like, but not an iterable:
+
+```js
 let arrayLike = {
     0: "Hello",
     1: "World",
     length: 2
 };
+```
 
-// Array.from
+### `Array.from()`
 
-// Universal method for constructing arrays out of iterables and array-likes:
+There is an universal method `Array.from(obj[, mapFn, thisArg])` for constructing arrays out of iterables and array-likes:
 
+```js
 let arrFromArrayLike = Array.from(arrayLike);
 let arrFromRange = Array.from(range);
-
-// Array.from also accepts two optional arguments: a mapping function and thisArg.
+```
