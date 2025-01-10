@@ -86,10 +86,11 @@ console.log(surname);  // Doe (default)
 
 Default values can be more complex expressions or even function calls. They are only evaluated if the corresponding value is not provided.
 
-// Object destructuring
+### Object destructuring
 
-// The destructuring assignment also works with objects:
+The destructuring assignment also works with plain objects:
 
+```js
 let options = {
     resolution: "1920x1080",
     difficulty: "insanity",
@@ -97,11 +98,40 @@ let options = {
 }
 
 let {resolution, difficulty, subtitles} = options;
+```
 
-// Properties of the object are assigned to corresponding variables.
-// The order does not matter (as befits a hash table).
+Note that the left hand side of the assignment needs to be an object-like pattern. Properties of the object are assigned to corresponding variables. The order does not matter.
 
-Destructuring can be used along with `Object.entries()` to loop over keys and values of an object...:
+If we want to assign a property to a variable with a different name, we can specify the mapping between properties and variables:
+
+```js
+let {resolution: res, difficulty: df, subtitles: subs} = options;
+```
+For properties that may be missing, we can set default values (which again can be expressions or even function calls).
+
+If we're only interested in a single property, we can extract it on its own:
+
+```js
+let {resolution} = options;
+```
+
+Gathering the remaining values is also possible, just like with arrays:
+
+```js
+let {resolution, ...rest} = options;
+console.log(rest);  // {difficulty: "insanity", subtitles: true}
+```
+
+There's a small catch when using predeclared variables:
+
+```js
+let resolution, difficulty, subtitles;
+({resolution, difficulty, subtitles} = options)
+```
+
+This assignment won't work without the parentheses. The reason for this is that without the declaration statement ("let" in this case) present in the expression, the JavaScript engine treats the contents of the curly brackets as a code block.
+
+Destructuring can be used along with `Object.entries()` to loop over keys and values of an object:
 
 ```js
 let user = {
@@ -114,7 +144,7 @@ for (let [key, value] of Object.entries(user)) {
 }
 ```
 
-...and a map:
+The same is true for a map:
 
 ```js
 let user = new Map();
@@ -127,33 +157,7 @@ for (let [key, value] of user) {
 }
 ```
 
-// If we want to assign a property to a variable with a different name,
-// we can set it using a colon:
-
-let {resolution: res, difficulty: df, subtitles: subs} = options;
-
-// For properties that may potentially by missing, we can set default values.
-// Just like with array destructuring, they can expressions of function calls.
-
-// If we're only interested in a single property, we can extract it on its own:
-
-let {resolution} = options;
-
-// Gathering remaining values is also possible, just like with arrays:
-
-let {resolution, ...rest} = options;
-console.log(rest);  // {difficulty: "insanity", subtitles: true}
-
-// There's a catch when using predeclared variables:
-
-let resolution, difficulty, subtitles;
-({resolution, difficulty, subtitles} = options)  // note the parentheses
-
-// This assignment won't work without the parentheses. The reason for this is that
-// without the declaration statement ("let" in this case) present in the expression,
-// the JavaScript engine treats the contents of the curly brackets as a code block.
-
-// Nested destructuring
+### Nested destructuring
 
 // If an object or array contain nested objects or arrays,
 // we can use more complex patterns to extract the deeper layer:
