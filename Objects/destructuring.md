@@ -159,9 +159,9 @@ for (let [key, value] of user) {
 
 ### Nested destructuring
 
-// If an object or array contain nested objects or arrays,
-// we can use more complex patterns to extract the deeper layer:
+If an object or array contain nested objects or arrays, we can use more complex patterns to extract the deeper layer:
 
+```js
 let options = {
     size: {
         width: 100,
@@ -185,13 +185,13 @@ console.log(width);  // 100
 console.log(height);  // 200
 console.log(item1);  // Cake
 console.log(item2);  // Donut
+```
 
-// Smart function parameters
+### Smart function parameters
 
-// We can define function parameters as an object. That way, for functions with multiple
-// optional parameters, we can can pass object arguments that only hold properties which are
-// of interest to us at the time, and safely ignore the rest:
+We can define function parameters as an object. That way, for functions with multiple optional parameters, we can can pass object arguments that only hold properties which are of interest to us at the time, and safely ignore the rest:
 
+```js
 let gameSettings = ({resolution='1920x1080', difficulty='normal', subtitles=false}) => {
     console.log(`Game settings are: res: ${resolution}, df: ${difficulty}, subs: ${subtitles}`)
 };
@@ -202,42 +202,50 @@ let myGameSettings = {
 };
 
 gameSettings(myGameSettings);  // difficulty and subtitles are changed, while resolution remains default
+```
 
-// Note that this structure requires the gameSettings() function to have an argument.
-// To still be able to call it without providing any arguments, set an empty object as default:
+Note that this structure requires the `gameSettings()` function to have an argument. To still be able to call it without providing any arguments, set an empty object as default:
 
+```js
 let gameSettings = ({res='1920x1080', df='normal', subs=false} = {}) => {
     console.log(`Game settings are: res: ${res}, df: ${df}, subs: ${subs}`)
 };
+```
 
-// TASK: Given the following object:
+## Exercises
 
+### Destructuring assignment
+
+Given the following object...:
+
+```js
 let user = {
     name: "John",
     years: 30
 };
+```
 
-// Write a destructuring assignment that takes the properties name, years and saves them into 
-// variables name, age, and which also takes and isAdmin property and saves it into a variable
-// isAdmin (which defaults to false if such property doesn't exist).
-// -->
+...write a destructuring assignment that takes the properties `name` and `years` and saves them into variables `name`, `age`, and which also takes an `isAdmin` property and saves it into a variable `isAdmin` (which defaults to `false` if such property doesn't exist).
 
+```js
 let {name, years, isAdmin=false} = user;
+```
 
+### Top salary
 
-// TASK: Given the following object:
+Given the following object...:
 
+```js
 let salaries = {
     "John": 100,
     "Pete": 300,
     "Mary": 250
 };
+```
 
-// Create a function topSalary(salaries) that returns the name of the top paid person,
-// or null of salaries is empty. If there are multiple top-paid persons, return any of them.
-// Use Object.entries and destructuring to iterate over key-value pairs.
-// -->
+...create a function `topSalary(salaries)` that returns the name of the top paid person, or `null` if salaries is empty. If there are multiple top-paid persons, return any of them. Use `Object.entries` and destructuring to iterate over key-value pairs.
 
+```js
 let topSalary = (salaries) => {
     let currentHighestSalary = 0;
     let topPaidPerson = null;
@@ -249,3 +257,4 @@ let topSalary = (salaries) => {
     }
     return topPaidPerson;
 };
+```
