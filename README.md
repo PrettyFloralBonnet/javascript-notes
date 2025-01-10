@@ -30,8 +30,8 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     6. [Optional chaining](/Objects/optional-chaining.md)
     7. [Symbols](/Objects/symbol-type.md)
     8. [Object to primitive conversion](/Objects/object-to-primitive-conversion.md)
-    9. [Object keys, values and entries](/Objects/object-keys-values-entries.md)*
-    10. [Destructuring](/Objects/destructuring.md)*
+    9. [Object keys, values and entries](/Objects/object-keys-values-entries.md)
+    10. [Destructuring](/Objects/destructuring.md)
     11. [Property flags and descriptors](/Objects/property-flags-descriptors.md)
     12. [Property getters and setters](/Objects/property-getters-setters.md)
 4. Data types
