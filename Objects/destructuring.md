@@ -1,85 +1,90 @@
-// ----- DESTRUCTURING ASSIGNMENT -----
+## Destructuring assignment
 
-// Destructuring assignment is special syntax that allows us to “unpack” arrays or objects
-// into individual variables.
-// Destructuring works well with complex functions that have a lot of parameters,
-// default values etc.
+Destructuring assignment is a special syntax that allows us to "unpack" arrays or objects **into individual variables**. Destructuring works well with complex functions that have a lot of parameters, default values etc.
 
-// Array destructuring
+### Array destructuring
 
+```js
 let arr = [1, 2];
 let [first, second] = arr;
 
 console.log(first);  // 1
 console.log(second);  // 2
+```
 
-// the array itself is not modified
+The array itself is not modified.
 
-// unnecessary elements of the array can be ignored using commas:
+Unnecessary elements of the array can be ignored using commas:
 
+```js
 let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 console.log(title);  // Consul
+```
 
-// To gather the remaining values, an '...' operator can be used:
+To gather the remaining values, an `...` operator can be used:
 
+```js
 let [firstName, lastName, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 
 console.log(name1);  // Julius
 console.log(name2);  // Caesar
+```
 
-// the value of rest is an array of elements remaining from the original array:
+The value of `rest` in this example is an array of elements remaining from the original array:
 
+```js
 console.log(rest[0]);  // Consul
 console.log(rest[1]);  // of the Roman Republic
 console.log(rest.length); // 2
+```
 
-// Destructuring can be used with any iterable (not just arrays):
+Destructuring can be used with any iterable (not just arrays):
 
+```js
 let [a, b, c] = "abc";  // ["a", "b", "c"]
 let [one, two, three] = new Set([1, 2, 3]);
+```
 
-// looping with .entries()
+On the left side, any assignables can be used, including object properties:
 
-// ...in an object:
+```js
+let user = {};
+[user.name, user.surname] = "Commander Shepard".split(' ');
 
-let user = {
-    name: "John",
-    age: 30
-};
+console.log(user.name); // Commander
+console.log(user.surname); // Shepard
+```
 
-for (let [key, value] of Object.entries(user)) {
-    console.log(`${key}: ${value}`);  // 'name: John', 'age: 30'
-}
-  
-// ...in a map:
-  
-let user = new Map();
+Destructuring can be used to swap variables:
 
-user.set("name", "John");
-user.set("age", "30");
+```js
+let prince = "Prince";
+let pauper = "Pauper";
 
-for (let [key, value] of user) {
-    console.log(`${key}: ${value}`);  // 'name: John', 'age: 30'
-}
+// Let's swap the values: make guest=Pete, admin=Jane
+[prince, pauper] = [pauper, prince];
 
-// Default values
+console.log(`${prince} and the ${pauper}`); // Pauper and the Prince
+```
 
-// If there are fewer elements in the array than variables in the assignment,
-// the variables with no counterpart value default to undefined:
+If there are fewer elements in the array than there are assignables, the variables with no corresponding value default to `undefined`:
 
+```js
 let [firstName, lastName] = [];
 
 console.log(firstName);  // undefined
 console.log(lastName);  // undefined
+```
 
-// To replace missing values, we can provide them:
+Default values can be provided to replace any missing ones:
 
-let [name = "Guest", surname = "Anonymous"] = ["Julius"];
-console.log(name);  // Julius (from array)
-console.log(surname);  // Anonymous (default)
+```js
+let [name = "John", surname = "Doe"] = ["Reginald"];
+console.log(name);  // Reginald (from the array)
+console.log(surname);  // Doe (default)
+```
 
-// Default values can complex expressions, or even function calls.
-// They are only evaluated if the value is not provided.
+Default values can be more complex expressions or even function calls. They are only evaluated if the corresponding value is not provided.
 
 // Object destructuring
 
@@ -95,6 +100,32 @@ let {resolution, difficulty, subtitles} = options;
 
 // Properties of the object are assigned to corresponding variables.
 // The order does not matter (as befits a hash table).
+
+Destructuring can be used along with `Object.entries()` to loop over keys and values of an object...:
+
+```js
+let user = {
+    name: "John",
+    age: 30
+};
+
+for (let [key, value] of Object.entries(user)) {
+    console.log(`${key}: ${value}`);  // 'name: John', 'age: 30'
+}
+```
+
+...and a map:
+
+```js
+let user = new Map();
+
+user.set("name", "John");
+user.set("age", "30");
+
+for (let [key, value] of user) {
+    console.log(`${key}: ${value}`);  // 'name: John', 'age: 30'
+}
+```
 
 // If we want to assign a property to a variable with a different name,
 // we can set it using a colon:
