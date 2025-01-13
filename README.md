@@ -40,7 +40,7 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     3. [Strings](/DataTypes/strings.md)
     4. [Arrays](/DataTypes/arrays.md)
     5. [Iterables](/DataTypes/iterables.md)
-    6. [Map and Set](/DataTypes/map-set.md)*
+    6. [Map and Set](/DataTypes/map-set.md)
     7. [WeakMap and WeakSet](/DataTypes/weakmap-weakset.md)*
     8. [Date and time](/DataTypes/date-time.md)*
     9. [JSON](/DataTypes/json.md)*
