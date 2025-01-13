@@ -161,13 +161,13 @@ This time, the cache cleaning problem disappears: the cached result will be remo
 
 ## WeakSet
 
-// WeakSet is similar to Set, but can only hold objects (not primitive values).
-// An object will exist in a weakset as long as it's reachable from somewhere else.
-// WeakSet supports add, has and delete, but not size, keys() or iterations.
+`WeakSet` is similar to `Set`, but can only hold objects (not primitive values). An object will exist in a `WeakSet` as long as it's reachable from somewhere else.
 
-// It mostly serves as auxiliary storage for binary info, e.g
-// we can add users to WeakSet to keep track of website visitors:
+`WeakSet` supports `add()`, `has()` and `delete()`, but not `size`, `keys()` or iterations.
 
+It mostly serves as auxiliary storage for binary info, e.g we can add users to `WeakSet` to keep track of website visitors:
+
+```js
 let visitedSet = new WeakSet();
 
 let john = { name: "John" };
@@ -175,8 +175,8 @@ let pete = { name: "Pete" };
 let mary = { name: "Mary" };
 
 visitedSet.add(john); // John visited
-visitedSet.add(pete); // then Pete
-visitedSet.add(john); // John again
+visitedSet.add(pete); // Pete visited
+visitedSet.add(john); // John visited again
 
 // visitedSet has 2 users now
 
@@ -187,22 +187,29 @@ console.log(visitedSet.has(john));  // true
 console.log(visitedSet.has(mary));  // false
 
 john = null;  // visitedSet will be cleaned automatically
+```
 
-// The most notable limitation of WeakMap and WeakSet is the absence of iterations,
-// and therefore the inability to get all current content.
+### Limitations
 
-// TASK: Given an array of messages managed by someone else's code...:
+The most notable limitation of both `WeakMap` and `WeakSet` is the absence of iterations, and therefore the inability to get all current content.
 
+## Exercises
+
+### Store "unread" flags
+
+Given an array of messages managed by someone else's code...:
+
+```js
 let messages = [
     { text: "Hello", from: "John" },
     { text: "How goes?", from: "John" },
     { text: "See you soon", from: "Alice" }
 ];
-  
-// and taking into account that new messages are added and old ones removed at unknown times,
-// which data structure could be used to store information about whether the message has been read?
-// -->
+```
 
+...and taking into account that new messages are added and old ones removed at unknown times, which data structure could be used to store information about whether the message has been read?
+
+```js
 let readMessages = new WeakSet();
 
 // two messages have been read
@@ -215,37 +222,34 @@ readMessages.add(messages[0]);
 
 messages.shift();
 // now readMessages has 1 element (technically memory may be cleaned later)
+```
 
-// The WeakSet allows for storage of unique messages (values),
-// and for an easy check if the message exists in it. It cleans up itself automatically.
-// The tradeoff is that we can’t iterate over it to get all read messages from it directly.
-// However, we can work around it by iterating over all messages
-// and then filtering those that are in the weakset.
+The `WeakSet` allows for storage of unique messages (values), and for an easy check if the message exists in it. It cleans up itself automatically. The tradeoff is that we can't iterate over it to get all read messages from it directly. However, we can work around it by iterating over all messages and then filtering those that are in the `WeakSet`.
 
-// Using WeakSet here provides an architectural advantage of not messing with third party code.
+Using `WeakSet` here provides an architectural advantage of not messing with third party code. An alternative would be to add a boolean property (e.g. `isRead`) to a message after it’s read. As message objects are managed by another code, that’s generally discouraged, but a symbolic property can be used to avoid conflicts:
 
-// An alternative would be to add a boolean property (e.g. isRead) to a message after it’s read.
-// As message objects are managed by another code, that’s generally discouraged,
-// but a symbolic property can be used to avoid conflicts:
-
+```js
 let isRead = Symbol("isRead");  // the symbolic property is only known to our code
 messages[0][isRead] = true;
+```
 
-// Now third party code probably won’t see our extra property.
-// Symbols decrease the probability of problems, but using WeakSet is still a better solution here.
+Now third party code probably won't see our extra property. Symbols decrease the probability of problems, but using `WeakSet` is still a better solution here.
 
-// Given the same array of messages as in the previous task...:
+### Store read dates
 
+Given the same array of messages as in the previous task...:
+
+```js
 let messages = [
     { text: "Hello", from: "John" },
     { text: "How goes?", from: "John" },
     { text: "See you soon", from: "Alice" }
 ];
+```
 
-// ...which data structure would be suitable for storing the information on when the message was read?
-// Like before, the information should only remain in memory until the message is garbage collected.
-// Dates can be stored built-in Date class objects (more on that later).
-// -->
+...which data structure would be suitable for storing the information on *when* the message was read? Like before, the information should only remain in memory until the message is garbage collected. Dates can be stored built-in `Date` class objects (more on that later).
 
+```js
 let mapReadTimes = new WeakMap();
 mapReadTimes.set(messages[0], new Date(2020, 3, 23));
+```
