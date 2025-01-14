@@ -247,7 +247,7 @@ let messages = [
 ];
 ```
 
-...which data structure would be suitable for storing the information on *when* the message was read? Like before, the information should only remain in memory until the message is garbage collected. Dates can be stored built-in `Date` class objects (more on that later).
+...which data structure would be suitable for storing the information on *when* the message was read? Like before, the information should only remain in memory until the message is garbage collected. Dates can be stored as built-in `Date` objects (more on them [here](./date-time.md)).
 
 ```js
 let mapReadTimes = new WeakMap();
