@@ -1,48 +1,49 @@
-// ----- SCHEDULING: SETTIMEOUT AND SETINTERVAL -----
+# Scheduling: `setTimeout` and `setInterval`
 
-// We may decide not to call a function right now, but at a specified later time. It's called "scheduling a call".
+We may decide not to call a function right now, but at a specified later time. This is called "**scheduling a call**".
 
-// There are two methods for it:
-//
-//      setTimeout allows to run a function once, after a given time interval,
-//      setInterval allows to run a function repeatedly, starting after a given time interval, and then again and again
-//      after that same interval.
+There are two methods for it:
+* `setTimeout` allows to run a function once, after a given time,
+* `setInterval` allows to run a function repeatedly, starting after a given time, and then again and again after that same.
 
-// These methods are not part of the JavaScript specifications, but most emvironments provide them (e.g. most browsers,
-// Node.js).
+These methods are not part of the JavaScript specifications, but most emvironments do provide them (e.g. most browsers, Node.js).
 
-// setTimeout
+## `setTimeout`
 
+```js
 let timerId = setTimeout(func | code, [delay], [arg1], [arg2]) //, ...)
+```
 
-// func|code
-//      A function (or a string containing the code, for historical reasons) to be executed.
-// delay
-//      The delay before the call, in milliseconds (1000 ms = 1 second), 0 by default.
-// arg1, arg2…
-//      Arguments for the function (not supported in IE9-).
+Parameters:
+* `func|code`: a function to be executed (or a string containing the code, for historical reasons)
+* `delay`: the delay before the call, in milliseconds (1000 ms = 1 second), 0 by default.
+* `arg1, arg2...`: arguments for the function.
 
-// Cancelling with clearTimeout
+### Cancelling with `clearTimeout`
 
-// A call to setTimeout returns a "timer identifier" called timerId, which can be used to cancel the execution.
+A call to `setTimeout` returns a "timer identifier" called `timerId`, which can be used to cancel the execution.
 
+```js
 let timerId = setTimeout(
     // ...
 );
 
 clearTimeout(timerId);
+```
 
-// In the code below, the function is scheduled for execution and then it is cancelled. As a result, nothing happens:
+In the code below, the function is scheduled for execution and then it is cancelled. As a result, nothing happens:
 
+```js
 let timerId = setTimeout(() => console.log("This is never executed."), 1000);
+
 console.log(timerId);  // timer identifier
 clearTimeout(timerId);
 console.log(timerId);  // same identifier (does not become null after cancelling)
+```
 
-// In a browser, the timer identifier is a number. In other environments, it can be something else (e.g. in Node.js
-// it returns a timer object with additional methods).
+In a browser, the timer identifier is a number. In other environments, it can be something else (e.g. in Node.js it returns a timer object with additional methods).
 
-// setInterval
+## `setInterval`
 
 // The syntax is identical to that of setTimeout. To stop repeating calls, clearInterval(timerId) should be called:
 

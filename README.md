@@ -55,7 +55,7 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     8. [Scheduling: `setTimeout` and `setInterval`](/Functions/scheduling.md)*
     9. [Decorators and forwarding](/Functions/decorators-forwarding.md)*
     10. [Function binding](/Functions/function-binding.md)*
-    11. [Arrow functions, revisited](/Functions/arrow-functions.md)*
+    11. [Arrow functions, revisited](/Functions/arrow-functions.md)
 6. Prototypes
     1. [Introduction to prototypes](/Prototypes/prototypes.md)
     2. [Prototype property](/Prototypes/prototype-property.md)
