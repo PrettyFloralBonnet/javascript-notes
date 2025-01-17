@@ -45,54 +45,141 @@ In a browser, the timer identifier is a number. In other environments, it can be
 
 ## `setInterval`
 
-// The syntax is identical to that of setTimeout. To stop repeating calls, clearInterval(timerId) should be called:
+The syntax is identical to `setTimeout`. But, unlike `setTimeout`, the function will not be called once, but regularly instead, after the set time interval.
 
+```js
+let timerId = setInterval(func | code, [delay], [arg1], [arg2], ...)
+```
+
+To stop repeating calls, `clearInterval(timerId)` should be called:
+
+```js
 let timerId = setInterval(() => console.log('tick'), 2000);
-setTimeout(() => { clearInterval(timerId); confirm.length('stop'); }, 5000);  // stop after 5 seconds
 
-// Nested setTimeout
+setTimeout(() => {
+    clearInterval(timerId);
+    console.log('stop');
+}, 5000);  // stop after 5 seconds
+```
 
-// There is another way (besides setInterval) to run a piece of code repeatedly:
+## Nested `setTimeout`
 
+There is another way (besides `setInterval`) to run a piece of code repeatedly:
+
+```js
 let timerId = setTimeout(function tick() {
     console.log('tick');
     timerId = setTimeout(tick, 2000);
 }, 2000);
+```
 
-// This setTimeout schedules the next call right at the end of the current one.
+This `setTimeout` schedules the next call right at the end of the current one.
 
-// The nested setTimeout is a more flexible method than setInterval - the next call may be scheduled differently,
-// depending on the results of the current one. It also guarantees a fixed delay (unlike setInterval, where part
-// of the interval is consumed by the execution of the scheduled function).
+The nested `setTimeout` is more flexible than `setInterval`. The next call may be scheduled differently, depending on the results of the current one. For example, we may need a service that sends a request to the server every 5 seconds, asking for data, but in case the server is over capacity, the interval should be increased:
 
-// When a function is passed to setInterval or setTimeout, an internal reference to it is created and saved
-// in the scheduler. It prevents the function from being garbage collected, even if there are no other references to it.
-// The function stays in memory until the scheduler calls it. There’s a side-effect, however:
-// a function references the outer lexical environment, so, as long as it lives, the outer variables live as well.
-// They may take much more memory than the function itself. So when the scheduled function is not needed anymore,
-// it’s better for it to be cancelled, even if it's very small.
+```js
+let delay = 5000;
 
-// Zero delay setTimeout
+let timerId = setTimeout(function request() {
+    // send request
 
-// A special use case exists: setTimeout(func, 0), or just setTimeout(func).
+    if (/* request.statusCode !== 200 */) delay *= 2;
 
-// This schedules the execution of func as soon as possible, but only after the currently executing script is complete.
-// The function is effectively scheduled to run right after the current script:
+    timerId = setTimeout(request, delay);
+}, delay);
+```
 
+Moreover, nested `setTimeout` allows to set the delay between executions more precisely than `setInterval`.
+
+```js
+let i = 1;
+setInterval(function() {
+    func(i++);
+}, 100);
+```
+
+vs.:
+
+```js
+let i = 1;
+setTimeout(function run() {
+    func(i++);
+    setTimeout(run, 100);
+}, 100);
+```
+
+For `setInterval`, the internal scheduler will run `func(i++)` every 100 ms, but the **actual delay** between `func()` calls will be less than that, because a part of the interval will be consumed by the execution of the scheduled function.
+
+If `func()` is slow, it might even **take more than the scheduled interval** to execute, in which case the engine will wait for the `func()` call to finish, then check the scheduler, and if the time is already up, it will run `func()` again *immediately*.
+
+The nested `setTimeout` guarantees a fixed delay, because the next call is planned at the end of the previous one.
+
+### Garbage collection
+
+When a function is passed to `setInterval` or `setTimeout`, an internal reference to it is created and saved in the scheduler. That prevents the function from being garbage collected, even if there are no other references to it. The function stays in memory until the scheduler calls it.
+
+There is a side-effect, though. The function references the outer lexical environment, so, as long as it lives, the outer variables live too, and they may take much more memory than the function itself. So, when the scheduled function is not needed anymore, it's better to cancel it, even if it's very small.
+
+## Zero delay `setTimeout`
+
+A special use case for `setTimeout` exists: `setTimeout(func, 0)` (or just `setTimeout(func)` for short).
+
+This schedules the execution of `func` as soon as possible, but only after the currently ongoing execution (whatever it may be) is complete.
+
+The function is effectively scheduled to run right after the current script:
+
+```js
 setTimeout(() => console.log("World"));
 console.log("Hello");
 
-// The first line puts the call in the "calendar" after 0 ms. But the scheduler will only "check the calendar"
-// after the current script is complete. As a result, "Hello" is first, and "World" comes second.
-// There are advanced browser-related use cases for the zero delay timeout (related to event loop microtasks and macrotasks).
+// Hello
+// World
+```
 
-// In the browser, there is a limitation of how often nested timers can run. As per the HTML5 standard, after five nested timers,
-// the interval is forced to be at least 4 milliseconds. For server-side JavaScript, that limitation does not exist,
-// and also there are other ways to schedule an immediate asynchronous job (e.g. setImmediate in Node.js).
+The first line puts the call in the "calendar" after 0 ms. But the scheduler will only "check the calendar" after the current script is complete. As a result, "Hello" is first, and "World" comes second.
 
-// TASK: Write a function printNumbers(from, to) that outputs a number every second, starting with from and ending with to.
-// Provide two solutions: using setInterval, and using nested setTimeout.
-// -->
+There are also advanced browser-related use cases for the zero delay timeout (related to **event loop** microtasks and macrotasks).
+
+### Zero delay is not, in fact, zero (in the browser)
+
+In the browser, there is a limitation on how often nested timers can run. As per the [HTML Living Standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers), after five nested timers, the interval is forced to be at least 4 milliseconds.
+
+Let's take a look:
+
+```js
+let start = Date.now();
+let times = [];
+
+setTimeout(function run() {
+    times.push(Date.now() - start); // remembers the delay from the previous call
+
+    if (start + 100 < Date.now()) {
+        console.log(times); // stop rescheduling after 100 ms and show all delays instead
+    } else {
+        setTimeout(run);
+    }
+});
+
+// an example of the output:
+// 1,1,1,1,9,15,20,24,30,35,40,45,50,55,59,64,70,75,80,85,90,95,100
+```
+
+Here, the function `run()` reschedules itself with zero delay. Why, then, the delays grow, starting from the 5th value?
+
+Well, that's the extra 4 ms limitation coming into play.
+
+It exists mainly for historical reasons, as many old scripts rely on it (it comes from ancient times). Also, For server-side JavaScript, that limitation does not exist, and also there are other ways to schedule an immediate asynchronous job (e.g. `setImmediate` in Node.js).
+
+## Exercises
+
+### A number per second
+
+Write a function `printNumbers(from, to)` that outputs a number every second, starting with `from` and ending with `to`.
+
+Provide two solutions: one using `setInterval`, and one using nested `setTimeout`.
+
+```js
+// setInterval
 
 let printNumbers = (from, to) => {
     let num = from;
@@ -103,13 +190,16 @@ let printNumbers = (from, to) => {
     }, 1000)
 }
 
+// nested setTimeout
+
 let printNumbers = (from, to) => {
     let num = from;
-    setTimeout(function go() {
+    setTimeout(function _printNumbers() {
         console.log(num);
         if (num < to) {
-            setTimeout(go, 1000);
+            setTimeout(_printNumbers, 1000);
         }
         num++;
     }, 1000);
 }
+```

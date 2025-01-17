@@ -52,7 +52,7 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     5. [Global object](/Functions/global-object.md)
     6. [Function object, NFE](/Functions/function-object-nfe.md)
     7. [The `new Function` syntax](/Functions/new-function-syntax.md)
-    8. [Scheduling: `setTimeout` and `setInterval`](/Functions/scheduling.md)*
+    8. [Scheduling: `setTimeout` and `setInterval`](/Functions/scheduling.md)
     9. [Decorators and forwarding](/Functions/decorators-forwarding.md)*
     10. [Function binding](/Functions/function-binding.md)*
     11. [Arrow functions, revisited](/Functions/arrow-functions.md)
