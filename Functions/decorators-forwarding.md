@@ -1,20 +1,26 @@
-// ----- DECORATORS AND FORWARDING, CALL/APPLY -----
+# Decorators and forwarding, `call` / `apply`
 
-// Transparent caching
+## Transparent caching
 
+Let's say we have a function that's CPU-heavy, but provides stable results. If it's called often, it may be a good candidate for caching.
+
+But instead of adding caching to the function directly, we can create a wrapper for it:
+
+```js
 function slow(x) {
     // e.g. CPU heavy job
     console.log(`Called with ${x}`);
     return x;
 }
 
-function cachingDecorator(func) {
+function cacheWrapper(func) {
     let cache = new Map();
 
     return function (x) {
         if (cache.has(x)) {
             return cache.get(x);
         }
+
         let result = func(x);
 
         cache.set(x, result);
@@ -22,19 +28,18 @@ function cachingDecorator(func) {
     };
 }
 
-slow = cachingDecorator(slow);
+slow = cacheWrapper(slow);
+```
 
-console.log(slow(1));  // slow(1) is cached
-console.log(slow(2));  // slow(2) is cached
+Here, `cacheWrapper` is a **decorator**: a function that takes another function and alters its behaviour.
 
-// We can call cachingDecorator for any function, and it will return the caching wrapper.
-// By separating caching from the main function code, we keep the latter more simple.
+By separating caching from the main function code, we keep the latter more simple and make the decorator reusable with other functions. We can also combine multiple decorators, if needed.
 
-// Using func.call for the context
+## Using `func.call` for the context
 
-// The caching decorator is not suited to work with object methods. E.g. in the code below,
-// worker.slow() stops working:
+The caching decorator from the example above is not suited to work with object methods. E.g. in the code below, `worker.slow()` stops working after decoration:
 
+```js
 let worker = {
     someMethod() {
         return 1;
@@ -60,30 +65,38 @@ function cachingDecorator(func) {
 }
 
 console.log(worker.slow(1));  // the original method works
+
 worker.slow = cachingDecorator(worker.slow);
+
 console.log(worker.slow(2));  // Error: Cannot read property 'someMethod' of undefined
+```
 
-// The error occurs when the code tries to access this.someMethod and fails.
-// The reason is that the wrapper calls the original function as func(x) in the line,
-// and the function receives *this* equal to undefined.
+The error occurs when the code tries to access `this.someMethod` and fails. The reason is that the wrapper calls the original function as `func(x)`, and the function receives `this` equal to `undefined`.
 
-// So, the wrapper passes the call to the original method, but without the context. Let’s fix it.
+The reason for the error is that the wrapper passes the call to the original method, but without the context.
 
-// There's a special built-in function method func.call(context, ...args) that allows to call a function
-// and explicitly set *this*:
+Let's fix it.
 
-// func.call(context, arg1, arg2, ...)
+There's a special built-in function method `func.call(context, ...args)` that allows to call a function and explicitly set `this`:
 
-// It runs func and provides the first argument as *this*.
-// These two calls do almost the same:
+```js
+func.call(context, arg1, arg2, ...)
+```
 
+It runs `func` and provides the first argument as `this`.
+
+These two calls do almost the same:
+
+```js
 func(1, 2, 3);
 func.call(obj, 1, 2, 3)
+```
 
-// They both call func with arguments 1, 2 and 3. The only difference is that func.call also sets *this* to obj.
+They both call `func` with arguments `1`, `2` and `3`. The only difference is that `func.call` also sets `this` to `obj`.
 
-// We can call sayHi in the context of different objects: sayHi.call(user):
+For example, below we can call `sayHi` in the context of different objects: `sayHi.call(user)`:
 
+```js
 function sayHi() {
     console.log(this.name);
 }
@@ -94,9 +107,11 @@ let admin = { name: "Admin" };
 // use call to pass different objects as *this*
 sayHi.call(user);  // John
 sayHi.call(admin);  // Admin
+```
 
-// So, we can use call in the wrapper to pass the context to the original function:
+This means we can use `call` in the wrapper to pass the context to the original function:
 
+```js
 let worker = {
     someMethod() {
         return 1;
@@ -114,17 +129,19 @@ function cachingDecorator(func) {
         if (cache.has(x)) {
             return cache.get(x);
         }
-        let result = func.call(this, x);  // *this* is passed correctly now
+        let result = func.call(this, x);  // `this` is now passed correctly
         cache.set(x, result);
         return result;
     };
 }
 
 worker.slow = cachingDecorator(worker.slow);
-console.log(worker.slow(2));  // works
-console.log(worker.slow(2));  // works, doesn't call the original (cached)
 
-// Accomodating multiple arguments
+console.log(worker.slow(2));  // works
+console.log(worker.slow(2));  // works and is cached
+```
+
+## Accomodating multiple arguments
 
 // For now, the cachingDecorator only works with single-argument functions.
 // How to cache the multi-argument worker.slow method?
