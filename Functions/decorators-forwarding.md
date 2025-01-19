@@ -52,7 +52,7 @@ let worker = {
     }
 };
 
-function cachingDecorator(func) {
+function cacheWrapper(func) {
     let cache = new Map();
     return function (x) {
         if (cache.has(x)) {
@@ -66,7 +66,7 @@ function cachingDecorator(func) {
 
 console.log(worker.slow(1));  // the original method works
 
-worker.slow = cachingDecorator(worker.slow);
+worker.slow = cacheWrapper(worker.slow);
 
 console.log(worker.slow(2));  // Error: Cannot read property 'someMethod' of undefined
 ```
@@ -123,7 +123,7 @@ let worker = {
     }
 };
 
-function cachingDecorator(func) {
+function cacheWrapper(func) {
     let cache = new Map();
     return function (x) {
         if (cache.has(x)) {
@@ -135,7 +135,7 @@ function cachingDecorator(func) {
     };
 }
 
-worker.slow = cachingDecorator(worker.slow);
+worker.slow = cacheWrapper(worker.slow);
 
 console.log(worker.slow(2));  // works
 console.log(worker.slow(2));  // works and is cached
@@ -143,9 +143,9 @@ console.log(worker.slow(2));  // works and is cached
 
 ## Accomodating multiple arguments
 
-// For now, the cachingDecorator only works with single-argument functions.
-// How to cache the multi-argument worker.slow method?
+For now, the `cacheWrapper` only works with single-argument functions. How to cache the `worker.slow` method if it's multi-argument?
 
+```js
 let worker = {
     slow(min, max) {
         return min + max; // CPU heavy task
@@ -153,21 +153,20 @@ let worker = {
 };
 
 // should remember same-argument calls
-worker.slow = cachingDecorator(worker.slow);
+worker.slow = cacheWrapper(worker.slow);
+```
 
-// Previously, with a single argument (x), we could have just saved the result with cache.set(x, result),
-// and retrieve it with cache.get(x). But now we need the result for a combination of arguments (min,max),
-// and the native Map only takes a single value as the key.
+Previously, with a single argument (`x`), we could have just saved the result with `cache.set(x, result)`, and retrieve it with `cache.get(x)`. But now we need the result for a combination of arguments `(min,max)`, and the native `Map` only takes a single value as the key.
 
-// Possible solutions:
-//
-// * Implement or import a new, more versatile data structure similar to Map that would allow for multi-keys
-// * Use nested maps: cache.set(min) would store the pair (max, result), and the result would be retrieved with
-//   cache.get(min).get(max)
-// * Join two values into one (e.g. string "min,max" as the Map key)
+Possible solutions:
 
-// The third variant is good enough for most practical applications, so we'll stick to it:
+* Implement or import a new, more versatile data structure similar to `Map` that would allow for multiple keys
+* Use nested maps: `cache.set(min)` would be a `Map` that would store the pair `(max, result)`, and the result would be retrieved with `cache.get(min).get(max)`
+* Join the two values into one (e.g. string `"min,max"` as the `Map` key)
 
+The third variant is good enough for most practical applications, so we'll stick to it:
+
+```js
 let worker = {
     slow(min, max) {
         console.log(`Called with ${min},${max}`);
@@ -175,7 +174,7 @@ let worker = {
     }
 };
 
-function cachingDecorator(func, hash) {
+function cacheWrapper(func, hash) {
     let cache = new Map();
     return function () {
         let key = hash(arguments);
@@ -194,15 +193,12 @@ function hash(args) {
     return args[0] + ',' + args[1];
 }
 
-worker.slow = cachingDecorator(worker.slow, hash);
+worker.slow = cacheWrapper(worker.slow, hash);
+```
 
-console.log(worker.slow(3, 5));
-console.log("Again: " + worker.slow(3, 5));
+Now, the function could work with any number of arguments (though the hash function would also need to be adjusted to allow any number of arguments, and more complex cases may require different hasing functions).
 
-// Now the function works with any number of arguments (though the hash function would also need to be adjusted
-// to allow any number of arguments. Also, more complex cases may require different hasing functions.
-
-// func.apply
+## `func.apply`
 
 // Instead of func.call(this, ...arguments), func.apply(this, arguments) can be used:
 
