@@ -141,7 +141,7 @@ console.log(worker.slow(2));  // works
 console.log(worker.slow(2));  // works and is cached
 ```
 
-## Accomodating multiple arguments
+### Accomodating multiple arguments
 
 For now, the `cacheWrapper` only works with single-argument functions. How to cache the `worker.slow` method if it's multi-argument?
 
@@ -200,65 +200,76 @@ Now, the function could work with any number of arguments (though the hash funct
 
 ## `func.apply`
 
-// Instead of func.call(this, ...arguments), func.apply(this, arguments) can be used:
+Instead of `func.call(this, ...arguments)`, we can use `func.apply(this, arguments)`.
 
+```js
 func.apply(context, args)
+```
 
-// It runs the function func while setting *this* to context and using an array-like object args as the list of arguments.
-// The only syntax difference between it and func.call is that while call expects a list of arguments,
-// apply takes an array-like object. So these two calls are almost the same:
+It runs the function `func` while setting `this` to `context` and using an array-like object `args` as the list of arguments. The only difference in syntax between it and `func.call` is that `call` expects a list of arguments, whereas `apply` takes an array-like object. So the two are almost the same:
 
-func.call(context, ...args);  // pass an array as list with spread syntax
-func.apply(context, args);  // pass an array-like object
+```js
+func.call(context, ...args);
+func.apply(context, args);
+```
 
-// For objects that are both iterable and array-like, like an actual array, either can be used -- 
-// though apply will probably be faster, because most JavaScript engines have better internal optimization for it.
+They both perform the same call of `func`, with the provided context and arguments. The only difference is that with `call`, the spread syntax `...` allows for an iterable to be passed, whereas `apply` only accepts an array-like object.
 
-// Passing all arguments along with the context to another function is referred to as call forwarding.
+For objects that are both iterable *and* array-like (like an actual array), either can be used (though `apply` will probably be faster, because most JavaScript engines have better internal optimization for it).
 
-// Borrowing a method
+Passing all arguments along with the context to another function is referred to as **call forwarding**.
 
-// Let's make one more minor improvement to the hashing function:
+### Borrowing a method
 
+Let's make a minor improvement to the hashing function from the previous example:
+
+```js
 function hash(args) {
     return args[0] + ',' + args[1];
 }
+```
 
-// Thus far, it works only with two arguments. To make it accept more, a solution could be to use arr.join method:
+Thus far, it works only with two arguments. We can make it accept more.
 
+One solution could be to use `Array.prototype.join()` method:
+
+```js
 function hash(args) {
     return args.join();
 }
+```
 
-// ...but unfortunately, that won't work, because when hash(arguments) is called, the args object is not a real array
-// (despite being both an array-like and an iterable)
+Unfortunately, that won't work, because when `hash(arguments)` is called, the `args` object is not a real array (despite being both an array-like and an iterable), which would make calling `join()` on it fail with `Error: arguments.join is not a function`.
 
-// However, arr.join() can still be used in the following way:
+However, there is still a way to use `join()`:
 
+```js
 function hash() {
-    alert([].join.call(arguments));
+    console.log( [].join.call(arguments) );
 }
 
 hash(1, 2);
+```
 
-// This trick is called method borrowing. We take a join method from a regular array([].join) and use[].join.call
-// to run it in the context of arguments.
+This trick is called **method borrowing**. We take a `join()` method from a regular array, and use `[].join.call` to run it with `arguments`.
 
-// Decorators and function properties
+## Decorators and function properties
 
-// It is generally safe to replace a function or a method with a decorated one -- except when the original function
-// had properties on it (e.g. func.calledCount or something along those lines). In such a case the decorated function
-// will not provide them (as it's just a wrapper).
+It is generally safe to replace a function or a method with a decorated one -- except when the original function had properties on it. In such a case, the decorated function will not provide them (as it's just a wrapper).
 
-// Some decorators may provide their own properties. A decorator may, for example, count how many times
-// a function was invoked, and how much time it took, and provide this information via wrapper properties.
+Some decorators may provide their own properties. For example, a decorator might count how many times a function was invoked, and how much time it took, and provide this information via wrapper properties.
 
-// There is a way to create decorators that keep access to function properties, but this requires
-// using a special Proxy object to wrap functions.
+There is a way to create decorators that keep access to function properties, but this requires using a special `Proxy` object to wrap functions. This will be discussed later, in the chapter Proxy and Reflect.
 
-// TASK: Create a decorator spy(func) that returns a wrapper that saves all calls to the function in its calls property.
-// Have every call saved as an array of arguments:
+## Exercises
 
+### Spy
+
+Create a decorator `spy(func)` that returns a wrapper that saves all calls to the function in its `calls` property.
+
+Have every call saved as an array of arguments, like so:
+
+```js
 function work(a, b) {
     console.log(a + b); // work is an arbitrary function or method
 }
@@ -271,9 +282,9 @@ work(4, 5);
 for (let args of work.calls) {
     console.log('call:' + args.join());  // "call:1,2", "call:4,5"
 }
+```
 
-// -->
-
+```js
 function spy(func) {
     function wrapper(...args) {
         wrapper.calls.push(args);
@@ -282,9 +293,13 @@ function spy(func) {
     wrapper.calls = [];
     return wrapper;
 }
+```
 
-// TASK: Create a decorator delay(f, ms) that delays each call to f by ms milliseconds:
+### Delay
 
+Create a decorator `delay(func, ms)` that delays each call to `func` by `ms` milliseconds, like so:
+
+```js
 function f(x) {
     console.log(x);
 }
@@ -292,42 +307,40 @@ function f(x) {
 let delay1000 = delay(f, 1000);
 let delay1500 = delay(f, 1500);
 
-f1000("test");  // shows "test" after 1000 ms
-f1500("test");  // shows "test" after 1500 ms
+delay1000("test");  // shows "test" after 1000 ms
+delay1500("test");  // shows "test" after 1500 ms
+```
 
-// Have the solution accept multiple arguments.
-// -->
+Have the solution accept multiple arguments.
 
+```js
 function delay(func, ms) {
     function wrapper(...args) {
         setTimeout(() => func.apply(this, args), ms);
     };
     return wrapper;
 }
+```
 
-let f1000 = delay(f, 1000)
-f1000('test')
+### Debounce
 
-// TASK: The result of debounce(f, ms) decorator is a wrapper which:
-//
-// 1) suspends calls to f until there’s ms milliseconds of inactivity ("cooldown period" of no calls),
-// 2) invokes f with the latest arguments (arguments from previous calls are ignored).
-//
-// For instance, we had a function f and replaced it with f = debounce(f, 1000).
-// The cooldown period is calculated from the last attempted call.
+Write a `debounce(func, ms)` decorator. A *debounce* is a common limit applied to certain actions (e.g. displaying search results following a query being put in a search bar). The way it works is that calls to `func` are suspended until `ms` milliseconds of inactivity occurs (a "cooldown period" of no calls), and then `func` is invoked with the most recent set of arguments.
 
+For instance, we have a function `f` and we replace it with `f = debounce(f, 1000)`. If `f` is called (`f(a)`), then called again (`f(b)`) after 200 ms, then again after 500 ms, then calls `f(a)` and `f(b)` are ignored completely, and `f(c)` goes through, but after 1500 ms (1000 ms from the last performed call).
+
+There's actually an implemented version of this in the [Lodash](https://lodash.com/docs/4.17.15#debounce) library:
+
+```js
 let f = _.debounce(console.log, 1000);
 
 f("a");
 setTimeout(() => f("b"), 200);
 setTimeout(() => f("c"), 500);
+```
 
-// This is a useful way of processing sequences of events, e.g. handling user inputs
-// (no need to call a function on every letter).
+Debouncing is a useful way of processing sequences of events, for example, again, handling user inputs (no need to call a function on every letter).
 
-// Implement a debounce decorator.
-// -->
-
+```js
 function debounce(func, ms) {
     let timeout;
     return function() {
@@ -335,34 +348,36 @@ function debounce(func, ms) {
         timeout = setTimeout(() => func.apply(this, args), ms);
     };
 }
+```
 
-// TASK: Create a "throttling" decorator throttle(f, ms) that returns a wrapper which,
-// when called multiple times, passes the call to f at a maximum rate of 1 per ms (milliseconds).
+### Throttle
 
-// This type of decorator is useful for processing regular updates which should have intervals between them
-// (e.g. tracking mouse movements).
+Create a "throttling" decorator `throttle(f, ms)` that returns a wrapper which, when called multiple times, passes the call to `f` at a maximum rate of one per `ms` (milliseconds).
 
-// Example code:
+A throttle is useful for processing regular updates which should have intervals between them (e.g. tracking mouse movements).
 
+Example code:
+
+```js
 function f(a) {
   console.log(a);
 }
 
-let f1000 = throttle(f, 1000);
+let throttle1000 = throttle(f, 1000);
 
-f1000(1);  // shows 1
-f1000(2);  // (throttling, 1000ms not out yet)
-f1000(3);  // (throttling, 1000ms not out yet)
+throttle1000(1);  // shows 1
+throttle1000(2);  // (throttling, 1000ms not out yet)
+throttle1000(3);  // (throttling, 1000ms not out yet)
 
-// when 1000 ms time out...
-// ...outputs 3, intermediate value 2 was ignored
-// -->
+// after the 1000 ms passes, 3 is logged
+// the intermediate value 2 is ignored
+```
 
+```js
 function throttle(func, ms) {
 
-    let isThrottled = false,
-        savedArgs,
-        savedThis;
+    let isThrottled = false;
+    let savedArgs, savedThis;
 
     function wrapper() {
         if (isThrottled) {
