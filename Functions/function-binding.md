@@ -1,7 +1,8 @@
-// ----- FUNCTION BINDING -----
+# Function binding
 
-// When object methods are passed as callbacks (e.g. to setTimeout), *this* is lost:
+When object methods are passed as callbacks (e.g. to `setTimeout`) separately from the object itself, `this` is lost:
 
+```js
 let user = {
     firstName: "John",
     sayHi() {
@@ -9,15 +10,21 @@ let user = {
     }
 };
 
-setTimeout(user.sayHi, 1000);  // undefined
 
-// The reason for the undefined is setTimeout got the function user.sayHi separately from the object.
-// This is a known problem, but it can be fixed.
+setTimeout(user.sayHi, 1000);  // Hello, undefined!
+```
 
-// Solution 1: a wrapper
+The reason is that `setTimeout` received the function `user.sayHi()` separately from the object.
 
-// The simplest solution is to use a wrapping function:
+The `setTimeout` method has a special behaviour. In the browser, it sets `this` to `window`. In Node.js, `this` becomes a timer object. In the example above, in the browser, `this.firstName` becomes `window.firstName`, which doesn't exist.
 
+So, how to make sure the passed method will be called in the right context?
+
+### Solution: using a wrapper
+
+The simplest solution is to use a wrapping function:
+
+```js
 let user = {
     firstName: "John",
     sayHi() {
@@ -28,23 +35,33 @@ let user = {
 setTimeout(function () {
     user.sayHi();  // Hello, John!
 }, 1000);
-  
-// Now it works, because it receives user from the outer lexical environment, and then calls the method normally.
-// Shorter version:
-  
-  setTimeout(() => user.sayHi(), 1000);  // Hello, John!
-  
-// However, if the user variable is reassigned, the function will reference the wrong object.
-// The next solution guarantees such a thing won't happen.
+```
 
-// Solution 2: bind
+Now everything works, because it `setTimeout` receives the entire `user` object from the outer lexical environment, and then calls the method normally.
 
+Shorter syntax for the above:
+
+```js
+setTimeout(() => user.sayHi(), 1000);  // Hello, John!
+```
+
+However, if the `user` value is changed before `setTimeout` is triggered, the function will reference the wrong object.
+
+The next solution guarantees such a thing won't happen.
+
+### Solution: using `bind`
+
+Functions provide a built-in method `bind`, which allows for the context to be set.
+
+```js
 let boundFunc = func.bind(context);  // simplified syntax
+```
 
-// The result of func.bind(context) is a special function-like object that is callable as a function,
-// and transparently passes the call to func, while setting this equal to the provided context argument.
-// In other words, calling boundFunc is like calling func, but with a fixed *this*:
+The result of `func.bind(context)` is a special function-like object, that is callable as a function, and transparently passes the call to `func`, while setting `this` to the provided `context`.
 
+In other words, calling `boundFunc` is like calling `func`, but with an explicitly set `this`.
+
+```js
 let user = {
     firstName: "John"
 };
@@ -54,10 +71,29 @@ function func() {
 }
 
 let funcUser = func.bind(user);
+
 funcUser(); // John
+```
 
-// It also works with object methods:
+All arguments are passed "as is" to the original function:
 
+```js
+let user = {
+    firstName: "John"
+};
+
+function func(phrase) {
+  console.log(`${phrase}, ${this.firstName}`);
+}
+
+let funcUser = func.bind(user);
+
+funcUser("Hello"); // Hello, John
+```
+
+It also works with object methods:
+
+```js
 let user = {
     firstName: "John",
     sayHi() {
@@ -66,46 +102,35 @@ let user = {
 };
 
 let sayHi = user.sayHi.bind(user);
+
 sayHi();  // Hello, John!
+```
+
+Even if the value of `user` changes, the method will use the previously bound value:
+
+```js
+user = {};
+
 setTimeout(sayHi, 1000);  // Hello, John!
-  
-// Even if the value of user changes within 1 second, sayHi uses the pre-bound value,
-// which is a reference to the old user object.
-  
-// We take the method user.sayHi and bind it to user. The sayHi variable is a bound function
-// and it can be called alone or passed to setTimeout. Regardless, the context will be correct.
-  
-// Arguments are passed as is -- only this is fixed by bind:
+```
 
-let user = {
-    firstName: "John",
-    say(phrase) {
-        console.log(`${phrase}, ${this.firstName}!`);
-    }
-};
-
-let say = user.say.bind(user);
-
-say("Hello");  // Hello, John ("Hello" argument is passed to say)
-say("Bye");  // Bye, John ("Bye" is passed to say)
-
-// Note: a function cannot be rebound (the bound function object only remembers the context
-// at the time of creation). Moreover, the result of bind is an object separate from the original.
+We take the method `user.sayHi()` and bind it to `user`. `sayHi` is a bound function. It can be called alone, or passed to `setTimeout`. The context will be correct regardless.
   
-// bindAll -- for convenience
+#### Convenience method: `bindAll()`
   
-// If an object has many methods that need to be passed around a lot, they can all be bound in a loop:
-  
+If an object has many methods, and we need to pass it around a lot, all of that object's methods can be bound, using a loop:
+
+```js
 for (let key in user) {
     if (typeof user[key] == 'function') {
         user[key] = user[key].bind(user);
     }
 }
-  
-// JavaScript libraries also provide functions for convenient mass binding, e.g.
-// _.bindAll(object, methodNames) in lodash.
+```
 
-// Partial function application
+JavaScript libraries also provide functions for convenient mass binding, e.g. [`_.bindAll(object, methodNames)`](https://lodash.com/docs#bindAll) in Lodash.
+
+## Partial functions
 
 // Arguments can be bound in the same way *this* can:
 
