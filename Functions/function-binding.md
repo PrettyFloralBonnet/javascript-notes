@@ -132,45 +132,52 @@ JavaScript libraries also provide functions for convenient mass binding, e.g. [`
 
 ## Partial functions
 
-// Arguments can be bound in the same way *this* can:
+`this` isn't the only element that can be bound. Function arguments can be, too.
 
-// let bound = func.bind(context, [arg1], [arg2], ...);
+The full syntax of `bind` is:
 
-// Given a multiplication function multiply(a,b)...
+```js
+let bound = func.bind(context, [arg1], [arg2], ...);
+```
 
+For example, given a multiplication function `multiply(a,b)`:
+
+```js
 function multiply(a, b) {
     return a * b;
 }
+```
 
-// ...let's use bind to create a function double():
+We can use bind to create a function `double()`:
 
+```js
 let double = multiply.bind(null, 2);
 
 console.log(double(3));  // = multiply(2, 3) = 6
 console.log(double(4));  // = multiply(2, 4) = 8
 console.log(double(5));  // = multiply(2, 5) = 10
+```
 
-// The call to multiply.bind(null, 2) creates a new function double() that passes calls to multiply,
-// fixing null as the context and 2 as the first argument. Subsequent arguments are passed as they appear.
+The call to `multiply.bind(null, 2)` creates a new function `double()` that passes calls to `multiply`, setting `null` as the context and `2` as the first argument. Subsequent arguments are passed "as is".
 
-// This is referred to as partial function application -- we create a new function by fixing some
-// parameters of the existing one.
+Note that in this example, the context is not actually used. But `bind` requires it, so we pass `null`.
 
-// Partial application is useful when we have a very generic function and want a less universal variant for convenience
-// (e.g. we have a function send(from, to, text), but inside of a user object we may want to use a partial variant of it
-// like sendTo(to, text) that always sends from the current user).
+This is referred to as **partial function application** -- we create a new function by fixing some parameters of the existing one.
 
-// Going partial without context
+Partial application is useful when we have a very generic function and want a less universal variant for convenience (e.g. we have a function `send(from, to, text)`, but inside of a `user` object we may want to use a partial variant of it like `sendTo(to, text)` that always sends from the current user).
 
-// The native bind() does not allow to fix arguments only, without context. However, a function which does allow it
-// it can be easily implemented:
+### Partial without context
 
-function partial(func, ...argsBound) {
+The native `bind()` does not allow to only set arguments, without the context. However, a function which does allow it can be easily implemented:
+
+```js
+function partial(func, ...boundArgs) {
     return function(...args) {
-        return func.call(this, ...argsBound, ...args);
+        return func.call(this, ...boundArgs, ...args);
     }
 }
 
+// usage
 let user = {
     firstName: "John",
     say(time, phrase) {
@@ -178,21 +185,23 @@ let user = {
     }
 };
 
-user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+// add a method based on user.say, but with fixed time
+user.sayNow = partial(user.say, `${new Date().getHours()}:${new Date().getMinutes()}`);
 
 user.sayNow("Hello");  // [10:00] John: Hello!
+```
 
-// The result of partial() is a wrapper that calls func with the same context it has received (for user.sayNow
-// it's user), arguments from the partial call (in that case, the date and hour) and the arguments given to
-// the wrapper ("Hello").
+The result of `partial()` is a wrapper that calls the function with the same context it has received (for `user.sayNow` it's user), arguments from the partial call (the date and hour) and the arguments given to the wrapper ("Hello").
 
-// The lodash library already contains an implementation of this (_.partial).
+As easy it is to implement with spread syntax, the Lodash library already contains an implementation ([_.partial](https://lodash.com/docs#partial)).
 
-// TASK: The call to askForPassword() in the code below should check the password
-// and then call user.loginOk/loginFail, depending on the answer.
-// However, currently it results in an error. Why?
-// Fix the call without changing the code in the function or the user object.
+## Exercises
 
+### Ask for password
+
+The call to `askForPassword()` in the code below should check the password and then call `user.loginOk` or `user.loginFail`, depending on the answer. However, currently it results in an error. Why?
+
+```js
 function askForPassword(ok, fail) {
     let password = prompt("Password?", '');
     if (password == "rockstar") ok();
@@ -213,9 +222,11 @@ let user = {
 };
 
 askForPassword(user.loginOk, user.loginFail)  // error: this is not defined
+```
 
-// -->
+Fix the call without changing the code in the function or the user object.
 
+```js
 askForPassword = askForPassword.bind(user);
 askForPassword(user.loginOk, user.loginFail);
 
@@ -226,15 +237,13 @@ askPassword(user.loginOk.bind(user), user.loginFail.bind(user));
 // or:
 
 askPassword(() => user.loginOk(), () => user.loginFail());  // no context for arrow functions
+```
 
-// TASK: The user object from aboce was modified. Now instead of two functions loginOk/loginFail,
-// it only has a single function user.login(true/false).
+### Ask for password, revisited
 
-// What should be passed to askPassword in the code below, so that it calls user.login(true) as ok
-// and user.login(false) as fail?
+The `user` object from aboce was modified. Now instead of two methods `loginOk` and `loginFail`, it only has a single function `user.login(true/false)`. What should be passed to `askPassword` in the code below, so that it calls `user.login(true)` as `ok` and `user.login(false)` as `fail`?
 
-// Like before, only modify the call.
-
+```js
 function askPassword(ok, fail) {
     let password = prompt("Password?", '');
     if (password == "rockstar") ok();
@@ -248,11 +257,14 @@ let user = {
         console.log(this.name + (result ? ' logged in' : ' failed to log in'));
     }
 };
+```
 
-// -->
+Like before, only modify the call.
 
+```js
 askPassword(user.login.bind(user, true), user.login.bind(user, false));
 
 // or:
 
 askPassword(() => user.login(true), () => user.login(false));
+```
