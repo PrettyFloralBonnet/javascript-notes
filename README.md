@@ -53,8 +53,8 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     6. [Function object, NFE](/Functions/function-object-nfe.md)
     7. [The `new Function` syntax](/Functions/new-function-syntax.md)
     8. [Scheduling: `setTimeout` and `setInterval`](/Functions/scheduling.md)
-    9. [Decorators and forwarding](/Functions/decorators-forwarding.md)*
-    10. [Function binding](/Functions/function-binding.md)*
+    9. [Decorators and forwarding](/Functions/decorators-forwarding.md)
+    10. [Function binding](/Functions/function-binding.md)
     11. [Arrow functions, revisited](/Functions/arrow-functions.md)
 6. Prototypes
     1. [Introduction to prototypes](/Prototypes/prototypes.md)
@@ -72,5 +72,3 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
 10. Generators
 11. Modules
 12. Miscellaneous
-
-\* work in progress
