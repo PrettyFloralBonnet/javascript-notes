@@ -69,6 +69,8 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
 8. Error handling
     1. [Error handling](/ErrorHandling/error-handling.md)
 9. Promises
+    1. [Callbacks](/Promises/callbacks.md)
+    2. [Promises](/Promises/promises.md)
 10. Generators
 11. Modules
 12. Miscellaneous
