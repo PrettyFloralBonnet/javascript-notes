@@ -71,6 +71,7 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
 9. Promises
     1. [Callbacks](/Promises/callbacks.md)
     2. [Promises](/Promises/promises.md)
+    3. [Promise chaining](/Promises/promise-chaining.md)
 10. Generators
 11. Modules
 12. Miscellaneous
