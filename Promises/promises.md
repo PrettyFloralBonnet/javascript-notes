@@ -209,3 +209,23 @@ promise.then(
 ```
 
 Since `.then` can be called on a Promise as many times as needed (more on that in the next chapter: [Promise chaining](promise-chaining.md)), it's a much more flexible way of handling asynchronous programming.
+
+## Exercises
+
+### Delay with a promise
+
+Create a function `delay(ms)` which returns a promise that should resolve after `ms` milliseconds.
+
+Here's how it should work:
+
+```js
+delay(3000).then((result) => console.log(result))  // logs the result after 3 seconds
+```
+
+```js
+function delay(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+```
