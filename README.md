@@ -74,6 +74,7 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     3. [Promise chaining](/Promises/promise-chaining.md)
     4. [Promise error handling](/Promises/promise-error-handling.md)
     5. [Promise API](/Promises/promise-api.md)
+    6. [Promisification](/Promises/promisification.md)
 10. Generators
 11. Modules
 12. Miscellaneous
