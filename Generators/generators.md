@@ -154,3 +154,47 @@ That works because `range[Symbol.iterator]()` now returns a generator, which pro
 Generators were added to JS with iterators in mind.
 
 ## Generator composition
+
+Generator composition is a feature of generators that allows them to be embedded within each other.
+
+Let's say we have a function which generates a sequence of numbers:
+
+```js
+function* generateSequence(start, end) {
+    for (let i = start; i <= end; i++) {
+        yield i;
+    }
+}
+```
+
+Let's say we want to reuse it with digits `0...9` first, then with uppercase letters `A...Z`, and finally with lowercase letters `a...z`, in order to generate a more complex sequence (e.g. for a password).
+
+To combine results from multiple regular functions, we need to call them, store the results, and join them at the end.
+
+Generators, however, allow for a special syntax `yield*` which "embeds" (composes) one generator into another:
+
+```js
+function* generateSequence(start, end) {
+    for (let i = start; i <= end; i++) {
+        yield i;
+    }
+}
+
+function* generatePasswordCodes() {
+    yield* generateSequence(48, 57);  // 0...9 character codes
+
+    yield* generateSequence(65, 90);  // A...Z
+
+    yield* generateSequence(97, 122);  // a...z
+}
+
+let pw = '';
+
+for (let code of generatePasswordCodes()) {
+    pw += String.fromCharCode(code);
+}
+
+console.log(pw);  // 0...9A...Za...z
+```
+
+What the `yield*` keyword does is **delegate the execution to another generator**. In other words, it iterates over the generator it receives and transparently forwards its yields outside (as if they were yielded by the outer generator).
