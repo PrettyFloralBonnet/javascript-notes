@@ -77,7 +77,12 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     6. [Promisification](/Promises/promisification.md)
     7. [Microtasks](/Promises/microtasks.md)
 10. Generators
-    1. [Generators](/Generators/generators.md)
-    2. [Asynchronous iteration](/Generators/async-iteration.md)
+    1. [Generators](/Generators/generators.md)*
+    2. [Asynchronous iteration](/Generators/async-iteration.md)*
 11. Modules
-12. Miscellaneous
+    1. [Introduction to modules](/Modules/modules-intro.md)*
+    2. [Export and import](/Modules/export-import.md)*
+    3. [Dynamic imports](/Modules/dynamic-imports.md)*
+12. Miscellaneous*
+
+\* work in progress
