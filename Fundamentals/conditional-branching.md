@@ -20,7 +20,7 @@ if (year < 2015) {
 
 ## Ternary operator
 
-The question mark operator `?`, also called the ternary operator because it takes three operands, is a shorthand way to evaluate a condition and assign a variable based on the result:
+The question mark operator `?`, also called the **ternary operator** (because it takes three operands), is a shorthand to evaluate a condition and assign a variable based on the result:
 
 ```js
 let age = prompt('How old are you?', 18);

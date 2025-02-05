@@ -12,7 +12,7 @@ console.log('Bee' > 'Be');  // true
 
 Lowercase characters have greater unicode indices than uppercase ones.
 
-When different data types are comparaed, they are converted to numbers under the hood. For this reason, it's possible that two values are equal, but one of them is true as boolean, whereas the other is false:
+When different data types are compared, they are converted to numbers under the hood. For this reason, it's possible that two values are equal, but one of them is true as boolean, whereas the other is false:
 
 ```js
 let a = 0;
@@ -40,10 +40,10 @@ console.log(null == 0);  // false
 console.log(undefined == 0);  // false
 ```
 
-`NaN` returns `false` for all comparisons, including with itself:
+`NaN` returns `false` for all comparisons, including with itself (even when using a strict equality comparison!):
 
 ```js
-console.log(NaN == NaN);  // false
+console.log(NaN === NaN);  // false
 ```
 
 To check if a value is `NaN`, use `isNaN()` function.

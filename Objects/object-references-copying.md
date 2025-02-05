@@ -9,7 +9,7 @@ let phrase = message;
 
 ...then as a result we get two independent variables, each holding a string `"Hello!"`.
 
-Objects are not like that. A variable assigned to an object does not store the object itself, but rather its address in memory, or a **reference** to it. When an object variable is copied, the reference is copied, but the actual object is not duplicated.
+Objects are not like that. A variable assigned to an object does not store the object itself, but rather **its address in memory**, or a **reference** to it. When an object variable is copied, the reference is copied, but the actual object is not duplicated.
 
 So, with something like:
 
@@ -27,7 +27,7 @@ console.log(user.name);  // 'Pete'
 
 ## Comparison by reference
 
-Two objects are equal only if they are the same object. For comparisons like `obj1 > obj2` (or comparions against a primitive), objects are converted into primitives.
+Two objects are equal only if they are the same object. For comparisons like `obj1 > obj2` (or comparions against a primitive), objects are [converted into primitives](./object-to-primitive-conversion.md).
 
 ## Object cloning and merging
 
@@ -49,7 +49,7 @@ Another way to achieve this is to use the method `Object.assign(target, [source1
 
 Since object properties can themselves be references to other objects, they will be copied by reference if a clone is made. As a result, any changes to the nested properties of the clone will result in changes of the nested properties of the original.
 
-To circumvent this, a cloning loop can be used that examines each property of the original object, and if that property is also an object, it replicates its structure as well. This is called "deep cloning", which can be implemented using recursion or the built-in function from the `lodash` library (`_.cloneDeep(obj)`).
+To circumvent this, a cloning loop can be used that examines each property of the original object, and if that property is also an object, it replicates its structure as well. This is called "deep cloning", which can be implemented using [recursion](/Functions/recursion.md), or the built-in function from the `lodash` library (`_.cloneDeep(obj)`).
 
 ## Const objects
 

@@ -116,8 +116,8 @@ let ladder = {
     down() {
         this.step--;
     },
-    showStep: function () { // shows the current step
-        alert(this.step);
+    showStep() {  // shows the current step
+        console.log(this.step);
     }
 };
 ```
@@ -149,8 +149,8 @@ let ladder = {
         this.step--;
         return this;
     },
-    showStep: function () {
-        alert(this.step);
+    showStep() {
+        console.log(this.step);
         return this;
     }
 };

@@ -47,7 +47,7 @@ console.log(1 / 0);  // Infinity
 console.log('' / 2);  // NaN
 ```
 
-`NaN` is "sticky, which means any further operation on `NaN` will also return `NaN`.
+`NaN` is "sticky", which means any further operation on `NaN` will also return `NaN`.
 
 Mathematical operations in JS are "safe", in the sense that the script will not error out. At worst, the result will be `NaN` or `Infinity`.
 
