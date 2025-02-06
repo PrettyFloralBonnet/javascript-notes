@@ -17,7 +17,7 @@ console.log(id.toString());  // Symbol(id)
 
 ### "Hidden" properties
 
-Symbols allow for creation of hidden properties, which cannot be accessed or overwritten:
+Symbols allow for creation of hidden properties, which cannot be overwritten:
 
 ```js
 let user = { name: "John" };
@@ -45,4 +45,4 @@ Many symbols exist internally. They can be used to fine-tune various aspects of 
 * `Symbol.iterator`
 * `Symbol.toPrimitive`
 
-For example, `Symbol.toPrimitive` allows us to describe object to primitive conversion.
+For example, `Symbol.toPrimitive` allows us to describe object to primitive conversion, which we'll take a look at [here](./object-to-primitive-conversion.md).

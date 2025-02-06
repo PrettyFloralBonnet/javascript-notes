@@ -7,7 +7,7 @@ Object.keys(obj)  // returns an array of keys
 Object.values(obj)  // returns an array of values
 Object.entries(obj)  // returns an array of [key, value] pairs
 ```
-Note that for a plain object, the call syntax is `Object. keys(obj)` (and not `obj.keys()`). Since plain objects are a base for all comples structures in JavaScript, we could have custom objects that overload some of these methods, but we should still be able to call the base method on them.
+Note that for a plain object, the call syntax is `Object. keys(obj)` (and not `obj.keys()`). Since plain objects are a base for all complex structures in JavaScript, we could have custom objects that overload some of these methods, but we should still be able to call the base method on them.
 
 Additionally, `Object.*` methods return an `Array`. Their implementations return iterables.
 
@@ -34,6 +34,7 @@ console.log(doublePrices.meat);  // 8
 ```
 
 ## Exercises
+
 ### Salaries
 Given an object with arbitrary number of salaries:
 ```js
@@ -44,7 +45,7 @@ let salaries = {
 };
 ```
 
-...write the function `sumSalaries(salaries)` that returns the sum of all salaries. Use `Object.values()` and the `for...of` loop. If `salaries` is empty, then the result must be 0.
+...write the function `sumSalaries(salaries)` that returns the sum of all salaries. Use `Object.values()` and the [`for...of` loop](/DataTypes/arrays.md#iteration). If `salaries` is empty, then the result must be 0.
 
 ```js
 let sumSalaries = (salaries) => {

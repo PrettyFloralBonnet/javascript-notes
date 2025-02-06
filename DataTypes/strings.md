@@ -79,28 +79,23 @@ To find all substring occurrences, `indexOf` can be run in a loop:
 ```js
 let str = 'As sly as a fox, as strong as an ox';
 let target = 'as';
+let occurrences = [];
 let pos = 0;
 
 while (true) {
     let foundPos = str.indexOf(target, pos);
     if (foundPos == -1) break;
     console.log(`Found target "${target}" at position: ${foundPos}`);
-    pos = foundPos + 1
+    occurrences.push(found);
+    pos = foundPos + 1;
 }
-```
 
-Shorter, but less readable version of the above:
-
-```js
-let pos = -1;
-while ((pos = str.indexOf(target, pos + 1)) != -1) {
-    console.log(pos);
-}
+console.log(occurrences);  // [ 7, 17, 27 ]
 ```
 
 There is also a similar method, `str.lastIndexOf(substring, position)`, which searches the string from the end (and therefore lists substring occurrences in reverse order).
 
-### includes, startsWith, endsWith
+### `includes`, `startsWith`, `endsWith`
 
 ```js
 str.includes(substr, pos)  // returns true or false depending on whether str contains substr

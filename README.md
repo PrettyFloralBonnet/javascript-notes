@@ -76,6 +76,7 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     5. [Promise API](/Promises/promise-api.md)
     6. [Promisification](/Promises/promisification.md)
     7. [Microtasks](/Promises/microtasks.md)
+    8. [`async` and `await`](/Promises/async-await.md)
 10. Generators
     1. [Generators](/Generators/generators.md)*
     2. [Asynchronous iteration](/Generators/async-iteration.md)*

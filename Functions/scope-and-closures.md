@@ -34,7 +34,9 @@ console.log(counter())  // 1
 console.log(counter())  // 2
 ```
 
-Here, the `makeCounter` function creates another function that returns the next number each time it is invoked. The number is incremented from one call to the next. So what's going on here?
+Here, the `makeCounter` function creates another function that returns the next number each time it is invoked. The number is incremented from one call to the next. But `makeCounter` has the variable `count` declared inside its body, and that variable is not returned outside alongside with the inner function.
+
+So, what's going on here?
 
 ### Lexical environment
 

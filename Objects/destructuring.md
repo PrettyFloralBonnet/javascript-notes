@@ -61,7 +61,7 @@ Destructuring can be used to swap variables:
 let prince = "Prince";
 let pauper = "Pauper";
 
-// Let's swap the values: make guest=Pete, admin=Jane
+// Let's swaps the values
 [prince, pauper] = [pauper, prince];
 
 console.log(`${prince} and the ${pauper}`); // Pauper and the Prince
