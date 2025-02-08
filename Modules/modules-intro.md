@@ -8,13 +8,17 @@ But as scripts became more and more complex, the community invented a variety of
 
 Some historical module systems include:
 
-* AMD (Asynchronous module definition) - one of the most ancient systems, initially implemented by the [require.js](https://requirejs.org/) library
-* [CommonJS](https://wiki.commonjs.org/wiki/Modules/1.1) - the module system created for a Node.js server
+* AMD (Asynchronous module definition) - one of the most ancient systems, initially implemented by the [RequireJS](https://requirejs.org/) library
+* [CommonJS](https://wiki.commonjs.org/wiki/Modules/1.1) - the module system created for an early version of Node.js
 * [UMD](https://github.com/umdjs/umd) - an early universal module system, compatible with both of the above
 
-The language level module system first appeared in 2015 as a standard. It has gradually evolved since then and it is now supported by all major browsers and in Node.js
+The language level module system first appeared in 2015 as a standard, in ES6. It has gradually evolved since then and it is now supported by all major browsers and in Node.js.
 
-So...
+Something that is still used to this day is the `require` keyword (not to be confused with RequireJS), which is part of the CommonJS module system. It loads modules synchronously (code execution will pause until the module is loaded and executed). `require` is a function, so it can be used anywhere in the code. It is executed at runtime (so the code is only loaded when it is needed), and can be used for single and multiple imports.
+
+This is all pretty much in contrast to `import`, the modern way of loading modules, which is asynchronous, is can only be used at the top level, it is executed as soon as the importing module is loaded into memory, and it can only be used for single imports.
+
+But first...
 
 ## What is a module?
 
