@@ -75,3 +75,33 @@ Also, exported objects will be shared between modules that import them (multiple
 ### In a module, `this` is `undefined`
 
 Top level `this` is `undefined` in a module. In non-module scripts, it's a global object.
+
+## Browser-specific module features
+
+Scripts with `type="module"` have several browser-specific features.
+
+### Module scripts are deferred
+
+Module scripts (both external and inline) are always deferred.
+
+* Downloading external module scripts (`<script type="module" src="...">`) doesn't block HTML processing (they load in parallel with other resources)
+* Module scripts wait until the HTML document is fully ready before they run (even if they are tiny, and load faster than the document itself)
+* Relative order of scripts is maintained (scripts that appear first in the document are executed first)
+
+As a side effect, module scripts always "see" the fully loaded HTML page, including elements below them.
+
+### `async` works with inline scripts
+
+For non-module scripts, the `async` attribute only works with external scripts. Async scripts run immediately when they are ready, independently of other scripts in the HTML document.
+
+For module scripts, `async` works with inline scripts as well.
+
+### "Bare" modules are not allowed
+
+In the browser, `import` must get a relative or absolute URL. Modules without either are called "bare" modules, and they are not allowed in `import`.
+
+Some environments (like Node.js) do allow bare modules, as they have their own ways of locating modules.
+
+### Compatibility, `nomodule`
+
+Really old browsers may not understand `type="module"`. Scripts of an unknown type are ignored. To avoid that, it's possible to create a fallback by using the `nomodule` attribute (`<script nomodule>`).
