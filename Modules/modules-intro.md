@@ -105,3 +105,28 @@ Some environments (like Node.js) do allow bare modules, as they have their own w
 ### Compatibility, `nomodule`
 
 Really old browsers may not understand `type="module"`. Scripts of an unknown type are ignored. To avoid that, it's possible to create a fallback by using the `nomodule` attribute (`<script nomodule>`).
+
+## Build tools
+
+In practice, browser modules are rarely used in their "raw" form. They're usually bundled using tools like [Webpack](https://webpack.js.org/), and deployed to a production server.
+
+Bundlers give more control over how modules are resolved, and they allow for the use of bare modules, HTML/CSS modules and so on.
+
+Here's the gist of what build tools do:
+
+1. They take a **main module** (the one intended to be put in `<script type="module">` in the HTML document)
+2. They analyze the main module's dependencies (imports, imports of imports etc.)
+3. They build a single file (or multiple files, depending on the configuration) with modules, replacing native `import` calls with bundler functions
+4. They may also apply other transformation and optimizations, like:
+    * removing unreachable code
+    * removing unused exports
+    * removing development stage statements like `console` or `debugger`
+    * using tools like [Babel](https://babeljs.io/) to provide polyfills and transform modern syntax into older one, for compatibility with older browsers (if needed)
+    * minifying the output files (by removing spaces, replacing variable names with shorter ones etc.)
+
+As scripts are bundled together into a single file (or several files), `import` and `export` statements inside those scripts are replaced with special bundler functions. The resulting bundled script doesnt' contain any `import`/`export` statements, it doesn't require `type="module"`, and so it can be put into HTML like a regular script:
+
+```html
+<!-- as long as we got bundle.js from a tool like Webpack -->
+<script src="bundle.js"></script>
+```
