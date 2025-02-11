@@ -175,3 +175,64 @@ In general, named exports are explicit. They exactly name what will be imported,
 To keep the code consistent, the rule of thumb is that imported variables should correspond to file names (e.g. `import User from './user.js'`, `import LoginForm from './loginForm.js'` etc.).
 
 Still, sometimes teams may agree to only use named exports, even if a module only contains a single entity.
+
+## Re-export
+
+The syntax `export ... from ...` allows for an entity to be imported, and then immediately exported (possibly under another name).
+
+```js
+export { sayHi } from './say.js';
+
+export { default as User } from './user.js'
+```
+
+In practice, that's useful when e.g. we're preparing a package (a folder with a lot of modules) with some of the functionality exported outside, and many modules are just helpers for internal use in other packages. We'd like to expose the package functionality via a single entry point (the person who wants to use our package would only import the main file).
+
+The idea is that external users shouldn't have to search for files inside our package folder. But since the exported functionality is scattered across the entire package, we can import it all into the main file, and immediately export from it:
+
+```js
+// main.js
+
+export { login } from './login.js';
+export { default as User } from './user.js'
+```
+
+...which is just a shorter notation for this:
+
+```js
+import { login } from './login.js';
+export { login };
+
+import User from './user.js';
+export { User };
+```
+
+Note that there's a difference: **re-exported modules aren't available in the current file**.
+
+### Re-exporting the default export
+
+The default export needs separate handling when re-exporting.
+
+Let's say we have the following default export we'd like to re-export somewhere else:
+
+```js
+// user.js
+
+export default class User {
+    // ...
+}
+```
+
+We'll run into the following problems:
+
+* `export User from './user.js'` won't work (syntax error)
+* `export * from './user.js'` only re-exports named exports, but ignores the default one
+
+If we want to re-export both named and default exports, two statements are needed:
+
+```js
+export * from './user.js'  // re-exports named exports
+export { default } from './user.js'  // re-exports the default export
+```
+
+Such idiosyncrasies are another reason some developers prefer to stick to named exports, and avoid default exports altogether.
