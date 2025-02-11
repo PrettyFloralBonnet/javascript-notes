@@ -81,9 +81,16 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
     1. [Generators](/Generators/generators.md)*
     2. [Asynchronous iteration](/Generators/async-iteration.md)*
 11. Modules
-    1. [Introduction to modules](/Modules/modules-intro.md)*
-    2. [Export and import](/Modules/export-import.md)*
+    1. [Introduction to modules](/Modules/modules-intro.md)
+    2. [Export and import](/Modules/export-import.md)
     3. [Dynamic imports](/Modules/dynamic-imports.md)*
-12. Miscellaneous*
+12. Miscellaneous
+    1. [`Proxy` and `Reflect`](/Misc/proxy-reflect.md)*
+    2. [Running a code string (`eval`)](/Misc/eval.md)*
+    3. [Currying](/Misc/currying.md)*
+    4. [Reference Type](/Misc/reference-type.md)*
+    5. [BigInt](/Misc/bigint.md)*
+    6. [Unicode and string internals](/Misc/unicode-string-internals.md)*
+    7. [`WeakRef` and `FinalizationRegistry`](/Misc/weakref-finreg.md)*
 
 \* work in progress
