@@ -83,7 +83,7 @@ Some sections also contain extra information from the [MDN JavaScript Reference]
 11. Modules
     1. [Introduction to modules](/Modules/modules-intro.md)
     2. [Export and import](/Modules/export-import.md)
-    3. [Dynamic imports](/Modules/dynamic-imports.md)*
+    3. [Dynamic imports](/Modules/dynamic-imports.md)
 12. Miscellaneous
     1. [`Proxy` and `Reflect`](/Misc/proxy-reflect.md)*
     2. [Running a code string (`eval`)](/Misc/eval.md)*
